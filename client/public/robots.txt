@@ -1,0 +1,6 @@
+# https://www.weareprospec.com robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap Location
+Sitemap: https://www.weareprospec.com/sitemap.xml
