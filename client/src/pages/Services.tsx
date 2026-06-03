@@ -23,7 +23,7 @@ export default function Services() {
   const residentialServices = [
     {
       title: "Buyer's Home Inspections",
-      price: "Starting at $350",
+      price: "Starting at $485",
       desc: "A comprehensive physical examination of the home's major systems and components. We inspect from foundation to roof, helping buyers make fully informed, confident purchasing decisions.",
       who: "Homebuyers wanting a complete assessment of their prospective property before closing escrow.",
       features: [
@@ -35,7 +35,7 @@ export default function Services() {
     },
     {
       title: "Pre-Listing Inspections",
-      price: "Starting at $350",
+      price: "Starting at $485",
       desc: "Identify property issues and hidden defects before listing your home for sale. A pre-listing inspection prevents surprise repair demands during negotiations and helps you sell faster.",
       who: "Home sellers looking to streamline their transaction and protect their asking price.",
       features: [
@@ -47,7 +47,7 @@ export default function Services() {
     },
     {
       title: "New Construction Inspections",
-      price: "Starting at $355",
+      price: "Starting at $485",
       desc: "Even brand-new homes can have significant building defects, code violations, or safety issues. We inspect the home prior to your final builder walkthrough to ensure everything is built correctly.",
       who: "Buyers of newly constructed homes preparing for their final walkthrough and key handover.",
       features: [
@@ -59,7 +59,7 @@ export default function Services() {
     },
     {
       title: "11-Month Warranty Inspections",
-      price: "Starting at $350",
+      price: "Starting at $385",
       desc: "Performed just before your one-year builder warranty expires. We identify warrantable defects that occurred during the first year of settlement so you can get them repaired at the builder's expense.",
       who: "Homeowners in a new build home whose 12-month builder warranty is about to expire.",
       features: [
