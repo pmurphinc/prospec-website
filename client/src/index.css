@@ -4,9 +4,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /* 
-  DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
+  DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial) - Updated with ProSpec Red
   This theme uses deep slate-black backgrounds, fine structural borders (blueprint-style),
-  and warm brass/gold accents to exude master-level craftsmanship and absolute authority.
+  and deep ProSpec Red accents to exude master-level craftsmanship, safety, and absolute authority.
 */
 
 @theme inline {
@@ -53,8 +53,8 @@
   --background: oklch(0.12 0.015 240); /* Deep Slate Black */
   --foreground: oklch(0.92 0.01 240); /* Off-white / light concrete */
   
-  --primary: oklch(0.72 0.11 80); /* Warm Brass/Gold */
-  --primary-foreground: oklch(0.12 0.015 240); /* Deep Slate Black for contrast */
+  --primary: oklch(0.53 0.17 28.5); /* Deep ProSpec Red (#B43A2F) */
+  --primary-foreground: oklch(0.99 0.01 240); /* Pure White for contrast on red buttons */
   
   --card: oklch(0.15 0.015 240); /* Slightly lighter slate for cards */
   --card-foreground: oklch(0.92 0.01 240);
@@ -68,24 +68,24 @@
   --muted: oklch(0.18 0.015 240);
   --muted-foreground: oklch(0.65 0.01 240); /* Concrete Gray */
   
-  --accent: oklch(0.72 0.11 80 / 15%); /* Subtle Brass Glow */
-  --accent-foreground: oklch(0.72 0.11 80);
+  --accent: oklch(0.53 0.17 28.5 / 15%); /* Subtle Red Glow */
+  --accent-foreground: oklch(0.53 0.17 28.5);
   
   --destructive: oklch(0.55 0.18 25);
   --destructive-foreground: oklch(0.98 0 0);
   
   --border: oklch(0.22 0.015 240); /* Clean structural blueprint border */
   --input: oklch(0.18 0.015 240);
-  --ring: oklch(0.72 0.11 80);
+  --ring: oklch(0.53 0.17 28.5);
   
   --radius: 0px; /* Sharp, structural, engineered edges - NO rounded corners for the Master Builder theme */
   
   --sidebar: oklch(0.12 0.015 240);
   --sidebar-foreground: oklch(0.92 0.01 240);
-  --sidebar-accent: oklch(0.72 0.11 80 / 15%);
-  --sidebar-accent-foreground: oklch(0.72 0.11 80);
+  --sidebar-accent: oklch(0.53 0.17 28.5 / 15%);
+  --sidebar-accent-foreground: oklch(0.53 0.17 28.5);
   --sidebar-border: oklch(0.22 0.015 240);
-  --sidebar-ring: oklch(0.72 0.11 80);
+  --sidebar-ring: oklch(0.53 0.17 28.5);
 }
 
 @layer base {

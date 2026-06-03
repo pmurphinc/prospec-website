@@ -18,26 +18,30 @@ export default function Footer() {
           {/* Column 1: Brand & Bio */}
           <div className="flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-3 group self-start">
-              <div className="border border-primary p-2 flex items-center justify-center transition-colors group-hover:bg-primary/10">
-                <ShieldCheck className="h-6 w-6 text-primary" />
+              <div className="flex items-center justify-center transition-opacity group-hover:opacity-90">
+                <img 
+                  src="/manus-storage/bg2_nobg_2cec7df1.png" 
+                  alt="ProSpec Home Inspections logo" 
+                  className="h-11 w-auto object-contain"
+                />
               </div>
-              <div className="flex flex-col">
-                <span className="font-serif text-xl tracking-wider font-bold text-white uppercase">
+              <div className="flex flex-col border-l border-border/40 pl-3">
+                <span className="font-serif text-lg tracking-wider font-bold text-white uppercase leading-none">
                   Pro<span className="text-primary">Spec</span>
                 </span>
-                <span className="text-[9px] font-mono tracking-widest text-muted-foreground uppercase">
-                  Certified Master Inspector
+                <span className="text-[8px] font-mono tracking-widest text-muted-foreground uppercase mt-1 leading-none">
+                  Master Inspector
                 </span>
               </div>
             </Link>
             <p className="text-xs text-muted-foreground leading-relaxed font-sans">
-              Sacramento Valley's premier property inspection firm. Led by Patrick Murphy, a Certified Master Inspector (CMI) with over 15 years of hands-on construction and inspection expertise. Delivering premium-grade, detailed digital reports for homebuyers and commercial property investors.
+              Sacramento Valley's premier property inspection firm. Led by Patrick Murphy, a Certified Master Inspector (CMI) with approximately 20 years of hands-on construction and inspection expertise. Delivering premium-grade, detailed digital reports for homebuyers and commercial property investors.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
               <img
-                src="https://static.wixstatic.com/media/07e6cd_bf96e5111b0d4e9297ec02ee9dd29f0a~mv2.png/v1/fill/w_149,h_142,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/1CMI-Logo-Alternate-NoShadow.png"
-                alt="Certified Master Inspector"
-                className="h-12 w-auto grayscale brightness-90 contrast-125 hover:grayscale-0 transition-all duration-300"
+                src="/manus-storage/1CMI-Logo-Alternate-NoShadow_588260c5.png"
+                alt="Certified Master Inspector certification seal"
+                className="h-12 w-auto object-contain transition-all duration-300"
               />
               <div className="border border-border/60 px-3 py-1 flex items-center justify-center font-mono text-[9px] tracking-widest uppercase text-muted-foreground hover:text-white hover:border-white transition-colors">
                 InterNACHI Certified

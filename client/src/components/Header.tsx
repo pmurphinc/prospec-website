@@ -40,15 +40,19 @@ export default function Header() {
       <div className="container flex items-center justify-between">
         {/* Logo Section */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="border border-primary p-2 flex items-center justify-center transition-colors group-hover:bg-primary/10">
-            <ShieldCheck className="h-6 w-6 text-primary" />
+          <div className="flex items-center justify-center transition-opacity group-hover:opacity-90">
+            <img 
+              src="/manus-storage/bg2_nobg_2cec7df1.png" 
+              alt="ProSpec Home Inspections logo" 
+              className="h-11 sm:h-12 md:h-14 w-auto object-contain"
+            />
           </div>
-          <div className="flex flex-col">
-            <span className="font-serif text-xl tracking-wider font-bold text-white uppercase">
+          <div className="flex flex-col border-l border-border/40 pl-3">
+            <span className="font-serif text-lg tracking-wider font-bold text-white uppercase leading-none">
               Pro<span className="text-primary">Spec</span>
             </span>
-            <span className="text-[9px] font-mono tracking-widest text-muted-foreground uppercase">
-              Certified Master Inspector
+            <span className="text-[8px] font-mono tracking-widest text-muted-foreground uppercase mt-1 leading-none">
+              Master Inspector
             </span>
           </div>
         </Link>

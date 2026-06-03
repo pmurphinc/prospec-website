@@ -120,24 +120,35 @@ export default function Home() {
       </section>
 
       {/* 2. TRUST BADGES / CERTIFICATION AREA */}
-      <section className="border-b border-border bg-card/20 py-10">
+      <section className="border-b border-border bg-card/20 py-12">
         <div className="container">
-          <div className="flex flex-wrap items-center justify-between gap-8 opacity-75">
-            <div className="flex items-center gap-3">
-              <ShieldCheck className="h-5 w-5 text-primary" />
-              <span className="font-mono text-[10px] tracking-widest uppercase text-white">Certified Master Inspector (CMI)</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* CMI Logo Feature */}
+            <div className="lg:col-span-3 flex justify-center lg:justify-start border-b lg:border-b-0 lg:border-r border-border/40 pb-6 lg:pb-0 lg:pr-8">
+              <img 
+                src="/manus-storage/1CMI-Logo-Alternate-NoShadow_588260c5.png" 
+                alt="Certified Master Inspector certification seal" 
+                className="h-20 sm:h-24 w-auto object-contain"
+              />
             </div>
-            <div className="flex items-center gap-3">
-              <Award className="h-5 w-5 text-primary" />
-              <span className="font-mono text-[10px] tracking-widest uppercase text-white">InterNACHI Accredited</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Clock className="h-5 w-5 text-primary" />
-              <span className="font-mono text-[10px] tracking-widest uppercase text-white">20 Years Local Experience</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="h-5 w-5 text-primary" />
-              <span className="font-mono text-[10px] tracking-widest uppercase text-white">5,000+ Completed Inspections</span>
+            {/* Trust points list */}
+            <div className="lg:col-span-9 flex flex-wrap items-center justify-between gap-6 opacity-90">
+              <div className="flex items-center gap-3">
+                <ShieldCheck className="h-5 w-5 text-primary shrink-0" />
+                <span className="font-mono text-[10px] tracking-widest uppercase text-white">Certified Master Inspector (CMI)</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Award className="h-5 w-5 text-primary shrink-0" />
+                <span className="font-mono text-[10px] tracking-widest uppercase text-white">InterNACHI Accredited</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Clock className="h-5 w-5 text-primary shrink-0" />
+                <span className="font-mono text-[10px] tracking-widest uppercase text-white">20 Years Local Experience</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
+                <span className="font-mono text-[10px] tracking-widest uppercase text-white">5,000+ Completed Inspections</span>
+              </div>
             </div>
           </div>
         </div>

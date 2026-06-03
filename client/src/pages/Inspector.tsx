@@ -139,11 +139,11 @@ export default function Inspector() {
               <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
                 Not all home inspectors are equal. In California, licensing is minimal, which is why choosing a Certified Master Inspector (CMI) is critical. CMIs are board-certified, have completed thousands of inspections, and adhere to the strictest code of ethics and continuing education requirements.
               </p>
-              <div className="flex gap-4 items-center opacity-80 mt-2">
+              <div className="flex gap-4 items-center opacity-95 mt-2">
                 <img
-                  src="https://static.wixstatic.com/media/07e6cd_bf96e5111b0d4e9297ec02ee9dd29f0a~mv2.png/v1/fill/w_149,h_142,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/1CMI-Logo-Alternate-NoShadow.png"
-                  alt="Certified Master Inspector"
-                  className="h-16 w-auto grayscale hover:grayscale-0 transition-all duration-300"
+                  src="/manus-storage/1CMI-Logo-Alternate-NoShadow_588260c5.png"
+                  alt="Certified Master Inspector certification seal"
+                  className="h-20 w-auto object-contain transition-all duration-300"
                 />
                 <div className="border border-border/60 px-4 py-2 flex items-center justify-center font-mono text-[10px] tracking-widest uppercase text-muted-foreground">
                   InterNACHI Board Certified
