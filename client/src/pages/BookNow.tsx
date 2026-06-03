@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "wouter";
-import { ShieldCheck, Award, Phone, CheckCircle2, Clock, AlertTriangle } from "lucide-react";
+import {
+  ShieldCheck,
+  Award,
+  Phone,
+  CheckCircle2,
+  Clock,
+  AlertTriangle,
+} from "lucide-react";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 
@@ -15,7 +22,8 @@ export default function BookNow() {
   // We retrieved the exact Spectora iframe source from the Wix website iframe source!
   // Wix Iframe: https://www-weareprospec-com.filesusr.com/html/07e6cd_e98c1adfbfb4939cea90f7b1bd4061bb.html
   // Let's load the Spectora widget cleanly within our responsive frame.
-  const spectoraIframeUrl = "https://app.spectora.com/home-inspectors/my-inspection-company-14f9d0e41f/schedule?iframe=true";
+  const spectoraIframeUrl =
+    "https://app.spectora.com/home-inspectors/my-inspection-company-14f9d0e41f/schedule?iframe=true";
 
   useEffect(() => {
     // Handle loading state
@@ -27,8 +35,8 @@ export default function BookNow() {
 
   return (
     <Layout>
-      <SEO 
-        title="Schedule Your Inspection Online | ProSpec Sacramento" 
+      <SEO
+        title="Schedule Your Inspection Online | ProSpec Sacramento"
         description="Schedule your residential property inspection online in minutes. Real-time availability, clear upfront pricing, and immediate confirmation."
         canonicalUrl="https://www.weareprospec.com/booknow"
       />
@@ -43,7 +51,9 @@ export default function BookNow() {
               Schedule Your Inspection
             </h1>
             <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xl">
-              Book your residential inspection instantly online. Review real-time availability, select your service add-ons, get immediate pricing, and secure your inspection slot in minutes.
+              Book your residential inspection instantly online. Review
+              real-time availability, select your service add-ons, get immediate
+              pricing, and secure your inspection slot in minutes.
             </p>
           </div>
         </div>
@@ -53,7 +63,6 @@ export default function BookNow() {
       <section className="border-b border-border py-12">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            
             {/* Left Side: Spectora Widget */}
             <div className="lg:col-span-8 flex flex-col gap-4">
               <div className="border border-border/80 bg-card/30 relative min-h-[700px] flex flex-col">
@@ -80,7 +89,7 @@ export default function BookNow() {
                       </span>
                     </div>
                   )}
-                  
+
                   <iframe
                     src={spectoraIframeUrl}
                     title="Spectora Booking Widget"
@@ -94,7 +103,6 @@ export default function BookNow() {
 
             {/* Right Side: Booking Support & Policies */}
             <div className="lg:col-span-4 flex flex-col gap-8">
-              
               {/* Box 1: Urgent Booking */}
               <div className="border border-border/80 bg-card/20 p-6 md:p-8 flex flex-col gap-4">
                 <span className="font-mono text-[9px] tracking-widest uppercase text-primary font-bold">
@@ -104,7 +112,10 @@ export default function BookNow() {
                   Urgent / Next-Day Booking
                 </h3>
                 <p className="font-sans text-xs text-muted-foreground leading-relaxed">
-                  If you need a last-minute inspection, have an extremely tight escrow deadline, or do not see your preferred slot available online, contact Patrick Murphy directly. We do our best to accommodate urgent requests.
+                  If you need a last-minute inspection, have an extremely tight
+                  escrow deadline, or do not see your preferred slot available
+                  online, contact Patrick Murphy directly. We do our best to
+                  accommodate urgent requests.
                 </p>
                 <a
                   href="tel:916-432-0332"
@@ -126,19 +137,34 @@ export default function BookNow() {
                 <ul className="flex flex-col gap-3 font-sans text-xs text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                    <span><strong>1. Confirm Details:</strong> Complete the secure online form. You'll receive an instant confirmation email.</span>
+                    <span>
+                      <strong>1. Confirm Details:</strong> Complete the secure
+                      online form. You'll receive an instant confirmation email.
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                    <span><strong>2. Agreement & Payment:</strong> Before the inspection, we'll email your digital inspection agreement and invoice.</span>
+                    <span>
+                      <strong>2. Agreement & Payment:</strong> Before the
+                      inspection, we'll email your digital inspection agreement
+                      and invoice.
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                    <span><strong>3. Detailed Inspection:</strong> Patrick Murphy will thoroughly inspect the property and document all findings.</span>
+                    <span>
+                      <strong>3. Detailed Inspection:</strong> Patrick Murphy
+                      will thoroughly inspect the property and document all
+                      findings.
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                    <span><strong>4. Same-Day Report:</strong> Your highly detailed, photo-rich digital report is delivered the very same evening.</span>
+                    <span>
+                      <strong>4. Same-Day Report:</strong> Your highly detailed,
+                      photo-rich digital report is delivered the very same
+                      evening.
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -155,16 +181,20 @@ export default function BookNow() {
                   Commercial PCA Inquiries
                 </h3>
                 <p className="font-sans text-xs text-muted-foreground leading-relaxed">
-                  Commercial property inspections, multi-family portfolios, and ASTM-compliant PCAs require custom scoping and proposal generation. Do not use the residential scheduler above for commercial assets.
+                  Commercial property inspections, multi-family portfolios, and
+                  ASTM-style PCAs require custom scoping and proposal
+                  generation. Do not use the residential scheduler above for
+                  commercial assets.
                 </p>
-                <Link href="/commercial-property-condition-assessments-sacramento" className="font-mono text-[10px] tracking-widest uppercase text-primary hover:text-white transition-colors inline-flex items-center gap-2">
+                <Link
+                  href="/commercial-property-condition-assessments-sacramento"
+                  className="font-mono text-[10px] tracking-widest uppercase text-primary hover:text-white transition-colors inline-flex items-center gap-2"
+                >
                   Request Commercial Quote
                   <Clock className="h-3.5 w-3.5" />
                 </Link>
               </div>
-
             </div>
-
           </div>
         </div>
       </section>

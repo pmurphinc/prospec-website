@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
-  Dynamic SEO manager component that sets document titles, descriptions, open graph tags,
-  and injects a LocalBusiness JSON-LD schema markup into the page head.
+  Dynamic SEO manager component that sets document titles, descriptions, social tags,
+  canonical URLs, and LocalBusiness JSON-LD schema markup without duplicating tags.
 */
 
 interface SEOProps {
@@ -13,27 +13,51 @@ interface SEOProps {
   isCommercial?: boolean;
 }
 
+const DEFAULT_CANONICAL_URL = "https://www.weareprospec.com";
+const DEFAULT_SOCIAL_IMAGE =
+  "https://static.wixstatic.com/media/07e6cd_bf96e5111b0d4e9297ec02ee9dd29f0a~mv2.png";
+
+function upsertMeta(
+  attribute: "name" | "property",
+  key: string,
+  content: string
+) {
+  let meta = document.querySelector<HTMLMetaElement>(
+    `meta[${attribute}="${key}"]`
+  );
+
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.setAttribute(attribute, key);
+    document.head.appendChild(meta);
+  }
+
+  meta.setAttribute("content", content);
+}
+
 export default function SEO({
   title,
   description,
-  canonicalUrl = "https://www.weareprospec.com",
+  canonicalUrl = DEFAULT_CANONICAL_URL,
   isCommercial = false,
 }: SEOProps) {
   useEffect(() => {
-    // 1. Set Title
     document.title = title;
 
-    // 2. Set Meta Description
-    let metaDescription = document.querySelector('meta[name="description"]');
-    if (!metaDescription) {
-      metaDescription = document.createElement("meta");
-      metaDescription.setAttribute("name", "description");
-      document.head.appendChild(metaDescription);
-    }
-    metaDescription.setAttribute("content", description);
+    upsertMeta("name", "description", description);
+    upsertMeta("property", "og:title", title);
+    upsertMeta("property", "og:description", description);
+    upsertMeta("property", "og:type", "website");
+    upsertMeta("property", "og:url", canonicalUrl);
+    upsertMeta("property", "og:image", DEFAULT_SOCIAL_IMAGE);
+    upsertMeta("name", "twitter:card", "summary_large_image");
+    upsertMeta("name", "twitter:title", title);
+    upsertMeta("name", "twitter:description", description);
+    upsertMeta("name", "twitter:image", DEFAULT_SOCIAL_IMAGE);
 
-    // 3. Set Canonical Link
-    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    let canonicalLink = document.querySelector<HTMLLinkElement>(
+      'link[rel="canonical"]'
+    );
     if (!canonicalLink) {
       canonicalLink = document.createElement("link");
       canonicalLink.setAttribute("rel", "canonical");
@@ -41,7 +65,6 @@ export default function SEO({
     }
     canonicalLink.setAttribute("href", canonicalUrl);
 
-    // 4. Inject Schema Markup (JSON-LD)
     const existingSchema = document.getElementById("prospec-seo-schema");
     if (existingSchema) {
       existingSchema.remove();
@@ -53,64 +76,56 @@ export default function SEO({
 
     const localBusinessSchema = {
       "@context": "https://schema.org",
-      "@type": "HomeInspector",
-      "name": "ProSpec",
-      "image": "https://static.wixstatic.com/media/07e6cd_bf96e5111b0d4e9297ec02ee9dd29f0a~mv2.png",
-      "url": "https://www.weareprospec.com",
-      "telephone": "+1-916-432-0332",
-      "email": "patrick@weareprospec.com",
-      "priceRange": "$$$",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Sacramento",
-        "addressRegion": "CA",
-        "postalCode": "95814",
-        "addressCountry": "US"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "38.5816",
-        "longitude": "-121.4944"
-      },
-      "openingHoursSpecification": {
+      "@type": "HomeAndConstructionBusiness",
+      name: "ProSpec",
+      image: DEFAULT_SOCIAL_IMAGE,
+      url: DEFAULT_CANONICAL_URL,
+      telephone: "+1-916-432-0332",
+      email: "patrick@weareprospec.com",
+      priceRange: "$$$",
+      description,
+      openingHoursSpecification: {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
+        dayOfWeek: [
           "Monday",
           "Tuesday",
           "Wednesday",
           "Thursday",
           "Friday",
-          "Saturday"
+          "Saturday",
         ],
-        "opens": "08:00",
-        "closes": "18:00"
+        opens: "08:00",
+        closes: "18:00",
       },
-      "sameAs": [
-        "https://www.weareprospec.com"
+      sameAs: [DEFAULT_CANONICAL_URL],
+      areaServed: [
+        { "@type": "AdministrativeArea", name: "Sacramento" },
+        { "@type": "AdministrativeArea", name: "Folsom" },
+        { "@type": "AdministrativeArea", name: "Roseville" },
+        { "@type": "AdministrativeArea", name: "Rocklin" },
+        { "@type": "AdministrativeArea", name: "El Dorado Hills" },
+        { "@type": "AdministrativeArea", name: "Davis" },
+        { "@type": "AdministrativeArea", name: "Elk Grove" },
+        { "@type": "AdministrativeArea", name: "Placerville" },
       ],
-      "areaServed": [
-        { "@type": "AdministrativeArea", "name": "Sacramento" },
-        { "@type": "AdministrativeArea", "name": "Folsom" },
-        { "@type": "AdministrativeArea", "name": "Roseville" },
-        { "@type": "AdministrativeArea", "name": "Rocklin" },
-        { "@type": "AdministrativeArea", "name": "El Dorado Hills" },
-        { "@type": "AdministrativeArea", "name": "Davis" },
-        { "@type": "AdministrativeArea", "name": "Elk Grove" },
-        { "@type": "AdministrativeArea", "name": "Placerville" }
-      ]
+      ...(isCommercial
+        ? {
+            serviceType:
+              "Commercial property inspection and property condition assessment",
+          }
+        : {}),
     };
 
     schemaScript.text = JSON.stringify(localBusinessSchema);
     document.head.appendChild(schemaScript);
 
     return () => {
-      // Clean up schema script on unmount
       const schema = document.getElementById("prospec-seo-schema");
       if (schema) {
         schema.remove();
       }
     };
-  }, [title, description, canonicalUrl]);
+  }, [title, description, canonicalUrl, isCommercial]);
 
-  return null; // This component handles side effects and does not render visual markup
+  return null;
 }

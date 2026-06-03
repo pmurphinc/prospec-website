@@ -24,7 +24,10 @@ export default function Header() {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Services", href: "/services" },
-    { name: "Commercial PCA", href: "/commercial-property-condition-assessments-sacramento" },
+    {
+      name: "Commercial PCA",
+      href: "/commercial-property-condition-assessments-sacramento",
+    },
     { name: "Reviews", href: "/reviews" },
     { name: "Inspector", href: "/inspector" },
   ];
@@ -41,9 +44,9 @@ export default function Header() {
         {/* Logo Section */}
         <Link href="/" className="flex items-center gap-3 group shrink-0 mr-4">
           <div className="flex items-center justify-center transition-opacity group-hover:opacity-90">
-            <img 
-              src="/manus-storage/bg2_nobg_2cec7df1.png" 
-              alt="ProSpec Home Inspections logo" 
+            <img
+              src="https://static.wixstatic.com/media/07e6cd_bf96e5111b0d4e9297ec02ee9dd29f0a~mv2.png"
+              alt="ProSpec Home Inspections logo"
               className="h-11 sm:h-12 md:h-14 max-h-[56px] w-auto object-contain"
             />
           </div>
@@ -59,7 +62,7 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center border-l border-border/40 pl-8 ml-4 h-10 gap-8">
-          {navItems.map((item) => {
+          {navItems.map(item => {
             const isActive = location === item.href;
             return (
               <Link
@@ -113,7 +116,7 @@ export default function Header() {
       {isOpen && (
         <div className="lg:hidden fixed left-0 right-0 top-[69px] sm:top-[73px] md:top-[81px] bg-background border-b border-t border-border/80 shadow-2xl z-[9999] animate-fade-in flex flex-col justify-between p-6 h-[calc(100vh-85px)] overflow-y-auto">
           <div className="flex flex-col gap-1">
-            {navItems.map((item) => {
+            {navItems.map(item => {
               const isActive = location === item.href;
               return (
                 <Link
@@ -121,7 +124,9 @@ export default function Header() {
                   href={item.href}
                   onClick={() => setIsOpen(false)}
                   className={`font-serif text-xl tracking-wide py-3.5 px-4 border-b border-border/10 flex items-center min-h-[48px] ${
-                    isActive ? "text-primary bg-card/40 font-bold border-l-2 border-l-primary" : "text-white hover:text-primary"
+                    isActive
+                      ? "text-primary bg-card/40 font-bold border-l-2 border-l-primary"
+                      : "text-white hover:text-primary"
                   }`}
                 >
                   {item.name}
@@ -132,7 +137,9 @@ export default function Header() {
               href="/booknow"
               onClick={() => setIsOpen(false)}
               className={`font-serif text-xl tracking-wide py-3.5 px-4 border-b border-border/10 flex items-center min-h-[48px] ${
-                location === "/booknow" ? "text-primary bg-card/40 font-bold border-l-2 border-l-primary" : "text-white hover:text-primary"
+                location === "/booknow"
+                  ? "text-primary bg-card/40 font-bold border-l-2 border-l-primary"
+                  : "text-white hover:text-primary"
               }`}
             >
               Book Now / Schedule
@@ -147,7 +154,11 @@ export default function Header() {
               <Phone className="h-4 w-4 text-primary" />
               (916) 432-0332
             </a>
-            <Link href="/booknow" onClick={() => setIsOpen(false)} className="w-full">
+            <Link
+              href="/booknow"
+              onClick={() => setIsOpen(false)}
+              className="w-full"
+            >
               <Button className="w-full py-6 text-sm font-mono tracking-widest uppercase bg-primary hover:bg-primary/90 text-primary-foreground font-bold min-h-[48px]">
                 Schedule Inspection
               </Button>

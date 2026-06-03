@@ -1,8 +1,16 @@
 import { Link } from "wouter";
-import { Building2, Award, CheckCircle2, FileText, ArrowRight, ShieldCheck } from "lucide-react";
+import {
+  Building2,
+  Award,
+  CheckCircle2,
+  FileText,
+  ArrowRight,
+  ShieldCheck,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import FAQ from "@/components/FAQ";
+import SEO from "@/components/SEO";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -13,15 +21,18 @@ export default function ApartmentInspections() {
   const apartmentFaqs = [
     {
       question: "How do you handle unit-by-unit inspections?",
-      answer: "We inspect individual units using structured, efficient checklists. We check unit HVAC systems, electrical outlets, GFCIs, plumbing fixtures, water pressure, interior windows, doors, and appliances. This ensures a comprehensive representative sample or 100% full-unit review based on your due diligence needs.",
+      answer:
+        "We inspect individual units using structured, efficient checklists. We check unit HVAC systems, electrical outlets, GFCIs, plumbing fixtures, water pressure, interior windows, doors, and appliances. This ensures a comprehensive representative sample or 100% full-unit review based on your due diligence needs.",
     },
     {
       question: "Do you inspect common areas and shared utility systems?",
-      answer: "Yes, we evaluate all shared utility systems, including central boilers, laundry rooms, shared main electrical panels, leasing offices, clubhouse amenities, parking structures, and overall site drainage and walkways.",
+      answer:
+        "Yes, we evaluate all shared utility systems, including central boilers, laundry rooms, shared main electrical panels, leasing offices, clubhouse amenities, parking structures, and overall site drainage and walkways.",
     },
     {
       question: "How are findings reported for multi-family properties?",
-      answer: "We deliver a comprehensive, modern digital report that groups findings by unit and system type. Major structural or building-wide mechanical issues are highlighted separately from minor, unit-specific maintenance items, allowing you to easily build your capital reserve and negotiation plans.",
+      answer:
+        "We deliver a comprehensive, modern digital report that groups findings by unit and system type. Major structural or building-wide mechanical issues are highlighted separately from minor, unit-specific maintenance items, supporting negotiation decisions and capital planning when included in the agreed scope.",
     },
   ];
 
@@ -31,13 +42,19 @@ export default function ApartmentInspections() {
     "Detailed exterior envelope, siding, and roofing review",
     "Common areas, leasing offices, and laundry facilities",
     "Walkways, balconies, stairwells, and safety railings",
-    "Deferred maintenance capital planning tables",
+    "Deferred maintenance and capital planning notes when scoped",
     "Same-day or rapid digital reporting for entire portfolios",
     "Led directly by Patrick Murphy, Certified Master Inspector",
   ];
 
   return (
     <Layout>
+      <SEO
+        title="Apartment Building Inspections Sacramento | ProSpec"
+        description="Apartment and multi-family property inspections for buyers, investors, and property owners in Sacramento, Folsom, and surrounding Northern California areas."
+        canonicalUrl="https://www.weareprospec.com/apartment-building-inspections-sacramento"
+        isCommercial
+      />
       {/* Page Header */}
       <section className="border-b border-border bg-card/10 py-16 md:py-24">
         <div className="container">
@@ -50,7 +67,9 @@ export default function ApartmentInspections() {
               Inspections
             </h1>
             <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xl">
-              Specialized physical due diligence for multi-family residential assets. Designed for portfolio investors, syndicators, and property managers across Sacramento and Folsom.
+              Specialized physical due diligence for multi-family residential
+              assets. Designed for portfolio investors, syndicators, and
+              property managers across Sacramento and Folsom.
             </p>
           </div>
         </div>
@@ -60,7 +79,6 @@ export default function ApartmentInspections() {
       <section className="border-b border-border py-20 md:py-28">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            
             {/* Left Column: Context & Bio */}
             <div className="lg:col-span-5 flex flex-col gap-6">
               <span className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold">
@@ -70,7 +88,12 @@ export default function ApartmentInspections() {
                 Thorough Risk Mitigation for Multi-Family Assets
               </h2>
               <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
-                Multi-family real estate transactions require balancing building-wide structural risks with unit-by-unit deferred maintenance costs. Patrick Murphy, CMI, applies approximately 20 years of hands-on experience to deliver a structured, clear evaluation of the entire asset, allowing you to accurately model your cash flows and negotiate with confidence.
+                Multi-family real estate transactions require balancing
+                building-wide structural risks with unit-by-unit deferred
+                maintenance costs. Patrick Murphy, CMI, applies approximately 20
+                years of hands-on experience to deliver a structured, clear
+                evaluation of the entire asset, supporting your due diligence,
+                negotiation, and capital planning decisions.
               </p>
               <div className="mt-2">
                 <Link href="/commercial-property-condition-assessments-sacramento#quote-form">
@@ -88,14 +111,16 @@ export default function ApartmentInspections() {
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-[10px] tracking-wider text-white">
                 {apartmentInclusions.map((inc, i) => (
-                  <div key={i} className="flex items-start gap-2 border-b border-border/40 pb-2">
+                  <div
+                    key={i}
+                    className="flex items-start gap-2 border-b border-border/40 pb-2"
+                  >
                     <CheckCircle2 className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />
                     <span>{inc}</span>
                   </div>
                 ))}
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -116,7 +141,8 @@ export default function ApartmentInspections() {
           Discuss Your Multi-Family Portfolio
         </h2>
         <p className="font-sans text-xs md:text-sm text-muted-foreground max-w-md leading-relaxed">
-          Contact Patrick Murphy directly to discuss your multi-family specifications, timeline, and custom reporting requirements.
+          Contact Patrick Murphy directly to discuss your multi-family
+          specifications, timeline, and custom reporting requirements.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center mt-4">
           <a
