@@ -1,9 +1,18 @@
 import { Link } from "wouter";
-import { Building2, Award, CheckCircle2, FileText, ArrowRight, ShieldCheck, HelpCircle } from "lucide-react";
+import {
+  Building2,
+  Award,
+  CheckCircle2,
+  FileText,
+  ArrowRight,
+  ShieldCheck,
+  HelpCircle,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import CommercialQuoteForm from "@/components/CommercialQuoteForm";
 import FAQ from "@/components/FAQ";
+import SEO from "@/components/SEO";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -14,33 +23,44 @@ export default function CommercialPCA() {
   const pcaFaqs = [
     {
       question: "What is a Property Condition Assessment (PCA)?",
-      answer: "A Property Condition Assessment (PCA) is an in-depth physical evaluation of a commercial real estate asset. It is typically performed during real estate transactions (acquisition, refinancing, or leasing) to identify physical deficiencies, deferred maintenance, and capital expenditures required over a specific holding period (typically 12 years). Our reports follow the industry-standard ASTM E2018 guidelines.",
+      answer:
+        "A Property Condition Assessment (PCA) is an in-depth physical evaluation of a commercial real estate asset. It is typically performed during real estate transactions (acquisition, refinancing, or leasing) to identify physical deficiencies, deferred maintenance, and capital expenditures required over a specific holding period (typically 12 years). ProSpec can use an ASTM-style framework when requested and agreed upon in the scope of work.",
     },
     {
       question: "What standards do you follow for commercial inspections?",
-      answer: "ProSpec strictly follows the ASTM E2018 Standard Guide for Property Condition Assessments: Baseline Property Condition Assessment Process. This is the gold standard for commercial real estate due diligence in the United States, recognized by major lenders, institutional investors, and commercial brokers.",
+      answer:
+        "ProSpec can provide commercial property condition assessments using an ASTM-style framework when requested and agreed upon in the scope of work. The final scope, reporting format, and level of detail depend on the property type, client needs, and inspection agreement.",
     },
     {
       question: "What is included in a Property Condition Report (PCR)?",
-      answer: "Our comprehensive Property Condition Report (PCR) includes an executive summary of the asset, detailed descriptions and condition reviews of all major systems (structure, roof, HVAC, electrical, plumbing, site drainage), life-safety reviews, and immediate/short-term repair cost tables. We also provide a Capital Reserve Schedule (typically 12-year) to help you budget for upcoming capital replacements.",
+      answer:
+        "A Property Condition Report can include an executive summary, visual assessment of readily accessible major systems, opinion-based observations and recommendations, and capital planning notes when included in the agreed scope.",
     },
     {
-      question: "How long does it take to complete a commercial inspection and report?",
-      answer: "The timeline depends on the property size and complexity. Typically, a site walkthrough takes 2 to 6 hours. The final ASTM-compliant Property Condition Report is delivered within 3 to 5 business days, though expedited delivery can be arranged for tight escrow timelines.",
+      question:
+        "How long does it take to complete a commercial inspection and report?",
+      answer:
+        "The timeline depends on the property size and complexity. Typically, a site walkthrough takes 2 to 6 hours. The final Property Condition Report is typically delivered within 3 to 5 business days, though expedited delivery can be arranged for tight escrow timelines.",
     },
   ];
 
   const standardsList = [
-    "ASTM E2018 baseline assessment guidelines",
-    "Detailed structural frame & building envelope reviews",
-    "Comprehensive commercial HVAC, electrical & plumbing diagnostics",
-    "Life-safety, fire protection & ADA accessibility surveys",
-    "Immediate repairs & 12-year Capital Reserve Schedules",
+    "ASTM-style assessment framework when included in scope",
+    "Visual structural frame & building envelope observations",
+    "Visual assessment of readily accessible HVAC, electrical & plumbing systems",
+    "Readily visible life-safety observations within the agreed scope",
+    "Opinion-based recommendations and capital planning notes when scoped",
     "Led directly by Patrick Murphy, Certified Master Inspector",
   ];
 
   return (
     <Layout>
+      <SEO
+        title="Commercial Property Condition Assessments Sacramento | ProSpec"
+        description="Commercial property condition assessments and building inspections for investors, buyers, brokers, and property owners in Sacramento, Folsom, and surrounding areas."
+        canonicalUrl="https://www.weareprospec.com/commercial-property-condition-assessments-sacramento"
+        isCommercial
+      />
       {/* Editorial Hero Section */}
       <section className="relative min-h-[60vh] flex items-center border-b border-border overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -56,7 +76,7 @@ export default function CommercialPCA() {
           <div className="max-w-3xl flex flex-col gap-6">
             <div className="inline-flex items-center gap-2 border border-primary/30 bg-primary/5 px-3 py-1 self-start font-mono text-[10px] tracking-widest uppercase text-primary">
               <Building2 className="h-3.5 w-3.5" />
-              ASTM E2018 Standards
+              ASTM-Style Scope Available
             </div>
 
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-wider uppercase leading-[1.15]">
@@ -65,7 +85,9 @@ export default function CommercialPCA() {
             </h1>
 
             <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xl">
-              Protect your capital and mitigate transaction risk. ProSpec delivers ASTM E2018-compliant Property Condition Assessments and commercial inspections across Sacramento and Folsom.
+              Protect your capital and mitigate transaction risk. ProSpec
+              provides commercial property condition assessments based on the
+              agreed scope of work across Sacramento and Folsom.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-2">
@@ -89,21 +111,27 @@ export default function CommercialPCA() {
       <section className="border-b border-border py-20 md:py-28">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            
             {/* Left side: Editorial Typography */}
             <div className="lg:col-span-5 flex flex-col gap-6">
               <span className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold">
                 01. Professional Standards
               </span>
               <h2 className="font-serif text-3xl text-white tracking-wider uppercase leading-tight">
-                Mitigate Risk with ASTM-Compliant Assessments
+                Mitigate Risk with Scoped Commercial Assessments
               </h2>
               <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
-                Commercial real estate transactions demand absolute thoroughness. A ProSpec Property Condition Assessment (PCA) provides institutional-grade physical due diligence, giving buyers, lenders, and brokers a clear, objective overview of the asset's current condition and upcoming capital liabilities.
+                Commercial real estate transactions require practical, carefully
+                scoped due diligence. A ProSpec Property Condition Assessment
+                (PCA) provides a visual assessment of readily accessible major
+                systems, giving buyers, lenders, and brokers opinion-based
+                observations about the asset's current condition and potential
+                maintenance priorities.
               </p>
               <div className="border-l border-primary pl-4 py-1">
                 <p className="font-serif text-sm italic text-white leading-relaxed">
-                  "Our reports don't just list issues—they categorize them by severity and provide immediate cost tables and long-term capital reserve schedules to protect your investment."
+                  "Our reports organize observations by priority and provide
+                  recommendations or capital planning notes when included in the
+                  agreed scope of work."
                 </p>
                 <span className="block font-mono text-[10px] uppercase text-muted-foreground mt-2">
                   — Patrick Murphy, Founder & CMI
@@ -114,24 +142,29 @@ export default function CommercialPCA() {
             {/* Right side: Technical Checklist */}
             <div className="lg:col-span-7 border border-border/80 bg-card/20 p-8 md:p-12">
               <span className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold block mb-6">
-                Institutional Due Diligence Standards
+                Commercial Due Diligence Scope Options
               </span>
               <ul className="flex flex-col gap-4 font-sans text-xs md:text-sm text-muted-foreground">
                 {standardsList.map((std, i) => (
-                  <li key={i} className="flex items-start gap-3 border-b border-border/40 pb-3 last:border-0 last:pb-0">
+                  <li
+                    key={i}
+                    className="flex items-start gap-3 border-b border-border/40 pb-3 last:border-0 last:pb-0"
+                  >
                     <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                     <span className="text-white font-medium">{std}</span>
                   </li>
                 ))}
               </ul>
             </div>
-
           </div>
         </div>
       </section>
 
       {/* Commercial Quote Form Section */}
-      <section id="quote-form" className="border-b border-border bg-card/5 py-20 md:py-28">
+      <section
+        id="quote-form"
+        className="border-b border-border bg-card/5 py-20 md:py-28"
+      >
         <div className="container">
           <CommercialQuoteForm />
         </div>
@@ -153,7 +186,8 @@ export default function CommercialPCA() {
           Speak with Patrick Murphy, CMI
         </h2>
         <p className="font-sans text-xs md:text-sm text-muted-foreground max-w-md leading-relaxed">
-          Discuss your commercial property specifications, timeline, and reporting requirements directly with our Certified Master Inspector.
+          Discuss your commercial property specifications, timeline, and
+          reporting requirements directly with our Certified Master Inspector.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center mt-4">
           <a

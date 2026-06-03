@@ -14,14 +14,13 @@ export default function Footer() {
       {/* Upper Footer - Grid */}
       <div className="container py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-          
           {/* Column 1: Brand & Bio */}
           <div className="flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-3 group self-start">
               <div className="flex items-center justify-center transition-opacity group-hover:opacity-90">
-                <img 
-                  src="/manus-storage/bg2_nobg_2cec7df1.png" 
-                  alt="ProSpec Home Inspections logo" 
+                <img
+                  src="https://static.wixstatic.com/media/07e6cd_bf96e5111b0d4e9297ec02ee9dd29f0a~mv2.png"
+                  alt="ProSpec Home Inspections logo"
                   className="h-11 w-auto object-contain"
                 />
               </div>
@@ -35,14 +34,16 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-xs text-muted-foreground leading-relaxed font-sans">
-              Sacramento Valley's premier property inspection firm. Led by Patrick Murphy, a Certified Master Inspector (CMI) with approximately 20 years of hands-on construction and inspection expertise. Delivering premium-grade, detailed digital reports for homebuyers and commercial property investors.
+              Sacramento Valley's premier property inspection firm. Led by
+              Patrick Murphy, a Certified Master Inspector (CMI) with
+              approximately 20 years of hands-on construction and inspection
+              expertise. Delivering premium-grade, detailed digital reports for
+              homebuyers and commercial property investors.
             </p>
             <div className="flex gap-4 items-center">
-              <img
-                src="/manus-storage/1CMI-Logo-Alternate-NoShadow_588260c5.png"
-                alt="Certified Master Inspector certification seal"
-                className="h-12 w-auto object-contain transition-all duration-300"
-              />
+              <div className="border border-primary/50 bg-primary/10 px-4 py-3 text-center font-mono text-[9px] tracking-widest uppercase text-white transition-all duration-300">
+                Certified Master Inspector
+              </div>
               <div className="border border-border/60 px-3 py-1 flex items-center justify-center font-mono text-[9px] tracking-widest uppercase text-muted-foreground hover:text-white hover:border-white transition-colors">
                 InterNACHI Certified
               </div>
@@ -56,22 +57,34 @@ export default function Footer() {
             </span>
             <ul className="flex flex-col gap-3 font-sans text-xs">
               <li>
-                <Link href="/services" className="text-muted-foreground hover:text-white transition-colors">
+                <Link
+                  href="/services"
+                  className="text-muted-foreground hover:text-white transition-colors"
+                >
                   Buyer's Home Inspections
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-muted-foreground hover:text-white transition-colors">
+                <Link
+                  href="/services"
+                  className="text-muted-foreground hover:text-white transition-colors"
+                >
                   Pre-Listing Inspections
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-muted-foreground hover:text-white transition-colors">
+                <Link
+                  href="/services"
+                  className="text-muted-foreground hover:text-white transition-colors"
+                >
                   New Construction Inspections
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-muted-foreground hover:text-white transition-colors">
+                <Link
+                  href="/services"
+                  className="text-muted-foreground hover:text-white transition-colors"
+                >
                   11-Month Warranty Inspections
                 </Link>
               </li>
@@ -96,27 +109,42 @@ export default function Footer() {
             </span>
             <ul className="flex flex-col gap-3 font-sans text-xs">
               <li>
-                <Link href="/commercial-property-condition-assessments-sacramento" className="text-muted-foreground hover:text-white transition-colors">
+                <Link
+                  href="/commercial-property-condition-assessments-sacramento"
+                  className="text-muted-foreground hover:text-white transition-colors"
+                >
                   Property Condition Assessments (PCA)
                 </Link>
               </li>
               <li>
-                <Link href="/commercial-building-inspections-sacramento" className="text-muted-foreground hover:text-white transition-colors">
+                <Link
+                  href="/commercial-building-inspections-sacramento"
+                  className="text-muted-foreground hover:text-white transition-colors"
+                >
                   Commercial Building Inspections
                 </Link>
               </li>
               <li>
-                <Link href="/apartment-building-inspections-sacramento" className="text-muted-foreground hover:text-white transition-colors">
+                <Link
+                  href="/apartment-building-inspections-sacramento"
+                  className="text-muted-foreground hover:text-white transition-colors"
+                >
                   Apartment & Multi-Family Inspections
                 </Link>
               </li>
               <li>
-                <Link href="/commercial-property-condition-assessments-sacramento" className="text-muted-foreground hover:text-white transition-colors">
-                  ASTM Property Condition Assessments
+                <Link
+                  href="/commercial-property-condition-assessments-sacramento"
+                  className="text-muted-foreground hover:text-white transition-colors"
+                >
+                  ASTM-Style Property Condition Assessments
                 </Link>
               </li>
               <li>
-                <Link href="/commercial-property-condition-assessments-sacramento" className="text-muted-foreground hover:text-white transition-colors">
+                <Link
+                  href="/commercial-property-condition-assessments-sacramento"
+                  className="text-muted-foreground hover:text-white transition-colors"
+                >
                   Investor Due Diligence
                 </Link>
               </li>
@@ -132,24 +160,31 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                 <span className="text-muted-foreground">
-                  Serving Sacramento, Folsom, Roseville, Rocklin, El Dorado Hills, Davis, Elk Grove, Placerville & Greater Sacramento Valley
+                  Serving Sacramento, Folsom, Roseville, Rocklin, El Dorado
+                  Hills, Davis, Elk Grove, Placerville & Greater Sacramento
+                  Valley
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-primary shrink-0" />
-                <a href="tel:916-432-0332" className="text-muted-foreground hover:text-white transition-colors font-mono">
+                <a
+                  href="tel:916-432-0332"
+                  className="text-muted-foreground hover:text-white transition-colors font-mono"
+                >
                   (916) 432-0332
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-primary shrink-0" />
-                <a href="mailto:patrick@weareprospec.com" className="text-muted-foreground hover:text-white transition-colors">
+                <a
+                  href="mailto:patrick@weareprospec.com"
+                  className="text-muted-foreground hover:text-white transition-colors"
+                >
                   patrick@weareprospec.com
                 </a>
               </li>
             </ul>
           </div>
-
         </div>
       </div>
 
@@ -162,13 +197,22 @@ export default function Footer() {
             <span>Sacramento & Folsom, California</span>
           </div>
           <div className="flex gap-6">
-            <Link href="/booknow" className="hover:text-white transition-colors uppercase">
+            <Link
+              href="/booknow"
+              className="hover:text-white transition-colors uppercase"
+            >
               Schedule Online
             </Link>
-            <Link href="/services" className="hover:text-white transition-colors uppercase">
+            <Link
+              href="/services"
+              className="hover:text-white transition-colors uppercase"
+            >
               Our Services
             </Link>
-            <Link href="/inspector" className="hover:text-white transition-colors uppercase">
+            <Link
+              href="/inspector"
+              className="hover:text-white transition-colors uppercase"
+            >
               Meet Patrick
             </Link>
           </div>

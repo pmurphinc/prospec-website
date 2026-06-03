@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Building2, Calendar, FileText, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -32,6 +32,7 @@ type QuoteFormValues = zod.infer<typeof quoteFormSchema>;
 export default function CommercialQuoteForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     register,
@@ -57,16 +58,46 @@ export default function CommercialQuoteForm() {
 
   const onSubmit = async (data: QuoteFormValues) => {
     setSubmitting(true);
-    // Simulate API request - ready for Codex to connect later
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setSubmitting(false);
-    setIsSubmitted(true);
-    toast.success("Commercial quote request submitted successfully!");
-    console.log("Commercial Quote Request Data:", data);
+    setSubmitError(null);
+
+    try {
+      const response = await fetch("/api/commercial-quote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = (await response.json().catch(() => null)) as {
+        message?: string;
+      } | null;
+
+      if (!response.ok) {
+        throw new Error(
+          result?.message || "Unable to submit your quote request right now."
+        );
+      }
+
+      setIsSubmitted(true);
+      toast.success("Your quote request was received by the website system.");
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Unable to submit your quote request right now.";
+      setSubmitError(
+        `${message} Please call ProSpec directly at (916) 432-0332 if this continues.`
+      );
+      toast.error("Quote request could not be submitted.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleReset = () => {
     reset();
+    setSubmitError(null);
     setIsSubmitted(false);
   };
 
@@ -80,7 +111,8 @@ export default function CommercialQuoteForm() {
           Request Received
         </h3>
         <p className="text-xs text-muted-foreground max-w-md leading-relaxed font-sans mb-8">
-          Thank you for requesting a commercial inspection quote. Patrick Murphy, CMI, will review your property details and contact you within 24 hours to discuss scope, pricing, and scheduling.
+          Your quote request was received by the website system. ProSpec will
+          confirm availability after review.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
           <a
@@ -110,7 +142,8 @@ export default function CommercialQuoteForm() {
           Commercial Quote Request
         </h3>
         <p className="text-xs text-muted-foreground font-sans">
-          Provide your property specifications below. Patrick Murphy will review the scope of work and deliver a detailed custom proposal.
+          Provide your property specifications below. Patrick Murphy will review
+          the scope of work and deliver a detailed custom proposal.
         </p>
       </div>
 
@@ -120,7 +153,7 @@ export default function CommercialQuoteForm() {
           <span className="font-mono text-[9px] tracking-widest uppercase text-primary font-bold mb-1">
             01. Contact Information
           </span>
-          
+
           <div>
             <label className="block font-mono text-[10px] tracking-wider uppercase text-muted-foreground mb-1.5">
               Full Name *
@@ -131,7 +164,9 @@ export default function CommercialQuoteForm() {
               className="bg-background border-border/60 focus:border-primary text-xs h-11"
             />
             {errors.name && (
-              <p className="text-[10px] text-destructive mt-1 font-mono">{errors.name.message}</p>
+              <p className="text-[10px] text-destructive mt-1 font-mono">
+                {errors.name.message}
+              </p>
             )}
           </div>
 
@@ -146,7 +181,9 @@ export default function CommercialQuoteForm() {
               className="bg-background border-border/60 focus:border-primary text-xs h-11"
             />
             {errors.phone && (
-              <p className="text-[10px] text-destructive mt-1 font-mono">{errors.phone.message}</p>
+              <p className="text-[10px] text-destructive mt-1 font-mono">
+                {errors.phone.message}
+              </p>
             )}
           </div>
 
@@ -161,7 +198,9 @@ export default function CommercialQuoteForm() {
               className="bg-background border-border/60 focus:border-primary text-xs h-11"
             />
             {errors.email && (
-              <p className="text-[10px] text-destructive mt-1 font-mono">{errors.email.message}</p>
+              <p className="text-[10px] text-destructive mt-1 font-mono">
+                {errors.email.message}
+              </p>
             )}
           </div>
         </div>
@@ -182,7 +221,9 @@ export default function CommercialQuoteForm() {
               className="bg-background border-border/60 focus:border-primary text-xs h-11"
             />
             {errors.address && (
-              <p className="text-[10px] text-destructive mt-1 font-mono">{errors.address.message}</p>
+              <p className="text-[10px] text-destructive mt-1 font-mono">
+                {errors.address.message}
+              </p>
             )}
           </div>
 
@@ -195,16 +236,35 @@ export default function CommercialQuoteForm() {
                 {...register("propertyType")}
                 className="w-full bg-background border border-border/60 focus:border-primary text-xs h-11 px-3 text-white focus:outline-none"
               >
-                <option value="" className="bg-background text-muted-foreground">Select Type...</option>
-                <option value="office" className="bg-background">Office Building</option>
-                <option value="retail" className="bg-background">Retail Space</option>
-                <option value="warehouse" className="bg-background">Industrial / Warehouse</option>
-                <option value="multifamily" className="bg-background">Multi-Family / Apartment</option>
-                <option value="mixeduse" className="bg-background">Mixed-Use</option>
-                <option value="other" className="bg-background">Other Commercial</option>
+                <option
+                  value=""
+                  className="bg-background text-muted-foreground"
+                >
+                  Select Type...
+                </option>
+                <option value="office" className="bg-background">
+                  Office Building
+                </option>
+                <option value="retail" className="bg-background">
+                  Retail Space
+                </option>
+                <option value="warehouse" className="bg-background">
+                  Industrial / Warehouse
+                </option>
+                <option value="multifamily" className="bg-background">
+                  Multi-Family / Apartment
+                </option>
+                <option value="mixeduse" className="bg-background">
+                  Mixed-Use
+                </option>
+                <option value="other" className="bg-background">
+                  Other Commercial
+                </option>
               </select>
               {errors.propertyType && (
-                <p className="text-[10px] text-destructive mt-1 font-mono">{errors.propertyType.message}</p>
+                <p className="text-[10px] text-destructive mt-1 font-mono">
+                  {errors.propertyType.message}
+                </p>
               )}
             </div>
 
@@ -218,7 +278,9 @@ export default function CommercialQuoteForm() {
                 className="bg-background border-border/60 focus:border-primary text-xs h-11"
               />
               {errors.sqft && (
-                <p className="text-[10px] text-destructive mt-1 font-mono">{errors.sqft.message}</p>
+                <p className="text-[10px] text-destructive mt-1 font-mono">
+                  {errors.sqft.message}
+                </p>
               )}
             </div>
           </div>
@@ -235,7 +297,9 @@ export default function CommercialQuoteForm() {
                 className="bg-background border-border/60 focus:border-primary text-xs h-11"
               />
               {errors.buildingsCount && (
-                <p className="text-[10px] text-destructive mt-1 font-mono">{errors.buildingsCount.message}</p>
+                <p className="text-[10px] text-destructive mt-1 font-mono">
+                  {errors.buildingsCount.message}
+                </p>
               )}
             </div>
 
@@ -268,15 +332,29 @@ export default function CommercialQuoteForm() {
               {...register("purpose")}
               className="w-full bg-background border border-border/60 focus:border-primary text-xs h-11 px-3 text-white focus:outline-none"
             >
-              <option value="" className="bg-background text-muted-foreground">Select Purpose...</option>
-              <option value="acquisition" className="bg-background">Pre-Purchase / Acquisition</option>
-              <option value="listing" className="bg-background">Pre-Listing / Seller Due Diligence</option>
-              <option value="refinance" className="bg-background">Lender / Refinancing Requirement</option>
-              <option value="lease" className="bg-background">Triple-Net (NNN) Lease Review</option>
-              <option value="maintenance" className="bg-background">Deferred Maintenance Assessment</option>
+              <option value="" className="bg-background text-muted-foreground">
+                Select Purpose...
+              </option>
+              <option value="acquisition" className="bg-background">
+                Pre-Purchase / Acquisition
+              </option>
+              <option value="listing" className="bg-background">
+                Pre-Listing / Seller Due Diligence
+              </option>
+              <option value="refinance" className="bg-background">
+                Lender / Refinancing Requirement
+              </option>
+              <option value="lease" className="bg-background">
+                Triple-Net (NNN) Lease Review
+              </option>
+              <option value="maintenance" className="bg-background">
+                Deferred Maintenance Assessment
+              </option>
             </select>
             {errors.purpose && (
-              <p className="text-[10px] text-destructive mt-1 font-mono">{errors.purpose.message}</p>
+              <p className="text-[10px] text-destructive mt-1 font-mono">
+                {errors.purpose.message}
+              </p>
             )}
           </div>
         </div>
@@ -298,7 +376,9 @@ export default function CommercialQuoteForm() {
               />
             </div>
             {errors.desiredDate && (
-              <p className="text-[10px] text-destructive mt-1 font-mono">{errors.desiredDate.message}</p>
+              <p className="text-[10px] text-destructive mt-1 font-mono">
+                {errors.desiredDate.message}
+              </p>
             )}
           </div>
         </div>
@@ -316,11 +396,20 @@ export default function CommercialQuoteForm() {
           <Textarea
             {...register("message")}
             rows={4}
-            placeholder="Please detail any specific areas of concern, lease structures, or special reporting requirements (e.g., ASTM E2018 standards)."
+            placeholder="Please detail any specific areas of concern, lease structures, or special reporting requirements for the agreed scope of work."
             className="bg-background border-border/60 focus:border-primary text-xs resize-none"
           />
         </div>
       </div>
+
+      {submitError && (
+        <div
+          className="border border-destructive/40 bg-destructive/10 p-4 text-xs text-destructive font-sans leading-relaxed"
+          role="alert"
+        >
+          {submitError}
+        </div>
+      )}
 
       <div className="border-t border-border/60 pt-6 mt-4 flex justify-between items-center flex-col sm:flex-row gap-4">
         <span className="text-[10px] text-muted-foreground font-mono">
