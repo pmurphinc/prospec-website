@@ -80,42 +80,55 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
         </div>
 
-        <div className="container relative z-10 py-20">
-          <div className="max-w-3xl flex flex-col gap-6">
-            <div className="inline-flex items-center gap-2 border border-primary/30 bg-primary/5 px-3 py-1 self-start font-mono text-[10px] tracking-widest uppercase text-primary">
-              <Award className="h-3 w-3" />
-              Certified Master Inspector
+        <div className="container relative z-10 py-16 md:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Hero Main Copy */}
+            <div className="lg:col-span-8 flex flex-col gap-6">
+              <div className="inline-flex items-center gap-2 border border-primary/30 bg-primary/5 px-3 py-1 self-start font-mono text-[10px] tracking-widest uppercase text-primary">
+                <Award className="h-3 w-3" />
+                Certified Master Inspector
+              </div>
+              
+              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white tracking-wider uppercase leading-[1.1]">
+                Sacramento’s <br />
+                <span className="text-primary">Certified Master</span> <br />
+                Home Inspector
+              </h1>
+
+              <p className="font-sans text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl">
+                Same-day reports. 20 years of construction & inspection experience. Providing uncompromising physical due diligence across Sacramento, Folsom, and the greater Sacramento Valley.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 mt-4">
+                <Link href="/booknow">
+                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-12 px-8 font-bold">
+                    Schedule Your Inspection
+                  </Button>
+                </Link>
+                <Link href="/commercial-property-condition-assessments-sacramento">
+                  <Button variant="outline" className="border-border hover:border-white text-white font-mono text-xs tracking-widest uppercase h-12 px-8">
+                    Request Commercial PCA Quote
+                  </Button>
+                </Link>
+              </div>
             </div>
-            
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white tracking-wider uppercase leading-[1.1]">
-              Sacramento’s <br />
-              <span className="text-primary">Certified Master</span> <br />
-              Home Inspector
-            </h1>
 
-            <p className="font-sans text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl">
-              Same-day reports. 20 years of construction & inspection experience. Providing uncompromising physical due diligence across Sacramento, Folsom, and the greater Sacramento Valley.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 mt-4">
-              <Link href="/booknow">
-                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-12 px-8 font-bold">
-                  Schedule Your Inspection
-                </Button>
-              </Link>
-              <Link href="/commercial-property-condition-assessments-sacramento">
-                <Button variant="outline" className="border-border hover:border-white text-white font-mono text-xs tracking-widest uppercase h-12 px-8">
-                  Request Commercial PCA Quote
-                </Button>
-              </Link>
+            {/* Hero Price Card - Grid Aligned & Responsive */}
+            <div className="lg:col-span-4 flex justify-start lg:justify-end">
+              <div className="border border-border/80 bg-card/90 backdrop-blur-md p-6 flex flex-col w-full max-w-xs relative group hover:border-primary/40 transition-colors">
+                <div className="absolute top-0 left-0 w-2 h-[1px] bg-primary" />
+                <div className="absolute top-0 left-0 w-[1px] h-2 bg-primary" />
+                <span className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold mb-1">Residential Inspections</span>
+                <span className="font-serif text-3xl text-white font-bold tracking-wide mt-1">Starting at $350</span>
+                <p className="font-sans text-[11px] text-muted-foreground mt-3 leading-relaxed">
+                  Fully transparent, size-based pricing. Includes a Certified Master Inspector physical examination and comprehensive digital report.
+                </p>
+                <Link href="/services" className="font-mono text-[10px] tracking-widest uppercase text-white hover:text-primary mt-4 inline-flex items-center gap-1.5 transition-colors">
+                  View Pricing Guide →
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-
-        {/* Starting Price Tag - Monospace Grid Badge */}
-        <div className="absolute bottom-10 right-6 md:right-12 lg:right-24 border border-border/80 bg-card/80 backdrop-blur-md px-6 py-4 flex flex-col items-end hidden md:flex">
-          <span className="font-mono text-[9px] tracking-widest uppercase text-muted-foreground">Residential Inspections</span>
-          <span className="font-serif text-2xl text-white font-bold mt-1">Starting at $350</span>
         </div>
       </section>
 
