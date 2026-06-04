@@ -42,7 +42,7 @@ export default function Home() {
   const quickServices = [
     {
       title: "Residential Home Inspections",
-      price: "Starting at $485",
+      price: "Starting at $385",
       desc: "Thorough structural, mechanical, and safety inspections for homebuyers and pre-listing sellers.",
       href: "/services",
     },
@@ -144,7 +144,7 @@ export default function Home() {
                   Residential Inspections
                 </span>
                 <span className="font-serif text-3xl text-white font-bold tracking-wide mt-1">
-                  Starting at $485
+                  Starting at $385
                 </span>
                 <p className="font-sans text-[11px] text-muted-foreground mt-3 leading-relaxed">
                   Fully transparent, size-based pricing. Includes a Certified
