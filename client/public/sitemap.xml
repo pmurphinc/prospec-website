@@ -32,6 +32,38 @@
     <priority>0.90</priority>
   </url>
 
+  <!-- Local Residential Landing Pages -->
+  <url>
+    <loc>https://www.weareprospec.com/home-inspection-sacramento</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.weareprospec.com/home-inspection-folsom</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.weareprospec.com/home-inspection-el-dorado-hills</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.weareprospec.com/home-inspection-placerville</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.weareprospec.com/home-inspection-shingle-springs</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <!-- Commercial Landing Pages -->
   <url>
     <loc>https://www.weareprospec.com/commercial-property-condition-assessments-sacramento</loc>

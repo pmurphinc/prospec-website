@@ -11,6 +11,8 @@ interface SEOProps {
   description: string;
   canonicalUrl?: string;
   isCommercial?: boolean;
+  serviceType?: string;
+  areaServed?: string[];
 }
 
 const DEFAULT_CANONICAL_URL = "https://www.weareprospec.com";
@@ -40,6 +42,8 @@ export default function SEO({
   description,
   canonicalUrl = DEFAULT_CANONICAL_URL,
   isCommercial = false,
+  serviceType,
+  areaServed,
 }: SEOProps) {
   useEffect(() => {
     document.title = title;
@@ -98,22 +102,26 @@ export default function SEO({
         closes: "18:00",
       },
       sameAs: [DEFAULT_CANONICAL_URL],
-      areaServed: [
-        { "@type": "AdministrativeArea", name: "Sacramento" },
-        { "@type": "AdministrativeArea", name: "Folsom" },
-        { "@type": "AdministrativeArea", name: "Roseville" },
-        { "@type": "AdministrativeArea", name: "Rocklin" },
-        { "@type": "AdministrativeArea", name: "El Dorado Hills" },
-        { "@type": "AdministrativeArea", name: "Davis" },
-        { "@type": "AdministrativeArea", name: "Elk Grove" },
-        { "@type": "AdministrativeArea", name: "Placerville" },
-      ],
-      ...(isCommercial
+      areaServed: (areaServed ?? [
+        "Sacramento",
+        "Folsom",
+        "Roseville",
+        "Rocklin",
+        "El Dorado Hills",
+        "Davis",
+        "Elk Grove",
+        "Placerville",
+      ]).map(name => ({ "@type": "AdministrativeArea", name })),
+      ...(serviceType
         ? {
-            serviceType:
-              "Commercial property inspection and property condition assessment",
+            serviceType,
           }
-        : {}),
+        : isCommercial
+          ? {
+              serviceType:
+                "Commercial property inspection and property condition assessment",
+            }
+          : {}),
     };
 
     schemaScript.text = JSON.stringify(localBusinessSchema);
@@ -125,7 +133,7 @@ export default function SEO({
         schema.remove();
       }
     };
-  }, [title, description, canonicalUrl, isCommercial]);
+  }, [title, description, canonicalUrl, isCommercial, serviceType, areaServed]);
 
   return null;
 }

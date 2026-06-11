@@ -68,14 +68,14 @@ export default function Home() {
   ];
 
   const serviceAreas = [
-    "Sacramento",
-    "Folsom",
-    "Roseville",
-    "Rocklin",
-    "El Dorado Hills",
-    "Davis",
-    "Elk Grove",
-    "Placerville",
+    { name: "Sacramento", href: "/home-inspection-sacramento" },
+    { name: "Folsom", href: "/home-inspection-folsom" },
+    { name: "El Dorado Hills", href: "/home-inspection-el-dorado-hills" },
+    { name: "Placerville", href: "/home-inspection-placerville" },
+    { name: "Shingle Springs", href: "/home-inspection-shingle-springs" },
+    { name: "Roseville" },
+    { name: "Rocklin" },
+    { name: "Elk Grove" },
   ];
 
   return (
@@ -384,15 +384,31 @@ export default function Home() {
 
             <div className="w-full lg:max-w-md">
               <div className="grid grid-cols-2 gap-4 font-mono text-[11px] tracking-wider text-white">
-                {serviceAreas.map((area, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-2 border-b border-border/40 pb-2"
-                  >
-                    <MapPin className="h-3.5 w-3.5 text-primary shrink-0" />
-                    <span>{area}, CA</span>
-                  </div>
-                ))}
+                {serviceAreas.map(area => {
+                  const content = (
+                    <>
+                      <MapPin className="h-3.5 w-3.5 text-primary shrink-0" />
+                      <span>{area.name}, CA</span>
+                    </>
+                  );
+
+                  return area.href ? (
+                    <Link
+                      key={area.name}
+                      href={area.href}
+                      className="flex items-center gap-2 border-b border-border/40 pb-2 hover:text-primary transition-colors"
+                    >
+                      {content}
+                    </Link>
+                  ) : (
+                    <div
+                      key={area.name}
+                      className="flex items-center gap-2 border-b border-border/40 pb-2"
+                    >
+                      {content}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

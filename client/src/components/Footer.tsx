@@ -8,6 +8,19 @@ import { ShieldCheck, Phone, Mail, MapPin, ExternalLink } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const localPages = [
+    { label: "Sacramento Home Inspections", href: "/home-inspection-sacramento" },
+    { label: "Folsom Home Inspections", href: "/home-inspection-folsom" },
+    {
+      label: "El Dorado Hills Home Inspections",
+      href: "/home-inspection-el-dorado-hills",
+    },
+    { label: "Placerville Home Inspections", href: "/home-inspection-placerville" },
+    {
+      label: "Shingle Springs Home Inspections",
+      href: "/home-inspection-shingle-springs",
+    },
+  ];
 
   return (
     <footer className="bg-background border-t border-border mt-auto">
@@ -184,6 +197,23 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
+            <div className="border-t border-border/40 pt-5">
+              <span className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold block mb-3">
+                Areas We Serve
+              </span>
+              <ul className="flex flex-col gap-2 font-sans text-xs">
+                {localPages.map(page => (
+                  <li key={page.href}>
+                    <Link
+                      href={page.href}
+                      className="text-muted-foreground hover:text-white transition-colors"
+                    >
+                      {page.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>

@@ -14,6 +14,7 @@ import BookNow from "./pages/BookNow";
 import CommercialPCA from "./pages/CommercialPCA";
 import CommercialBuilding from "./pages/CommercialBuilding";
 import ApartmentInspections from "./pages/ApartmentInspections";
+import LocalHomeInspection from "./pages/LocalHomeInspection";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -28,6 +29,25 @@ function Router() {
       <Route path="/reviews" component={Reviews} />
       <Route path="/inspector" component={Inspector} />
       <Route path="/booknow" component={BookNow} />
+
+      {/* Local Residential SEO Landing Pages */}
+      <Route
+        path="/home-inspection-sacramento"
+        component={LocalHomeInspection}
+      />
+      <Route path="/home-inspection-folsom" component={LocalHomeInspection} />
+      <Route
+        path="/home-inspection-el-dorado-hills"
+        component={LocalHomeInspection}
+      />
+      <Route
+        path="/home-inspection-placerville"
+        component={LocalHomeInspection}
+      />
+      <Route
+        path="/home-inspection-shingle-springs"
+        component={LocalHomeInspection}
+      />
       
       {/* Commercial Landing Pages - Exact URLs matching user requirements */}
       <Route 
