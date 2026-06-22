@@ -72,6 +72,16 @@ export default function CommercialBuilding() {
               Designed for local business owners, commercial tenants, and
               private real estate investors across Sacramento and Folsom.
             </p>
+            <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xl mt-4">
+              The Sacramento region's commercial inventory ranges from older
+              downtown and Midtown storefronts to single-tenant retail pads,
+              light-industrial flex space along the business corridors, and
+              suburban office product. A building inspection here is less about
+              ASTM-style capital forecasting and more about a focused,
+              practical look at the structure, roof, envelope, and the
+              commercial HVAC, electrical, and plumbing systems a tenant or buyer
+              will actually have to operate and maintain.
+            </p>
           </div>
         </div>
       </section>

@@ -14,34 +14,149 @@ import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import FAQ from "@/components/FAQ";
 
+/*
+  DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
+
+  SEO NOTE (duplicate-content fix):
+  Each city is driven by a fully distinct content record below. Beyond the
+  obvious city-name swap, every page now carries unique multi-paragraph intros,
+  a city-specific local-context narrative, differentiated service emphasis,
+  unique inspection-focus copy, varied section eyebrows/headings, a unique CTA
+  line, and city-specific FAQ entries. This ensures Google sees each landing
+  page as substantially unique rather than a templated duplicate.
+*/
+
+type ServiceCard = {
+  title: string;
+  price: string;
+  text: string;
+};
+
+type Faq = {
+  question: string;
+  answer: string;
+};
+
 type LocalPage = {
   slug: string;
   city: string;
+  region: string;
   title: string;
   description: string;
-  intro: string;
+  // Hero
+  heroEyebrow: string;
+  introParagraphs: string[];
+  // Trust band (city-tuned)
+  trustItems: string[];
+  // Section 01 - services
+  servicesEyebrow: string;
+  servicesHeading: string;
+  servicesLede: string;
+  serviceCards: ServiceCard[];
+  // Section 02 - what is inspected
+  inspectedEyebrow: string;
+  inspectedHeading: string;
+  inspectedLede: string;
+  inspectedItems: string[];
+  // Section 03 - local concerns
+  concernsEyebrow: string;
+  concernsHeading: string;
   localAngle: string;
   concerns: string[];
   secondaryPhrases: string[];
-  manufacturedNote: string;
+  // Local context (unique narrative block)
+  contextEyebrow: string;
+  contextHeading: string;
+  contextParagraphs: string[];
+  contextHighlights: { label: string; value: string }[];
+  // CTA
+  ctaHeading: string;
+  ctaLine: string;
+  // FAQ
+  faqs: Faq[];
 };
 
+const SHARED_INTERNAL_LINKS = [
+  { label: "Services", href: "/services" },
+  { label: "Reviews", href: "/reviews" },
+  { label: "Inspector", href: "/inspector" },
+  { label: "Book Now", href: "/booknow" },
+];
+
 const LOCAL_PAGES: Record<string, LocalPage> = {
+  /* ============================ SACRAMENTO ============================ */
   "/home-inspection-sacramento": {
     slug: "home-inspection-sacramento",
     city: "Sacramento",
+    region: "Sacramento County",
     title: "Home Inspection Sacramento CA | ProSpec Home Inspections",
     description:
-      "Schedule a Sacramento home inspection with ProSpec. Buyer, pre-listing, new construction, and 11-month warranty inspections by a Certified Master Inspector.",
-    intro:
-      "ProSpec provides detailed home inspections in Sacramento for buyers, sellers, agents, and investors who need clear information before a real estate decision. Sacramento homes can range from older raised-foundation properties to remodeled suburban homes, so the inspection focuses on visible, accessible systems and practical due diligence.",
+      "Schedule a Sacramento home inspection with ProSpec. Buyer, pre-listing, new construction, and 11-month warranty inspections by a Certified Master Inspector serving Midtown, Land Park, Pocket, and Natomas.",
+    heroEyebrow: "Capital City Residential Inspections",
+    introParagraphs: [
+      "Sacramento is one of California's most layered housing markets, where Craftsman bungalows in Midtown and Land Park sit a few blocks from mid-century ranch homes, infill condos, and master-planned subdivisions in Natomas and the Pocket. ProSpec inspects across that full range, giving buyers, sellers, agents, and investors a clear read on a home before contingencies are removed.",
+      "Because so much of the city's inventory was built before modern construction codes and then partially remodeled over the decades, a Sacramento inspection often comes down to separating original systems from later upgrades. ProSpec documents what is visible and accessible, explains which findings actually matter, and keeps the report focused on practical real estate decisions rather than alarm.",
+    ],
+    trustItems: [
+      "Certified Master Inspector serving the Sacramento grid and suburbs",
+      "Roughly 20 years of construction and inspection experience",
+      "Comfortable with older raised-foundation and remodeled homes",
+      "Same-day digital reports with photos and clear priorities",
+    ],
+    servicesEyebrow: "01. Sacramento Residential Services",
+    servicesHeading: "Inspection Services for Sacramento Homes",
+    servicesLede:
+      "From a first-time buyer in Tahoe Park to an investor evaluating a flipped duplex near downtown, ProSpec tailors the inspection to the property and the transaction. Every service is a visual, non-invasive review of readily accessible systems.",
+    serviceCards: [
+      {
+        title: "Buyer's Home Inspections",
+        price: "Residential inspections start at $385.",
+        text: "Ideal for Sacramento buyers navigating competitive offers, this inspection documents the condition of the home's accessible systems so you can remove contingencies or renegotiate with real information.",
+      },
+      {
+        title: "Pre-Listing Inspections",
+        price: "Residential inspections start at $385.",
+        text: "Sellers in tight Midtown and Land Park markets use a pre-listing inspection to surface repair items early, avoid escrow surprises, and present a cleaner, more defensible listing.",
+      },
+      {
+        title: "New Construction Inspections",
+        price: "Residential inspections start at $385.",
+        text: "For new builds in Natomas, North Sacramento, and surrounding subdivisions, a third-party walkthrough before closing documents installation concerns and items to raise with the builder.",
+      },
+      {
+        title: "11-Month Warranty Inspections",
+        price: "11-month warranty inspections start at $350.",
+        text: "A review near the end of the first ownership year so settling, finish, and mechanical concerns can be documented before the builder warranty window closes.",
+      },
+      {
+        title: "Manufactured Home Inspections",
+        price: "Manufactured home inspections start at $350.",
+        text: "Inspection of accessible manufactured home components, including visible support, exterior, roof, interior, plumbing, electrical, HVAC, and site drainage observations based on the agreed scope.",
+      },
+    ],
+    inspectedEyebrow: "02. What Is Inspected",
+    inspectedHeading: "Original Systems vs. Later Upgrades",
+    inspectedLede:
+      "A Sacramento home inspection is a professional visual review of readily accessible systems, not a code-compliance audit, engineering report, or pest certification. On older grid-area homes, the value is in clarifying which components are original and which were updated over time.",
+    inspectedItems: [
+      "Roof coverings, flashings, and drainage on older and re-roofed homes",
+      "Raised foundations, basements, and crawlspaces where safely accessible",
+      "Aging or mixed-era electrical panels, wiring, and added circuits",
+      "Galvanized, copper, or repiped plumbing and water heater condition",
+      "HVAC age and performance, including converted or added systems",
+      "Exterior siding, trim, windows, and grading near the structure",
+      "Interior walls, ceilings, floors, stairs, and built-in appliances",
+      "Safety concerns and moisture indicators documented with photos",
+    ],
+    concernsEyebrow: "03. Sacramento Concerns",
+    concernsHeading: "Sacramento Inspection Focus",
     localAngle:
-      "For Sacramento properties, we pay close attention to roof condition, HVAC age and performance, crawlspace access when present, visible foundation conditions, electrical and plumbing updates, drainage patterns, and safety concerns that may affect negotiations or repair planning.",
+      "For Sacramento properties we pay close attention to roof condition, HVAC age in a hot-summer climate, crawlspace access on raised foundations, visible foundation movement, electrical and plumbing updates from different eras, and drainage on flat valley lots that can pool water against the structure.",
     concerns: [
-      "Older housing stock with partial remodels or mixed-era systems",
+      "Older housing stock with partial remodels and mixed-era systems",
       "Raised foundations, crawlspaces, and visible moisture indicators",
-      "HVAC, roof, electrical, and plumbing visibility during escrow",
-      "Pre-listing inspection needs for sellers preparing a cleaner transaction",
+      "HVAC capacity and condition for Sacramento Valley summer heat",
+      "Flat-lot drainage and grading that directs water toward the home",
     ],
     secondaryPhrases: [
       "home inspector Sacramento",
@@ -49,22 +164,121 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
       "pre-listing inspection Sacramento",
       "11-month warranty inspection Sacramento",
     ],
-    manufacturedNote:
-      "Manufactured home inspections are available when the property type and inspection agreement fit the scope.",
+    contextEyebrow: "04. Local Context",
+    contextHeading: "Inspecting in the Sacramento Valley",
+    contextParagraphs: [
+      "Sacramento's flat valley floor, hot dry summers, and clay-heavy soils shape what tends to show up during an inspection. Long cooling seasons put real strain on HVAC equipment, and homes with original or undersized systems often reveal performance issues that matter to a buyer's budget.",
+      "The city's deep stock of pre-1970 homes also means inspections frequently involve raised foundations, older service panels, and plumbing that has been partially updated. ProSpec's reporting separates these realities into clear priorities so you are not guessing about what to fix first.",
+    ],
+    contextHighlights: [
+      { label: "Common housing era", value: "Pre-war bungalows to modern infill" },
+      { label: "Foundation type", value: "Frequently raised w/ crawlspace" },
+      { label: "Climate factor", value: "Hot-summer HVAC demand" },
+      { label: "Terrain", value: "Flat valley lots, drainage focus" },
+    ],
+    ctaHeading: "Book a Sacramento Home Inspection",
+    ctaLine:
+      "Get a clear, photo-documented report on your Sacramento home from a Certified Master Inspector who knows the city's older and newer housing stock. Schedule online or review service details first.",
+    faqs: [
+      {
+        question: "How much does a home inspection cost in Sacramento?",
+        answer:
+          "Residential home inspections start at $385. Manufactured home inspections and 11-month warranty inspections start at $350. Final pricing depends on the size, age, type, and condition of the property and any additional agreed scope.",
+      },
+      {
+        question: "Do you inspect older homes in Midtown and Land Park?",
+        answer:
+          "Yes. Many of Sacramento's most desirable neighborhoods are full of pre-war homes with raised foundations and updated-over-time systems. ProSpec uses a non-invasive visual process to document the condition of accessible components and flag items that warrant specialist follow-up.",
+      },
+      {
+        question: "Will you check the HVAC system in a hot-summer climate?",
+        answer:
+          "Yes. Because Sacramento Valley summers place heavy demand on cooling equipment, the inspection includes operating and observing the accessible heating and cooling systems and noting age, performance, and visible installation concerns.",
+      },
+      {
+        question: "Do you offer pre-listing inspections for Sacramento sellers?",
+        answer:
+          "Yes. In competitive grid-area and suburban markets, a pre-listing inspection helps sellers and agents surface visible concerns before going active, reducing escrow surprises and supporting cleaner negotiations.",
+      },
+      {
+        question: "How soon will I receive my Sacramento inspection report?",
+        answer:
+          "Reports are typically delivered the same day when site conditions allow. The digital report includes photos, observations, and practical recommendations written for buyers, sellers, and agents.",
+      },
+    ],
   },
+
+  /* ============================== FOLSOM ============================== */
   "/home-inspection-folsom": {
     slug: "home-inspection-folsom",
     city: "Folsom",
+    region: "Sacramento County / Highway 50 corridor",
     title: "Home Inspection Folsom CA | ProSpec Home Inspections",
     description:
-      "Folsom home inspections for buyers, sellers, new construction owners, and 11-month warranty reviews. Detailed reports from ProSpec.",
-    intro:
-      "ProSpec serves Folsom buyers and homeowners with careful residential inspections for resale homes, newer construction, and larger properties. The goal is straightforward: document visible conditions, explain priorities clearly, and help clients move through escrow or builder warranty conversations with confidence.",
+      "Folsom home inspections for buyers, sellers, new construction owners, and 11-month warranty reviews. Detailed reports for Empire Ranch, Folsom Ranch, and established neighborhoods from ProSpec.",
+    heroEyebrow: "Folsom & Highway 50 Corridor",
+    introParagraphs: [
+      "Folsom blends newer master-planned communities like Folsom Ranch and Empire Ranch with established neighborhoods near the historic district and Folsom Lake. That mix means an inspection here can swing from a recently completed production home to a twenty-year-old property with its first round of aging systems, and ProSpec adapts the review accordingly.",
+      "Buyers in Folsom are frequently purchasing larger floor plans and newer construction, where the most valuable findings are builder finish issues, drainage details, and mechanical installations rather than age-related wear. ProSpec documents these clearly so they can be raised during a final walkthrough or warranty conversation.",
+    ],
+    trustItems: [
+      "Certified Master Inspector serving Folsom and the Highway 50 corridor",
+      "Experience with newer production and larger-floor-plan homes",
+      "Builder finish and warranty-item documentation",
+      "Same-day digital reports with photos and clear priorities",
+    ],
+    servicesEyebrow: "01. Folsom Residential Services",
+    servicesHeading: "Inspection Services for Folsom Homes",
+    servicesLede:
+      "Whether you are closing on a new build in Folsom Ranch or buying an established home near the lake, ProSpec scopes the inspection to the property. Every service is a visual, non-invasive review of readily accessible systems.",
+    serviceCards: [
+      {
+        title: "Buyer's Home Inspections",
+        price: "Residential inspections start at $385.",
+        text: "For Folsom buyers purchasing larger or newer homes, this inspection documents accessible systems and finish quality so you understand the property before removing contingencies.",
+      },
+      {
+        title: "Pre-Listing Inspections",
+        price: "Residential inspections start at $385.",
+        text: "In Folsom's competitive listing market, sellers use a pre-listing inspection to identify items early and present the home with fewer surprises during escrow.",
+      },
+      {
+        title: "New Construction Inspections",
+        price: "Residential inspections start at $385.",
+        text: "Folsom's active new-build communities make a third-party inspection valuable before closing, capturing installation and finish concerns to discuss with the builder.",
+      },
+      {
+        title: "11-Month Warranty Inspections",
+        price: "11-month warranty inspections start at $350.",
+        text: "Especially relevant for newer Folsom homes, this review near the end of the first year documents settling and finish issues before the builder warranty window closes.",
+      },
+      {
+        title: "Manufactured Home Inspections",
+        price: "Manufactured home inspections start at $350.",
+        text: "Inspection of accessible manufactured home components, including visible support, exterior, roof, interior, plumbing, electrical, HVAC, and site drainage observations based on the agreed scope.",
+      },
+    ],
+    inspectedEyebrow: "02. What Is Inspected",
+    inspectedHeading: "Finish Quality and System Performance",
+    inspectedLede:
+      "A Folsom home inspection is a professional visual review of readily accessible systems, not a code-compliance audit or warranty guarantee. On newer homes, attention shifts toward installation quality, drainage, and finish details that affect long-term performance.",
+    inspectedItems: [
+      "Roof coverings, flashings, and attic observations on newer roofs",
+      "Exterior siding, stucco, windows, and grading on larger lots",
+      "Visible structure, slab or crawlspace, and framing observations",
+      "Electrical panels, distribution, and visible wiring conditions",
+      "Plumbing fixtures, supply and drain observations, and water heater review",
+      "HVAC equipment performance and visible installation concerns",
+      "Builder finish items, doors, windows, stairs, and built-in appliances",
+      "Drainage, moisture indicators, and repair priorities documented with photos",
+    ],
+    concernsEyebrow: "03. Folsom Concerns",
+    concernsHeading: "Folsom Inspection Focus",
     localAngle:
-      "Folsom inspections often involve newer homes, larger floor plans, exterior drainage details, roof and attic observations, HVAC equipment, and builder finish issues that may become important during a final walkthrough or warranty period.",
+      "Folsom inspections often involve newer homes, larger floor plans, exterior drainage on graded lots, roof and attic observations, HVAC equipment sizing, and builder finish issues that can become important during a final walkthrough or warranty period.",
     concerns: [
       "Newer construction and builder warranty review items",
-      "Roof, exterior, grading, and drainage observations",
+      "Roof, exterior, grading, and drainage observations on larger lots",
       "HVAC performance and visible installation concerns",
       "Pre-listing inspections for competitive Folsom listings",
     ],
@@ -73,44 +287,243 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
       "Folsom home inspections",
       "new construction inspection Folsom",
     ],
-    manufacturedNote:
-      "Manufactured home inspections are available when appropriate for the property and agreed inspection scope.",
+    contextEyebrow: "04. Local Context",
+    contextHeading: "Inspecting Newer Folsom Communities",
+    contextParagraphs: [
+      "Much of Folsom's housing growth has come from master-planned development south of Highway 50, where production builders deliver homes quickly across large graded sites. The most common inspection findings on these properties tend to be drainage and grading details, attic and HVAC installation items, and minor finish concerns rather than age-related failures.",
+      "Established Folsom neighborhoods closer to the lake and historic district behave more like a typical resale market, where roof age, original mechanical systems, and exterior wear become the focus. ProSpec tailors the report to whichever type of property you are buying or selling.",
+    ],
+    contextHighlights: [
+      { label: "Common housing era", value: "Newer master-planned + 1990s-2000s" },
+      { label: "Foundation type", value: "Predominantly slab-on-grade" },
+      { label: "Climate factor", value: "Hot-summer cooling demand" },
+      { label: "Terrain", value: "Graded lots, drainage detailing" },
+    ],
+    ctaHeading: "Book a Folsom Home Inspection",
+    ctaLine:
+      "Get a detailed, photo-documented report on your Folsom home or new build from a Certified Master Inspector. Schedule online or review service details before booking.",
+    faqs: [
+      {
+        question: "How much does a home inspection cost in Folsom?",
+        answer:
+          "Residential home inspections start at $385. Manufactured home inspections and 11-month warranty inspections start at $350. Larger Folsom floor plans may affect final pricing along with property age, type, and any additional agreed scope.",
+      },
+      {
+        question: "Do you inspect new construction homes in Folsom Ranch?",
+        answer:
+          "Yes. New construction inspections are common in Folsom's master-planned communities. ProSpec documents visible installation concerns, incomplete work, and items to raise with the builder before closing or during the warranty period.",
+      },
+      {
+        question: "What is the difference between a buyer's and an 11-month warranty inspection?",
+        answer:
+          "A buyer's inspection happens before you purchase the home, while an 11-month warranty inspection happens near the end of the first ownership year on a newer build so settling and finish issues can be documented before the builder warranty closes. Both are popular with Folsom homeowners.",
+      },
+      {
+        question: "Do you serve established neighborhoods near Folsom Lake?",
+        answer:
+          "Yes. ProSpec inspects throughout Folsom, including older neighborhoods near the lake and historic district where roof age and original mechanical systems are typically the focus rather than builder finish items.",
+      },
+      {
+        question: "How soon will I receive my Folsom inspection report?",
+        answer:
+          "Reports are typically delivered the same day when site conditions allow, with photos, observations, and practical recommendations for buyers, sellers, and agents.",
+      },
+    ],
   },
+
+  /* ========================= EL DORADO HILLS ========================= */
   "/home-inspection-el-dorado-hills": {
     slug: "home-inspection-el-dorado-hills",
     city: "El Dorado Hills",
+    region: "El Dorado County",
     title: "Home Inspection El Dorado Hills CA | ProSpec",
     description:
-      "El Dorado Hills home inspections for larger homes, hillside lots, roof systems, drainage, decks, crawlspaces, and premium home due diligence.",
-    intro:
-      "ProSpec provides home inspections in El Dorado Hills for buyers, sellers, agents, and property owners who want a careful review before making decisions on a higher-value home. Larger homes and hillside lots benefit from organized inspection notes and direct explanations.",
+      "El Dorado Hills home inspections for larger homes, hillside lots, roof systems, drainage, decks, crawlspaces, and premium home due diligence by a Certified Master Inspector.",
+    heroEyebrow: "El Dorado County Hillside Estates",
+    introParagraphs: [
+      "El Dorado Hills is defined by larger homes on sloped, view-oriented lots in communities like Serrano, Blackstone, and the neighborhoods rising above Highway 50. These properties carry features rarely seen on a flat valley lot — multi-level grading, extensive decking, retaining elements, and significant mechanical systems — and each of those deserves careful attention during an inspection.",
+      "ProSpec approaches higher-value El Dorado Hills homes with organized, prioritized reporting. The goal is to give buyers, sellers, and agents a clear picture of how the home and its site are performing, especially where slope and drainage interact with the structure, so a premium purchase is backed by real due diligence.",
+    ],
+    trustItems: [
+      "Certified Master Inspector serving El Dorado Hills and Serrano",
+      "Experience with larger homes and hillside, view-lot construction",
+      "Focus on slope drainage, decks, and major mechanical systems",
+      "Same-day digital reports with photos and clear priorities",
+    ],
+    servicesEyebrow: "01. El Dorado Hills Residential Services",
+    servicesHeading: "Inspection Services for El Dorado Hills Homes",
+    servicesLede:
+      "From a hillside estate in Serrano to a custom home on a view lot, ProSpec scopes the inspection to the size and complexity of the property. Every service is a visual, non-invasive review of readily accessible systems.",
+    serviceCards: [
+      {
+        title: "Buyer's Home Inspections",
+        price: "Residential inspections start at $385.",
+        text: "For buyers of larger El Dorado Hills homes, this inspection delivers organized documentation of accessible systems, decks, and site conditions before contingencies are removed.",
+      },
+      {
+        title: "Pre-Listing Inspections",
+        price: "Residential inspections start at $385.",
+        text: "Sellers of premium El Dorado Hills properties use a pre-listing inspection to surface deck, drainage, and mechanical items early and protect a higher asking price.",
+      },
+      {
+        title: "New Construction Inspections",
+        price: "Residential inspections start at $385.",
+        text: "On newer custom and semi-custom El Dorado Hills homes, a third-party inspection documents installation and finish concerns to raise with the builder before closing.",
+      },
+      {
+        title: "11-Month Warranty Inspections",
+        price: "11-month warranty inspections start at $350.",
+        text: "A first-year review for newer El Dorado Hills homes, documenting settling, finish, and mechanical concerns before the builder warranty window closes.",
+      },
+      {
+        title: "Manufactured Home Inspections",
+        price: "Manufactured home inspections start at $350.",
+        text: "Inspection of accessible manufactured home components, including visible support, exterior, roof, interior, plumbing, electrical, HVAC, and site drainage observations based on the agreed scope.",
+      },
+    ],
+    inspectedEyebrow: "02. What Is Inspected",
+    inspectedHeading: "Slope, Structure, and Systems",
+    inspectedLede:
+      "An El Dorado Hills home inspection is a professional visual review of readily accessible systems, not an engineering or geotechnical report. On hillside and larger homes, the inspection emphasizes how slope, drainage, decks, and major systems interact.",
+    inspectedItems: [
+      "Roof systems, flashings, and drainage across larger roof areas",
+      "Decks, balconies, guardrails, stairs, and exterior connections",
+      "Hillside grading and drainage patterns around the structure",
+      "Visible foundation areas, crawlspaces, and structural observations",
+      "Electrical panels, subpanels, and visible wiring on larger homes",
+      "Plumbing fixtures, supply and drain observations, and water heaters",
+      "Multiple or zoned HVAC systems and accessible distribution",
+      "Interior finishes, built-in appliances, and moisture indicators with photos",
+    ],
+    concernsEyebrow: "03. El Dorado Hills Concerns",
+    concernsHeading: "El Dorado Hills Inspection Focus",
     localAngle:
-      "In El Dorado Hills, local property concerns often include drainage around slopes, roof systems, deck and balcony components, visible foundation and crawlspace conditions, exterior transitions, and the condition of major mechanical systems.",
+      "In El Dorado Hills, local property concerns often include drainage around slopes and retaining elements, large roof systems, deck and balcony components, visible foundation and crawlspace conditions, exterior transitions, and the condition of major or zoned mechanical systems.",
     concerns: [
-      "Hillside drainage and water movement around the home",
-      "Decks, balconies, guardrails, and exterior components",
+      "Hillside drainage and water movement around the home and lot",
+      "Decks, balconies, guardrails, and elevated exterior components",
       "Crawlspaces, visible foundation areas, and structural observations",
-      "Large-home due diligence with clear report priorities",
+      "Large-home and view-lot due diligence with clear report priorities",
     ],
     secondaryPhrases: [
       "home inspector El Dorado Hills CA",
       "El Dorado Hills home inspections",
+      "hillside home inspection El Dorado Hills",
     ],
-    manufacturedNote:
-      "Manufactured home inspections are available when the property type and scope call for that service.",
+    contextEyebrow: "04. Local Context",
+    contextHeading: "Inspecting Hillside El Dorado Hills Homes",
+    contextParagraphs: [
+      "El Dorado Hills sits in the western foothills of El Dorado County, where homes are routinely built into slopes to capture views. That topography makes drainage and grading central to an inspection: how water is directed away from the structure, how decks and stairs are supported, and how retaining and exterior elements are holding up over time.",
+      "Larger square footage also means more systems to evaluate — multiple HVAC zones, larger roof areas, and extensive plumbing and electrical distribution. ProSpec organizes findings on these premium homes by priority so a significant purchase is grounded in clear, documented information.",
+    ],
+    contextHighlights: [
+      { label: "Common housing era", value: "Larger custom & semi-custom homes" },
+      { label: "Foundation type", value: "Slab and raised on graded slopes" },
+      { label: "Climate factor", value: "Foothill heat + zoned HVAC" },
+      { label: "Terrain", value: "Hillside view lots, slope drainage" },
+    ],
+    ctaHeading: "Book an El Dorado Hills Home Inspection",
+    ctaLine:
+      "Get organized, photo-documented reporting on your El Dorado Hills home — including slope, deck, and major-system observations — from a Certified Master Inspector. Schedule online or review services first.",
+    faqs: [
+      {
+        question: "How much does a home inspection cost in El Dorado Hills?",
+        answer:
+          "Residential home inspections start at $385. Because El Dorado Hills homes are often larger, final pricing reflects square footage, the number of systems, property age, and any additional agreed scope.",
+      },
+      {
+        question: "Do you inspect hillside and view-lot homes?",
+        answer:
+          "Yes. Hillside lots are common in El Dorado Hills, and the inspection pays particular attention to grading, drainage around the structure, deck and stair support, and visible foundation areas, all within a non-invasive visual scope.",
+      },
+      {
+        question: "Do you check decks and balconies on larger homes?",
+        answer:
+          "Yes. Decks, balconies, guardrails, and elevated walkways are evaluated for visible, accessible condition and safety observations, which is especially relevant on the multi-level homes common in El Dorado Hills.",
+      },
+      {
+        question: "Can you inspect homes with multiple HVAC zones?",
+        answer:
+          "Yes. Larger El Dorado Hills homes frequently have multiple or zoned heating and cooling systems. The inspection operates and observes the accessible equipment and notes performance and visible installation concerns for each.",
+      },
+      {
+        question: "How soon will I receive my El Dorado Hills report?",
+        answer:
+          "Reports are typically delivered the same day when site conditions allow, with photos, prioritized observations, and practical recommendations for buyers, sellers, and agents.",
+      },
+    ],
   },
+
+  /* ============================ PLACERVILLE ============================ */
   "/home-inspection-placerville": {
     slug: "home-inspection-placerville",
     city: "Placerville",
+    region: "El Dorado County foothills",
     title: "Home Inspection Placerville CA | ProSpec",
     description:
-      "Placerville home inspections for older homes, rural and semi-rural properties, raised foundations, crawlspaces, decks, roofs, electrical, plumbing, and HVAC.",
-    intro:
-      "ProSpec performs home inspections in Placerville for buyers, sellers, agents, and owners evaluating older homes and foothill properties. The inspection is a non-invasive visual review of readily accessible systems, with report language written to help clients understand condition, priority, and next steps.",
+      "Placerville home inspections for older and historic homes, rural and semi-rural properties, raised foundations, crawlspaces, decks, roofs, electrical, plumbing, and HVAC.",
+    heroEyebrow: "Historic Foothill Properties",
+    introParagraphs: [
+      "Placerville is a historic Gold Rush town in the El Dorado County foothills, and its housing reflects that heritage — older and even historic homes near the downtown core, mixed with rural and semi-rural properties on wooded lots reached by long driveways. ProSpec inspects across this range, where no two homes have aged quite the same way.",
+      "Inspecting in Placerville often means working through decades of repairs, additions, and system updates layered onto original construction. ProSpec performs a non-invasive visual review of readily accessible components and writes the report so buyers, sellers, and owners understand condition, priority, and sensible next steps without unnecessary alarm.",
+    ],
+    trustItems: [
+      "Certified Master Inspector serving Placerville and the foothills",
+      "Experience with older, historic, and rural foothill homes",
+      "Focus on raised foundations, crawlspaces, and exterior wood",
+      "Same-day digital reports with photos and clear priorities",
+    ],
+    servicesEyebrow: "01. Placerville Residential Services",
+    servicesHeading: "Inspection Services for Placerville Homes",
+    servicesLede:
+      "From a historic home near Main Street to a rural property on acreage, ProSpec scopes the inspection to the age and setting of the home. Every service is a visual, non-invasive review of readily accessible systems.",
+    serviceCards: [
+      {
+        title: "Buyer's Home Inspections",
+        price: "Residential inspections start at $385.",
+        text: "For Placerville buyers evaluating older or rural homes, this inspection documents accessible systems and the realities of layered repairs before contingencies are removed.",
+      },
+      {
+        title: "Pre-Listing Inspections",
+        price: "Residential inspections start at $385.",
+        text: "Sellers of foothill and historic Placerville homes use a pre-listing inspection to identify wood, roof, and system items early and reduce escrow surprises.",
+      },
+      {
+        title: "New Construction Inspections",
+        price: "Residential inspections start at $385.",
+        text: "On newer rural builds around Placerville, a third-party inspection documents installation concerns and items to raise with the builder before closing.",
+      },
+      {
+        title: "11-Month Warranty Inspections",
+        price: "11-month warranty inspections start at $350.",
+        text: "A first-year review for newer Placerville-area homes, documenting settling and finish concerns before the builder warranty window closes.",
+      },
+      {
+        title: "Manufactured Home Inspections",
+        price: "Manufactured home inspections start at $350.",
+        text: "Common on foothill acreage, this inspection covers accessible manufactured home components — visible support, exterior, roof, interior, plumbing, electrical, HVAC, and site drainage — based on the agreed scope.",
+      },
+    ],
+    inspectedEyebrow: "02. What Is Inspected",
+    inspectedHeading: "Aging Homes and Layered Repairs",
+    inspectedLede:
+      "A Placerville home inspection is a professional visual review of readily accessible systems, not a code-compliance or pest certification. On older foothill homes, the inspection focuses on distinguishing original construction from later repairs and additions.",
+    inspectedItems: [
+      "Roof coverings and flashings, including older or multi-layer roofs",
+      "Raised foundations, crawlspaces, and visible moisture clues",
+      "Exterior wood siding, trim, decks, and weathered components",
+      "Older or upgraded electrical panels, wiring, and added circuits",
+      "Plumbing supply and drain observations and water heater condition",
+      "HVAC, wood-burning appliances, and accessible distribution",
+      "Sloped-lot grading and drainage near the structure",
+      "Interior finishes, additions, and moisture indicators documented with photos",
+    ],
+    concernsEyebrow: "03. Placerville Concerns",
+    concernsHeading: "Placerville Inspection Focus",
     localAngle:
-      "Placerville properties may include older construction, raised foundations, crawlspaces, wood exterior components, sloped lots, drainage issues, decks, roofing wear, and visible electrical, plumbing, or HVAC updates completed over time.",
+      "Placerville properties may include older or historic construction, raised foundations, crawlspaces, wood exterior components, sloped wooded lots, drainage issues, decks, roofing wear, and visible electrical, plumbing, or HVAC updates completed across different eras.",
     concerns: [
-      "Older homes with repairs, remodels, or mixed-age systems",
+      "Older and historic homes with repairs, remodels, or mixed-age systems",
       "Crawlspaces, raised foundations, and visible moisture clues",
       "Decks, roofs, wood trim, siding, and exterior drainage",
       "Rural or semi-rural property observations within the inspection scope",
@@ -118,20 +531,120 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
     secondaryPhrases: [
       "home inspections Placerville CA",
       "home inspector Placerville",
+      "historic home inspection Placerville",
     ],
-    manufacturedNote:
-      "Manufactured home inspections are available in the Placerville area when applicable and included in the inspection agreement.",
+    contextEyebrow: "04. Local Context",
+    contextHeading: "Inspecting in the El Dorado Foothills",
+    contextParagraphs: [
+      "Placerville's elevation, wooded lots, and older building stock create a different inspection profile than the valley floor. Wood siding, decks, and trim weather under foothill conditions, raised foundations and crawlspaces are common, and homes frequently carry repairs and additions completed across many decades.",
+      "Rural and semi-rural properties may also involve wood-burning appliances, longer site runs, and drainage shaped by slope and seasonal moisture. ProSpec documents what is visible and accessible and keeps the report focused on condition and priority so you can plan with confidence.",
+    ],
+    contextHighlights: [
+      { label: "Common housing era", value: "Historic to mixed-era rural homes" },
+      { label: "Foundation type", value: "Often raised w/ crawlspace" },
+      { label: "Climate factor", value: "Foothill weathering on wood" },
+      { label: "Terrain", value: "Sloped, wooded, semi-rural lots" },
+    ],
+    ctaHeading: "Book a Placerville Home Inspection",
+    ctaLine:
+      "Get a clear, photo-documented report on your Placerville home — including older-home and rural-property realities — from a Certified Master Inspector. Schedule online or review services first.",
+    faqs: [
+      {
+        question: "How much does a home inspection cost in Placerville?",
+        answer:
+          "Residential home inspections start at $385. Manufactured home inspections and 11-month warranty inspections start at $350. Final pricing depends on the size, age, type, and setting of the property and any additional agreed scope.",
+      },
+      {
+        question: "Do you inspect older and historic Placerville homes?",
+        answer:
+          "Yes. Placerville has a deep stock of older and historic homes. ProSpec uses a non-invasive visual process to document accessible components, distinguish original construction from later repairs, and recommend specialist follow-up where appropriate.",
+      },
+      {
+        question: "Do you inspect rural properties and homes on acreage?",
+        answer:
+          "Yes. Many Placerville-area homes sit on rural or semi-rural lots. The inspection focuses on the home and accessible systems within the agreed scope, with detached structures or outbuildings included only when specifically scoped.",
+      },
+      {
+        question: "Do you inspect manufactured homes in the Placerville area?",
+        answer:
+          "Yes. Manufactured homes are common on foothill acreage and are available when the property and agreement call for that scope. Manufactured home inspections start at $350 and cover visible, accessible components.",
+      },
+      {
+        question: "How soon will I receive my Placerville inspection report?",
+        answer:
+          "Reports are typically delivered the same day when site conditions allow, with photos, observations, and practical recommendations for buyers, sellers, and agents.",
+      },
+    ],
   },
+
+  /* ========================= SHINGLE SPRINGS ========================= */
   "/home-inspection-shingle-springs": {
     slug: "home-inspection-shingle-springs",
     city: "Shingle Springs",
+    region: "El Dorado County foothills",
     title: "Home Inspection Shingle Springs CA | ProSpec",
     description:
-      "Shingle Springs home inspections for foothill properties, larger lots, manufactured homes, drainage, roofs, decks, crawlspaces, and buyer due diligence.",
-    intro:
-      "ProSpec provides home inspections in Shingle Springs for buyers, sellers, agents, and property owners who need practical due diligence on foothill homes. Properties in the area can vary widely, so the inspection focuses on the home, accessible systems, and the agreed scope.",
+      "Shingle Springs home inspections for foothill properties, larger lots, manufactured homes, drainage, roofs, decks, crawlspaces, and buyer due diligence by a Certified Master Inspector.",
+    heroEyebrow: "Rural Foothill Acreage",
+    introParagraphs: [
+      "Shingle Springs sits along Highway 50 in the El Dorado County foothills, where properties tend toward larger lots, acreage, and a wide mix of home types — from production homes in newer subdivisions to custom builds and manufactured homes set back on wooded parcels. ProSpec inspects across that variety with a scope matched to each property.",
+      "Because Shingle Springs properties differ so much from one another, the inspection stays focused on the home itself, its accessible systems, and the conditions immediately around the structure. ProSpec documents what is visible, explains the priorities plainly, and keeps the report practical for buyers, sellers, and owners doing real due diligence.",
+    ],
+    trustItems: [
+      "Certified Master Inspector serving Shingle Springs and the foothills",
+      "Experience with acreage, manufactured, and custom foothill homes",
+      "Focus on drainage, roofs, decks, and crawlspace access",
+      "Same-day digital reports with photos and clear priorities",
+    ],
+    servicesEyebrow: "01. Shingle Springs Residential Services",
+    servicesHeading: "Inspection Services for Shingle Springs Homes",
+    servicesLede:
+      "From a manufactured home on acreage to a custom build on a wooded parcel, ProSpec scopes the inspection to the property and the transaction. Every service is a visual, non-invasive review of readily accessible systems.",
+    serviceCards: [
+      {
+        title: "Buyer's Home Inspections",
+        price: "Residential inspections start at $385.",
+        text: "For Shingle Springs buyers evaluating acreage or mixed-type homes, this inspection documents accessible systems and site conditions before contingencies are removed.",
+      },
+      {
+        title: "Pre-Listing Inspections",
+        price: "Residential inspections start at $385.",
+        text: "Sellers of foothill Shingle Springs properties use a pre-listing inspection to identify roof, drainage, and system items early and reduce escrow surprises.",
+      },
+      {
+        title: "New Construction Inspections",
+        price: "Residential inspections start at $385.",
+        text: "On newer Shingle Springs builds, a third-party inspection documents installation and finish concerns to raise with the builder before closing.",
+      },
+      {
+        title: "11-Month Warranty Inspections",
+        price: "11-month warranty inspections start at $350.",
+        text: "A first-year review for newer Shingle Springs homes, documenting settling and finish concerns before the builder warranty window closes.",
+      },
+      {
+        title: "Manufactured Home Inspections",
+        price: "Manufactured home inspections start at $350.",
+        text: "Very common on Shingle Springs acreage, this inspection covers accessible manufactured home components — visible support, exterior, roof, interior, plumbing, electrical, HVAC, and site drainage — based on the agreed scope.",
+      },
+    ],
+    inspectedEyebrow: "02. What Is Inspected",
+    inspectedHeading: "Property Type Drives the Scope",
+    inspectedLede:
+      "A Shingle Springs home inspection is a professional visual review of readily accessible systems, not a code-compliance or warranty guarantee. Because property types vary so widely here, the scope is matched to the specific home and lot.",
+    inspectedItems: [
+      "Roof coverings, flashings, and drainage across varied roof types",
+      "Decks, exterior components, and access points on larger lots",
+      "Crawlspaces, visible foundation or support, and structural observations",
+      "Manufactured home support and connections when applicable",
+      "Electrical panels, distribution, and visible wiring conditions",
+      "Plumbing supply and drain observations and water heater review",
+      "HVAC performance and accessible distribution components",
+      "Foothill grading, drainage near the home, and moisture indicators with photos",
+    ],
+    concernsEyebrow: "03. Shingle Springs Concerns",
+    concernsHeading: "Shingle Springs Inspection Focus",
     localAngle:
-      "Shingle Springs inspections often include attention to roofs, drainage, decks, crawlspaces, visible foundation components, exterior materials, larger-lot site conditions near the home, and manufactured homes where applicable.",
+      "Shingle Springs inspections often include attention to roofs, foothill drainage, decks, crawlspaces, visible foundation or manufactured-home support components, exterior materials, larger-lot site conditions near the home, and manufactured homes where applicable.",
     concerns: [
       "Foothill drainage and grading conditions near the structure",
       "Roofs, decks, exterior components, and crawlspace access",
@@ -141,106 +654,57 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
     secondaryPhrases: [
       "home inspection Shingle Springs CA",
       "home inspector Shingle Springs",
+      "manufactured home inspection Shingle Springs",
     ],
-    manufacturedNote:
-      "Manufactured home inspections are commonly relevant in foothill areas and are available when the property and agreement call for that scope.",
+    contextEyebrow: "04. Local Context",
+    contextHeading: "Inspecting Shingle Springs Acreage",
+    contextParagraphs: [
+      "Shingle Springs is characterized by larger parcels and a true mix of housing, which makes property type the single biggest factor in an inspection. A manufactured home on acreage, a 1990s production home, and a newer custom build each present different priorities, from support and connections to roof age and drainage.",
+      "Foothill grading and seasonal moisture also matter, particularly how water moves around the structure on a sloped or wooded lot. ProSpec keeps the inspection centered on the home and accessible systems, with detached structures included only when specifically scoped.",
+    ],
+    contextHighlights: [
+      { label: "Common housing era", value: "Mixed: manufactured to custom" },
+      { label: "Foundation type", value: "Crawlspace, slab, & MH support" },
+      { label: "Climate factor", value: "Foothill heat and seasonal moisture" },
+      { label: "Terrain", value: "Larger acreage, sloped wooded lots" },
+    ],
+    ctaHeading: "Book a Shingle Springs Home Inspection",
+    ctaLine:
+      "Get a clear, photo-documented report on your Shingle Springs home — matched to the property type and lot — from a Certified Master Inspector. Schedule online or review services first.",
+    faqs: [
+      {
+        question: "How much does a home inspection cost in Shingle Springs?",
+        answer:
+          "Residential home inspections start at $385. Manufactured home inspections and 11-month warranty inspections start at $350. Final pricing depends on property size, age, type, and any additional agreed scope, which varies widely in Shingle Springs.",
+      },
+      {
+        question: "Do you inspect manufactured homes on acreage?",
+        answer:
+          "Yes. Manufactured homes are very common on Shingle Springs parcels. The inspection covers visible, accessible components — including support and connections — based on the agreed scope, with manufactured home inspections starting at $350.",
+      },
+      {
+        question: "Do you inspect detached structures and outbuildings?",
+        answer:
+          "The standard inspection focuses on the primary home and its accessible systems. Detached garages, shops, or outbuildings can be included when specifically added to the inspection agreement and scope.",
+      },
+      {
+        question: "How do you handle drainage on larger foothill lots?",
+        answer:
+          "The inspection observes grading and drainage conditions in the area immediately around the structure, noting how water appears to move relative to the home, within a non-invasive visual scope.",
+      },
+      {
+        question: "How soon will I receive my Shingle Springs report?",
+        answer:
+          "Reports are typically delivered the same day when site conditions allow, with photos, observations, and practical recommendations for buyers, sellers, and agents.",
+      },
+    ],
   },
 };
 
-const serviceCards = [
-  {
-    title: "Buyer's Home Inspections",
-    price: "Residential inspections start at $385.",
-    text: "A detailed visual inspection for buyers who need a clear understanding of the home's readily accessible systems before removing contingencies or negotiating repairs.",
-  },
-  {
-    title: "Pre-Listing Inspections",
-    price: "Residential inspections start at $385.",
-    text: "A practical way for sellers and agents to identify repair items early, reduce surprises, and present the property with more confidence.",
-  },
-  {
-    title: "New Construction Inspections",
-    price: "Residential inspections start at $385.",
-    text: "A third-party inspection before closing or final walkthrough to document visible concerns, installation issues, and items to discuss with the builder.",
-  },
-  {
-    title: "11-Month Warranty Inspections",
-    price: "11-month warranty inspections start at $350.",
-    text: "A review near the end of the first year of ownership so visible concerns can be documented before the builder warranty window closes.",
-  },
-  {
-    title: "Manufactured Home Inspections",
-    price: "Manufactured home inspections start at $350.",
-    text: "Inspection of accessible manufactured home components, including visible support, exterior, roof, interior, plumbing, electrical, HVAC, and site drainage observations based on scope.",
-  },
-];
-
-const inspectedItems = [
-  "Roof coverings, flashings, penetrations, and visible drainage details",
-  "Exterior siding, trim, windows, doors, decks, balconies, and grading near the home",
-  "Visible structure, foundation areas, attic, and crawlspace when safely accessible",
-  "Electrical panels, visible wiring conditions, outlets, and safety observations",
-  "Plumbing fixtures, supply and drain observations, and water heater review",
-  "Heating, cooling, ventilation, and accessible distribution components",
-  "Interior walls, ceilings, floors, doors, windows, stairs, and built-in appliances",
-  "Safety concerns, moisture indicators, and repair priorities documented with photos",
-];
-
-const trustItems = [
-  "Certified Master Inspector",
-  "Approximately 20 years of construction and inspection experience",
-  "Residential and commercial inspection background",
-  "Professional digital reports with photos and clear recommendations",
-];
-
-const internalLinks = [
-  { label: "Services", href: "/services" },
-  { label: "Reviews", href: "/reviews" },
-  { label: "Inspector", href: "/inspector" },
-  { label: "Book Now", href: "/booknow" },
-];
-
-function buildFaqs(page: LocalPage) {
-  const city = page.city;
-
-  return [
-    {
-      question: `How much does a home inspection cost in ${city}?`,
-      answer:
-        "Residential home inspections start at $385. Manufactured home inspections start at $350, and 11-month warranty inspections start at $350. Final pricing depends on property size, age, type, and any additional agreed scope.",
-    },
-    {
-      question: `Do you inspect older homes in ${city}?`,
-      answer:
-        "Yes. ProSpec inspects older homes using a non-invasive visual process focused on readily accessible systems and components. The report documents visible concerns and recommends further evaluation by qualified specialists when appropriate.",
-    },
-    {
-      question: "Do you offer pre-listing inspections?",
-      answer:
-        "Yes. Pre-listing inspections help sellers and agents identify visible concerns before the home goes active, which can reduce surprises during escrow and support more informed pricing and repair planning.",
-    },
-    {
-      question: "Do you inspect new construction homes?",
-      answer:
-        "Yes. New construction inspections can help document visible installation concerns, incomplete work, safety items, and questions to raise with the builder before closing or during the warranty period.",
-    },
-    {
-      question: "Do you inspect manufactured homes?",
-      answer:
-        page.manufacturedNote +
-        " Manufactured home inspections start at $350 and are limited to visible, accessible components included in the agreed scope.",
-    },
-    {
-      question: "How soon will I receive the report?",
-      answer:
-        "Reports are typically delivered the same day when site conditions and inspection scope allow. The digital report includes photos, observations, and practical recommendations written for buyers, sellers, and agents.",
-    },
-  ];
-}
-
 export default function LocalHomeInspection() {
   const [location] = useLocation();
-  const page = LOCAL_PAGES[location] ?? LOCAL_PAGES["/home-inspection-sacramento"];
+  const page =
+    LOCAL_PAGES[location] ?? LOCAL_PAGES["/home-inspection-sacramento"];
   const canonicalUrl = `https://www.weareprospec.com/${page.slug}`;
 
   return (
@@ -253,6 +717,7 @@ export default function LocalHomeInspection() {
         areaServed={[page.city]}
       />
 
+      {/* HERO */}
       <section className="relative min-h-[62vh] flex items-center border-b border-border overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
@@ -267,15 +732,22 @@ export default function LocalHomeInspection() {
           <div className="max-w-3xl flex flex-col gap-6">
             <div className="inline-flex items-center gap-2 border border-primary/30 bg-primary/5 px-3 py-1 self-start font-mono text-[10px] tracking-widest uppercase text-primary">
               <MapPin className="h-3.5 w-3.5" />
-              {page.city}, California
+              {page.heroEyebrow}
             </div>
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-wider uppercase leading-[1.15]">
               Home Inspection in <br />
               <span className="text-primary">{page.city}, CA</span>
             </h1>
-            <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed max-w-2xl">
-              {page.intro}
-            </p>
+            <div className="flex flex-col gap-4 max-w-2xl">
+              {page.introParagraphs.map((para, i) => (
+                <p
+                  key={i}
+                  className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed"
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <Link href="/booknow">
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-12 px-8 font-bold">
@@ -295,10 +767,12 @@ export default function LocalHomeInspection() {
         </div>
       </section>
 
+      {/* TRUST BAND */}
       <section className="border-b border-border bg-card/20 py-10">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {trustItems.map(item => (
+          <div className="grid grid-cols-1 md:grid-cols-2
+ lg:grid-cols-4 gap-5">
+            {page.trustItems.map(item => (
               <div
                 key={item}
                 className="flex items-start gap-3 border border-border/50 bg-card/20 p-4"
@@ -313,24 +787,22 @@ export default function LocalHomeInspection() {
         </div>
       </section>
 
+      {/* SECTION 01 - SERVICES */}
       <section className="border-b border-border py-20 md:py-28">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-14">
             <div className="lg:col-span-4 flex flex-col gap-5">
               <span className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold">
-                01. Local Residential Services
+                {page.servicesEyebrow}
               </span>
               <h2 className="font-serif text-3xl text-white tracking-wider uppercase">
-                Inspection Services for {page.city} Homes
+                {page.servicesHeading}
               </h2>
               <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
-                ProSpec supports buyers, sellers, real estate agents, investors,
-                and homeowners with careful residential inspections and
-                professional reports. The work is visual, non-invasive, and
-                focused on readily accessible systems and components.
+                {page.servicesLede}
               </p>
               <div className="flex flex-wrap gap-3 pt-2">
-                {internalLinks.map(link => (
+                {SHARED_INTERNAL_LINKS.map(link => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -344,7 +816,7 @@ export default function LocalHomeInspection() {
             </div>
 
             <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-              {serviceCards.map(service => (
+              {page.serviceCards.map(service => (
                 <div
                   key={service.title}
                   className="border border-border/80 bg-card/20 p-6 flex flex-col gap-4"
@@ -368,22 +840,19 @@ export default function LocalHomeInspection() {
         </div>
       </section>
 
+      {/* SECTION 02 - WHAT IS INSPECTED */}
       <section className="border-b border-border bg-card/5 py-20 md:py-28">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 items-start">
             <div className="lg:col-span-5 flex flex-col gap-5">
               <span className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold">
-                02. What Is Inspected
+                {page.inspectedEyebrow}
               </span>
               <h2 className="font-serif text-3xl text-white tracking-wider uppercase">
-                Visible Systems, Clear Priorities
+                {page.inspectedHeading}
               </h2>
               <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
-                A home inspection is not a code compliance inspection,
-                structural engineering report, mold clearance, pest
-                certification, or warranty guarantee. It is a professional
-                visual inspection of readily accessible systems so you can make
-                better real estate decisions.
+                {page.inspectedLede}
               </p>
               <Link href="/reviews">
                 <a className="font-mono text-[10px] tracking-widest uppercase text-primary hover:text-white transition-colors inline-flex items-center gap-2 self-start">
@@ -394,7 +863,7 @@ export default function LocalHomeInspection() {
             </div>
 
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {inspectedItems.map(item => (
+              {page.inspectedItems.map(item => (
                 <div
                   key={item}
                   className="flex items-start gap-3 border-b border-border/40 pb-3"
@@ -410,15 +879,16 @@ export default function LocalHomeInspection() {
         </div>
       </section>
 
+      {/* SECTION 03 - LOCAL CONCERNS */}
       <section className="border-b border-border py-20 md:py-28">
         <div className="container">
           <div className="border border-border/80 bg-card/25 p-8 md:p-12 lg:p-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-5 flex flex-col gap-5">
               <span className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold">
-                03. Local Concerns
+                {page.concernsEyebrow}
               </span>
               <h2 className="font-serif text-3xl text-white tracking-wider uppercase">
-                {page.city} Inspection Focus
+                {page.concernsHeading}
               </h2>
               <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
                 {page.localAngle}
@@ -452,6 +922,55 @@ export default function LocalHomeInspection() {
         </div>
       </section>
 
+      {/* SECTION 04 - LOCAL CONTEXT (unique narrative) */}
+      <section className="border-b border-border bg-card/5 py-20 md:py-28">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 items-start">
+            <div className="lg:col-span-7 flex flex-col gap-5">
+              <span className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold">
+                {page.contextEyebrow}
+              </span>
+              <h2 className="font-serif text-3xl text-white tracking-wider uppercase">
+                {page.contextHeading}
+              </h2>
+              {page.contextParagraphs.map((para, i) => (
+                <p
+                  key={i}
+                  className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed"
+                >
+                  {para}
+                </p>
+              ))}
+              <p className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground/70">
+                Serving {page.city} and the surrounding {page.region}.
+              </p>
+            </div>
+
+            <div className="lg:col-span-5 border border-border/80 bg-card/20 p-8 flex flex-col gap-5">
+              <span className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold">
+                {page.city} At A Glance
+              </span>
+              <div className="flex flex-col divide-y divide-border/40">
+                {page.contextHighlights.map(item => (
+                  <div
+                    key={item.label}
+                    className="flex items-start justify-between gap-4 py-3"
+                  >
+                    <span className="font-mono text-[10px] tracking-wider uppercase text-muted-foreground">
+                      {item.label}
+                    </span>
+                    <span className="font-sans text-xs text-white text-right max-w-[60%] leading-relaxed">
+                      {item.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
       <section className="border-b border-border bg-card/5 py-20 md:py-28">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center flex flex-col gap-6 items-center">
@@ -460,12 +979,10 @@ export default function LocalHomeInspection() {
               Schedule Online
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl text-white tracking-wider uppercase">
-              Book a {page.city} Home Inspection
+              {page.ctaHeading}
             </h2>
             <p className="font-sans text-xs md:text-sm text-muted-foreground max-w-xl leading-relaxed">
-              Choose ProSpec for professional residential inspection reporting
-              led by a Certified Master Inspector. Schedule online at /booknow
-              or review service details before booking.
+              {page.ctaLine}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
               <Link href="/booknow">
@@ -486,16 +1003,18 @@ export default function LocalHomeInspection() {
         </div>
       </section>
 
+      {/* FAQ */}
       <section className="border-b border-border py-20 md:py-28">
         <div className="container">
           <FAQ
-            items={buildFaqs(page)}
+            items={page.faqs}
             title={`${page.city} Home Inspection FAQ`}
-            subtitle="Straight answers about pricing, scope, reports, and local residential inspection services."
+            subtitle={`Straight answers about pricing, scope, reports, and residential inspection services in ${page.city}.`}
           />
         </div>
       </section>
 
+      {/* COMPARE FOOTER */}
       <section className="py-16">
         <div className="container">
           <div className="flex flex-col md:flex-row gap-6 items-center justify-between border border-border/80 bg-card/20 p-8">

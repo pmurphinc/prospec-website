@@ -89,6 +89,16 @@ export default function CommercialPCA() {
               provides commercial property condition assessments based on the
               agreed scope of work across Sacramento and Folsom.
             </p>
+            <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xl">
+              A PCA is the broadest of ProSpec's commercial offerings: where a
+              building inspection answers “what condition is this asset in
+              today,” a Property Condition Assessment frames those observations
+              for acquisition, refinancing, and lease decisions, with an
+              ASTM-style framework and capital planning notes available when the
+              scope of work calls for them. It is built for lenders, brokers,
+              and investors who need due diligence they can put in front of a
+              committee.
+            </p>
 
             <div className="flex flex-wrap gap-4 pt-2">
               <a

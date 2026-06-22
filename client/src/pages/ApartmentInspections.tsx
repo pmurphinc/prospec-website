@@ -71,6 +71,16 @@ export default function ApartmentInspections() {
               assets. Designed for portfolio investors, syndicators, and
               property managers across Sacramento and Folsom.
             </p>
+            <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xl mt-4">
+              Sacramento's multi-family market spans aging garden-style
+              complexes, 1970s-era walk-ups, and newer suburban communities,
+              and each carries a different risk profile when it changes hands.
+              Unlike a single-family report, an apartment inspection has to
+              balance building-wide systems — central boilers, shared panels,
+              roofs, and site drainage — against the per-unit deferred
+              maintenance that drives a buyer's renovation budget and capital
+              plan.
+            </p>
           </div>
         </div>
       </section>
