@@ -1,23 +1,24 @@
 import { useEffect } from "react";
 
-/* 
-  DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
-  Dynamic SEO manager component that sets document titles, descriptions, social tags,
-  canonical URLs, and LocalBusiness JSON-LD schema markup without duplicating tags.
+/*
+  SEO Component — Client-Side Meta Tag Manager
+
+  Updates document title, description, canonical, Open Graph, and Twitter Card
+  meta tags during client-side SPA navigation.
+
+  NOTE: JSON-LD structured data is rendered server-side only (server/structuredData.ts).
+  This component does NOT create any JSON-LD to avoid duplication.
 */
 
 interface SEOProps {
   title: string;
   description: string;
   canonicalUrl?: string;
-  isCommercial?: boolean;
-  serviceType?: string;
-  areaServed?: string[];
 }
 
 const DEFAULT_CANONICAL_URL = "https://www.weareprospec.com";
 const DEFAULT_SOCIAL_IMAGE =
-  "https://static.wixstatic.com/media/07e6cd_bf96e5111b0d4e9297ec02ee9dd29f0a~mv2.png";
+  "https://www.weareprospec.com/assets/prospec-og-image.jpg";
 
 function upsertMeta(
   attribute: "name" | "property",
@@ -41,9 +42,6 @@ export default function SEO({
   title,
   description,
   canonicalUrl = DEFAULT_CANONICAL_URL,
-  isCommercial = false,
-  serviceType,
-  areaServed,
 }: SEOProps) {
   useEffect(() => {
     document.title = title;
@@ -68,72 +66,7 @@ export default function SEO({
       document.head.appendChild(canonicalLink);
     }
     canonicalLink.setAttribute("href", canonicalUrl);
-
-    const existingSchema = document.getElementById("prospec-seo-schema");
-    if (existingSchema) {
-      existingSchema.remove();
-    }
-
-    const schemaScript = document.createElement("script");
-    schemaScript.id = "prospec-seo-schema";
-    schemaScript.type = "application/ld+json";
-
-    const localBusinessSchema = {
-      "@context": "https://schema.org",
-      "@type": "HomeAndConstructionBusiness",
-      name: "ProSpec",
-      image: DEFAULT_SOCIAL_IMAGE,
-      url: DEFAULT_CANONICAL_URL,
-      telephone: "+1-916-432-0332",
-      email: "patrick@weareprospec.com",
-      priceRange: "$$$",
-      description,
-      openingHoursSpecification: {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-        ],
-        opens: "08:00",
-        closes: "18:00",
-      },
-      sameAs: [DEFAULT_CANONICAL_URL],
-      areaServed: (areaServed ?? [
-        "Sacramento",
-        "Folsom",
-        "Roseville",
-        "Rocklin",
-        "El Dorado Hills",
-        "Davis",
-        "Elk Grove",
-        "Placerville",
-      ]).map(name => ({ "@type": "AdministrativeArea", name })),
-      ...(serviceType
-        ? {
-            serviceType,
-          }
-        : isCommercial
-          ? {
-              serviceType:
-                "Commercial property inspection and property condition assessment",
-            }
-          : {}),
-    };
-
-    schemaScript.text = JSON.stringify(localBusinessSchema);
-    document.head.appendChild(schemaScript);
-
-    return () => {
-      const schema = document.getElementById("prospec-seo-schema");
-      if (schema) {
-        schema.remove();
-      }
-    };
-  }, [title, description, canonicalUrl, isCommercial, serviceType, areaServed]);
+  }, [title, description, canonicalUrl]);
 
   return null;
 }

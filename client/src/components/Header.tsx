@@ -45,7 +45,7 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-3 group shrink-0 mr-4">
           <div className="flex items-center justify-center transition-opacity group-hover:opacity-90">
             <img
-              src="https://static.wixstatic.com/media/07e6cd_bf96e5111b0d4e9297ec02ee9dd29f0a~mv2.png"
+              src="/assets/prospec-logo.png"
               alt="ProSpec Home Inspections logo"
               className="h-11 sm:h-12 md:h-14 max-h-[56px] w-auto object-contain"
             />
@@ -88,6 +88,8 @@ export default function Header() {
           <a
             href="tel:916-432-0332"
             className="flex items-center gap-2 font-mono text-xs tracking-wider text-muted-foreground hover:text-white transition-colors border border-border/40 px-4 py-2"
+            data-track-event="phone_click"
+            data-track-location="header"
           >
             <Phone className="h-3 w-3 text-primary" />
             (916) 432-0332
@@ -96,6 +98,8 @@ export default function Header() {
             <Button
               variant="default"
               className="text-xs font-mono tracking-wider uppercase bg-primary hover:bg-primary/90 text-primary-foreground font-bold border border-primary px-5 py-2 hover:scale-95 transition-transform"
+              data-track-event="booking_cta_click"
+              data-track-location="header"
             >
               Book Now
             </Button>
@@ -150,6 +154,8 @@ export default function Header() {
             <a
               href="tel:916-432-0332"
               className="flex items-center justify-center gap-3 font-mono text-sm tracking-wider border border-border/60 py-3.5 text-white min-h-[48px] bg-card/20 hover:bg-card/40 transition-colors"
+              data-track-event="phone_click"
+              data-track-location="mobile-menu"
             >
               <Phone className="h-4 w-4 text-primary" />
               (916) 432-0332
@@ -159,7 +165,11 @@ export default function Header() {
               onClick={() => setIsOpen(false)}
               className="w-full"
             >
-              <Button className="w-full py-6 text-sm font-mono tracking-widest uppercase bg-primary hover:bg-primary/90 text-primary-foreground font-bold min-h-[48px]">
+              <Button
+                className="w-full py-6 text-sm font-mono tracking-widest uppercase bg-primary hover:bg-primary/90 text-primary-foreground font-bold min-h-[48px]"
+                data-track-event="booking_cta_click"
+                data-track-location="mobile-menu"
+              >
                 Schedule Inspection
               </Button>
             </Link>

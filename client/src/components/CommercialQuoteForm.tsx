@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { CheckCircle2 } from "lucide-react";
+import { trackEvent } from "@/lib/tracking";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -81,6 +82,7 @@ export default function CommercialQuoteForm() {
 
       setIsSubmitted(true);
       toast.success("Your quote request was received by the website system.");
+      trackEvent({ event: "commercial_quote_submit" });
     } catch (error) {
       const message =
         error instanceof Error
@@ -90,6 +92,7 @@ export default function CommercialQuoteForm() {
         `${message} Please call ProSpec directly at (916) 432-0332 if this continues.`
       );
       toast.error("Quote request could not be submitted.");
+      trackEvent({ event: "commercial_quote_error" });
     } finally {
       setSubmitting(false);
     }

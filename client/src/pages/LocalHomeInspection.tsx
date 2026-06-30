@@ -713,8 +713,6 @@ export default function LocalHomeInspection() {
         title={page.title}
         description={page.description}
         canonicalUrl={canonicalUrl}
-        serviceType={`Home inspection services in ${page.city}, CA`}
-        areaServed={[page.city]}
       />
 
       {/* HERO */}
@@ -750,7 +748,11 @@ export default function LocalHomeInspection() {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <Link href="/booknow">
-                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-12 px-8 font-bold">
+                <Button
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-12 px-8 font-bold"
+                  data-track-event="booking_cta_click"
+                  data-track-location="local-page-hero"
+                >
                   Schedule Your Inspection
                 </Button>
               </Link>
@@ -986,7 +988,11 @@ export default function LocalHomeInspection() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
               <Link href="/booknow">
-                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-12 px-8 font-bold w-full sm:w-auto">
+                <Button
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-12 px-8 font-bold w-full sm:w-auto"
+                  data-track-event="booking_cta_click"
+                  data-track-location="local-page-cta"
+                >
                   Schedule Your Inspection
                 </Button>
               </Link>
@@ -1041,7 +1047,11 @@ export default function LocalHomeInspection() {
                 </Button>
               </Link>
               <Link href="/booknow">
-                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-11 px-6 font-bold w-full sm:w-auto">
+                <Button
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-11 px-6 font-bold w-full sm:w-auto"
+                  data-track-event="booking_cta_click"
+                  data-track-location="local-page-footer-bar"
+                >
                   Book Now
                 </Button>
               </Link>

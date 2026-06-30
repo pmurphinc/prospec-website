@@ -32,7 +32,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-3 group self-start">
               <div className="flex items-center justify-center transition-opacity group-hover:opacity-90">
                 <img
-                  src="https://static.wixstatic.com/media/07e6cd_bf96e5111b0d4e9297ec02ee9dd29f0a~mv2.png"
+                  src="/assets/prospec-logo.png"
                   alt="ProSpec Home Inspections logo"
                   className="h-11 w-auto object-contain"
                 />
@@ -183,6 +183,8 @@ export default function Footer() {
                 <a
                   href="tel:916-432-0332"
                   className="text-muted-foreground hover:text-white transition-colors font-mono"
+                  data-track-event="phone_click"
+                  data-track-location="footer"
                 >
                   (916) 432-0332
                 </a>
@@ -192,6 +194,8 @@ export default function Footer() {
                 <a
                   href="mailto:patrick@weareprospec.com"
                   className="text-muted-foreground hover:text-white transition-colors"
+                  data-track-event="email_click"
+                  data-track-location="footer"
                 >
                   patrick@weareprospec.com
                 </a>

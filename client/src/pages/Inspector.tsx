@@ -42,7 +42,7 @@ export default function Inspector() {
             <div className="lg:col-span-5 relative">
               <div className="border border-border/80 p-3 bg-card/20 relative z-10">
                 <img
-                  src="https://static.wixstatic.com/media/07e6cd_fef029ce152244d8b71f2c893f4a4611~mv2.jpg/v1/fill/w_364,h_339,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/07e6cd_fef029ce152244d8b71f2c893f4a4611~mv2.jpg"
+                  src="/assets/patrick-murphy-headshot.jpg"
                   alt="Patrick Murphy, CMI"
                   className="w-full h-auto grayscale brightness-95 contrast-105"
                 />
