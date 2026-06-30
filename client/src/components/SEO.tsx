@@ -17,7 +17,7 @@ interface SEOProps {
 
 const DEFAULT_CANONICAL_URL = "https://www.weareprospec.com";
 const DEFAULT_SOCIAL_IMAGE =
-  "https://static.wixstatic.com/media/07e6cd_bf96e5111b0d4e9297ec02ee9dd29f0a~mv2.png";
+  "https://www.weareprospec.com/assets/prospec-og-image.jpg";
 
 function upsertMeta(
   attribute: "name" | "property",
