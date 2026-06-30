@@ -248,6 +248,37 @@ function getSchemas(routePath: string): object[] {
         ]),
       ];
 
+    // Service-specific pages
+    case "/new-construction-inspection":
+      return [
+        residentialServices,
+        buildBreadcrumb([
+          { name: "Home", url: BASE_URL },
+          { name: "Services", url: `${BASE_URL}/services` },
+          { name: "New Construction Inspection", url: `${BASE_URL}/new-construction-inspection` },
+        ]),
+      ];
+
+    case "/11-month-warranty-inspection":
+      return [
+        residentialServices,
+        buildBreadcrumb([
+          { name: "Home", url: BASE_URL },
+          { name: "Services", url: `${BASE_URL}/services` },
+          { name: "11-Month Warranty Inspection", url: `${BASE_URL}/11-month-warranty-inspection` },
+        ]),
+      ];
+
+    case "/manufactured-home-inspection":
+      return [
+        residentialServices,
+        buildBreadcrumb([
+          { name: "Home", url: BASE_URL },
+          { name: "Services", url: `${BASE_URL}/services` },
+          { name: "Manufactured Home Inspection", url: `${BASE_URL}/manufactured-home-inspection` },
+        ]),
+      ];
+
     // Commercial pages
     case "/commercial-property-condition-assessments-sacramento":
       return [
