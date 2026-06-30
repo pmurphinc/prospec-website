@@ -53,7 +53,6 @@ export default function ApartmentInspections() {
         title="Apartment Building Inspections Sacramento | ProSpec"
         description="Apartment and multi-family property inspections for buyers, investors, and property owners in Sacramento, Folsom, and surrounding Northern California areas."
         canonicalUrl="https://www.weareprospec.com/apartment-building-inspections-sacramento"
-        isCommercial
       />
       {/* Page Header */}
       <section className="border-b border-border bg-card/10 py-16 md:py-24">

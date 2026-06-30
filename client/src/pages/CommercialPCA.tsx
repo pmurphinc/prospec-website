@@ -59,7 +59,6 @@ export default function CommercialPCA() {
         title="Commercial Property Condition Assessments Sacramento | ProSpec"
         description="Commercial property condition assessments and building inspections for investors, buyers, brokers, and property owners in Sacramento, Folsom, and surrounding areas."
         canonicalUrl="https://www.weareprospec.com/commercial-property-condition-assessments-sacramento"
-        isCommercial
       />
       {/* Editorial Hero Section */}
       <section className="relative min-h-[60vh] flex items-center border-b border-border overflow-hidden">

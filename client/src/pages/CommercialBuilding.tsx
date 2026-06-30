@@ -54,7 +54,6 @@ export default function CommercialBuilding() {
         title="Commercial Building Inspections Sacramento | ProSpec"
         description="Commercial building inspections for office, retail, warehouse, mixed-use, and light commercial properties in Sacramento, Folsom, and surrounding areas."
         canonicalUrl="https://www.weareprospec.com/commercial-building-inspections-sacramento"
-        isCommercial
       />
       {/* Page Header */}
       <section className="border-b border-border bg-card/10 py-16 md:py-24">

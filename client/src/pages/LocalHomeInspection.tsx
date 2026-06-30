@@ -713,8 +713,6 @@ export default function LocalHomeInspection() {
         title={page.title}
         description={page.description}
         canonicalUrl={canonicalUrl}
-        serviceType={`Home inspection services in ${page.city}, CA`}
-        areaServed={[page.city]}
       />
 
       {/* HERO */}

@@ -163,6 +163,65 @@ else
   fail "robots.txt returns $ROBOTS_STATUS"
 fi
 
+# ─── Test 8: Sacramento FAQ schema accuracy ──────────────────────────────────
+echo ""
+echo "8. Sacramento FAQ schema accuracy"
+SAC_PAGE=$(curl -s "$BASE_URL/home-inspection-sacramento")
+if echo "$SAC_PAGE" | grep -q 'Residential home inspections start at \$385'; then
+  pass "FAQ schema contains correct \$385 pricing"
+else
+  fail "FAQ schema missing correct \$385 pricing"
+fi
+if echo "$SAC_PAGE" | grep -q 'starts at \$350 for standard homes'; then
+  fail "FAQ schema contains incorrect old \$350 wording (should not)"
+else
+  pass "FAQ schema does not contain incorrect old \$350 wording"
+fi
+if echo "$SAC_PAGE" | grep -q 'Manufactured home inspections and 11-month warranty inspections start at \$350'; then
+  pass "FAQ schema contains correct manufactured/warranty \$350 wording"
+else
+  fail "FAQ schema missing manufactured/warranty \$350 wording"
+fi
+
+# ─── Test 9: Homepage has exactly one server-rendered LocalBusiness schema ─────
+echo ""
+echo "9. Homepage has exactly one server-rendered LocalBusiness schema"
+HOMEPAGE_SCHEMAS=$(echo "$HOMEPAGE" | grep -o 'HomeAndConstructionBusiness' | wc -l)
+if [ "$HOMEPAGE_SCHEMAS" -eq 1 ]; then
+  pass "Homepage has exactly 1 HomeAndConstructionBusiness schema"
+else
+  fail "Homepage has $HOMEPAGE_SCHEMAS HomeAndConstructionBusiness schemas (expected 1)"
+fi
+
+# ─── Test 10: No duplicate client-side #prospec-seo-schema script ──────────────
+echo ""
+echo "10. No duplicate client-side schema script"
+if echo "$HOMEPAGE" | grep -q 'prospec-seo-schema'; then
+  fail "Homepage contains #prospec-seo-schema (client-side duplicate)"
+else
+  pass "Homepage does not contain #prospec-seo-schema"
+fi
+
+# ─── Test 11: No unsupported schema claims ────────────────────────────────────
+echo ""
+echo "11. No unsupported schema claims"
+if echo "$HOMEPAGE" | grep -q 'premier property inspection firm'; then
+  fail "Homepage schema contains unsupported 'premier' claim"
+else
+  pass "Homepage schema does not contain 'premier' claim"
+fi
+SERVICES_PAGE=$(curl -s "$BASE_URL/services")
+if echo "$SERVICES_PAGE" | grep -q '"@type":"State"'; then
+  fail "Services schema uses State-level areaServed (should be City only)"
+else
+  pass "Services schema uses City-level areaServed only"
+fi
+if echo "$HOMEPAGE" | grep -q 'openingHoursSpecification'; then
+  fail "Homepage schema contains unverified business hours"
+else
+  pass "Homepage schema does not contain business hours"
+fi
+
 # ─── Summary ──────────────────────────────────────────────────────────────────
 echo ""
 echo "─────────────────────────────────────────────────────────────────"

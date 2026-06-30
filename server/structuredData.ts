@@ -17,7 +17,7 @@ const localBusinessSchema = {
   image: `${BASE_URL}/assets/prospec-og-image.jpg`,
   logo: `${BASE_URL}/assets/prospec-logo.png`,
   description:
-    "Sacramento Valley's premier property inspection firm. Led by Patrick Murphy, a Certified Master Inspector (CMI) with approximately 20 years of hands-on construction and inspection expertise.",
+    "Property inspection services in the Sacramento area led by Patrick Murphy, a Certified Master Inspector (CMI).",
   areaServed: [
     { "@type": "City", name: "Sacramento", addressRegion: "CA" },
     { "@type": "City", name: "Folsom", addressRegion: "CA" },
@@ -42,9 +42,19 @@ const residentialServices = {
   "@type": "Service",
   serviceType: "Home Inspection",
   provider: { "@type": "HomeAndConstructionBusiness", name: "ProSpec Home Inspections", url: BASE_URL },
-  areaServed: { "@type": "State", name: "California" },
+  areaServed: [
+    { "@type": "City", name: "Sacramento", addressRegion: "CA" },
+    { "@type": "City", name: "Folsom", addressRegion: "CA" },
+    { "@type": "City", name: "Roseville", addressRegion: "CA" },
+    { "@type": "City", name: "Rocklin", addressRegion: "CA" },
+    { "@type": "City", name: "El Dorado Hills", addressRegion: "CA" },
+    { "@type": "City", name: "Davis", addressRegion: "CA" },
+    { "@type": "City", name: "Elk Grove", addressRegion: "CA" },
+    { "@type": "City", name: "Placerville", addressRegion: "CA" },
+    { "@type": "City", name: "Shingle Springs", addressRegion: "CA" },
+  ],
   description:
-    "Comprehensive residential home inspections including buyer's inspections, pre-listing inspections, new construction inspections, and 11-month warranty inspections.",
+    "Residential home inspections including buyer's inspections, pre-listing inspections, new construction inspections, and 11-month warranty inspections.",
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Residential Inspection Services",
@@ -62,9 +72,15 @@ const commercialServices = {
   "@type": "Service",
   serviceType: "Commercial Property Condition Assessment",
   provider: { "@type": "HomeAndConstructionBusiness", name: "ProSpec Home Inspections", url: BASE_URL },
-  areaServed: { "@type": "State", name: "California" },
+  areaServed: [
+    { "@type": "City", name: "Sacramento", addressRegion: "CA" },
+    { "@type": "City", name: "Folsom", addressRegion: "CA" },
+    { "@type": "City", name: "Roseville", addressRegion: "CA" },
+    { "@type": "City", name: "Rocklin", addressRegion: "CA" },
+    { "@type": "City", name: "El Dorado Hills", addressRegion: "CA" },
+  ],
   description:
-    "Commercial property condition assessments (PCA) for lenders, brokers, and investors. ASTM-style scope available. Covers office, retail, industrial, multi-family, and mixed-use properties.",
+    "Commercial property condition assessments (PCA) for lenders, brokers, and investors. ASTM-style scope available when requested and agreed in writing. Covers office, retail, industrial, multi-family, and mixed-use properties.",
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Commercial Inspection Services",
@@ -77,6 +93,8 @@ const commercialServices = {
 };
 
 // ─── FAQ Schemas (only for pages with visible FAQs) ──────────────────────────
+// These answers MUST match the exact visible text in client/src/pages/LocalHomeInspection.tsx.
+// Do not paraphrase, shorten, or strengthen claims.
 const sacramentoFaq = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -86,7 +104,7 @@ const sacramentoFaq = {
       name: "How much does a home inspection cost in Sacramento?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "ProSpec's residential home inspection pricing starts at $350 for standard homes. Exact pricing depends on square footage, age, and additional services selected.",
+        text: "Residential home inspections start at $385. Manufactured home inspections and 11-month warranty inspections start at $350. Final pricing depends on the size, age, type, and condition of the property and any additional agreed scope.",
       },
     },
     {
@@ -94,7 +112,7 @@ const sacramentoFaq = {
       name: "Do you inspect older homes in Midtown and Land Park?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. ProSpec is experienced with older raised-foundation homes, Craftsman bungalows, and partially remodeled properties common in Midtown, Land Park, and surrounding Sacramento neighborhoods.",
+        text: "Yes. Many of Sacramento's most desirable neighborhoods are full of pre-war homes with raised foundations and updated-over-time systems. ProSpec uses a non-invasive visual process to document the condition of accessible components and flag items that warrant specialist follow-up.",
       },
     },
     {
@@ -102,7 +120,7 @@ const sacramentoFaq = {
       name: "Will you check the HVAC system in a hot-summer climate?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. HVAC age, capacity, and performance are evaluated during every inspection, with particular attention to systems serving Sacramento Valley's hot summers.",
+        text: "Yes. Because Sacramento Valley summers place heavy demand on cooling equipment, the inspection includes operating and observing the accessible heating and cooling systems and noting age, performance, and visible installation concerns.",
       },
     },
     {
@@ -110,7 +128,7 @@ const sacramentoFaq = {
       name: "Do you offer pre-listing inspections for Sacramento sellers?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Pre-listing inspections help sellers identify and address issues before listing, reducing surprises during buyer negotiations.",
+        text: "Yes. In competitive grid-area and suburban markets, a pre-listing inspection helps sellers and agents surface visible concerns before going active, reducing escrow surprises and supporting cleaner negotiations.",
       },
     },
     {
@@ -118,7 +136,7 @@ const sacramentoFaq = {
       name: "How soon will I receive my Sacramento inspection report?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "ProSpec delivers same-day digital reports with photos and clear priorities, typically within hours of completing the inspection.",
+        text: "Reports are typically delivered the same day when site conditions allow. The digital report includes photos, observations, and practical recommendations written for buyers, sellers, and agents.",
       },
     },
   ],
