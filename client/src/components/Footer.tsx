@@ -183,6 +183,8 @@ export default function Footer() {
                 <a
                   href="tel:916-432-0332"
                   className="text-muted-foreground hover:text-white transition-colors font-mono"
+                  data-track-event="phone_click"
+                  data-track-location="footer"
                 >
                   (916) 432-0332
                 </a>
@@ -192,6 +194,8 @@ export default function Footer() {
                 <a
                   href="mailto:patrick@weareprospec.com"
                   className="text-muted-foreground hover:text-white transition-colors"
+                  data-track-event="email_click"
+                  data-track-location="footer"
                 >
                   patrick@weareprospec.com
                 </a>

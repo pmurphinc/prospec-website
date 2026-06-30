@@ -120,7 +120,11 @@ export default function Home() {
 
               <div className="flex flex-col sm:flex-row gap-4 mt-4">
                 <Link href="/booknow">
-                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-12 px-8 font-bold">
+                  <Button
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-12 px-8 font-bold"
+                    data-track-event="booking_cta_click"
+                    data-track-location="homepage-hero"
+                  >
                     Schedule Your Inspection
                   </Button>
                 </Link>
@@ -128,6 +132,8 @@ export default function Home() {
                   <Button
                     variant="outline"
                     className="border-border hover:border-white text-white font-mono text-xs tracking-widest uppercase h-12 px-8"
+                    data-track-event="commercial_quote_cta_click"
+                    data-track-location="homepage-hero"
                   >
                     Request Commercial PCA Quote
                   </Button>

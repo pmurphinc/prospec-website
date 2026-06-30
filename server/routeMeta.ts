@@ -100,7 +100,7 @@ const ROUTE_META: Record<string, RouteMeta> = {
     title: "Page Not Found | ProSpec Home Inspections",
     description:
       "The page you are looking for does not exist. Visit our homepage to schedule a home inspection in Sacramento.",
-    canonical: BASE_URL + "/",
+    canonical: "", // No canonical for 404 pages
   },
 };
 
@@ -121,4 +121,11 @@ export function getRouteMeta(path: string): RouteMeta {
   return (
     ROUTE_META[normalized] || ROUTE_META["/404"]
   );
+}
+
+/**
+ * Normalizes a request path to its canonical form (strips trailing slash).
+ */
+export function getCanonicalPath(path: string): string {
+  return path === "/" ? "/" : path.replace(/\/$/, "");
 }

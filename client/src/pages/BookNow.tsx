@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
+import { trackEvent } from "@/lib/tracking";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -31,6 +32,11 @@ export default function BookNow() {
       setLoading(false);
     }, 1000);
     return () => clearTimeout(timer);
+  }, []);
+
+  // Track scheduler page view as a funnel step
+  useEffect(() => {
+    trackEvent({ event: "scheduler_page_view" });
   }, []);
 
   return (

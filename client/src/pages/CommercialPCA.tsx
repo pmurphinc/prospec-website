@@ -104,6 +104,8 @@ export default function CommercialPCA() {
               <a
                 href="#quote-form"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-12 px-8 font-bold flex items-center justify-center transition-colors"
+                data-track-event="commercial_quote_cta_click"
+                data-track-location="commercial-pca-hero"
               >
                 Request Custom Proposal
               </a>
@@ -203,12 +205,16 @@ export default function CommercialPCA() {
           <a
             href="tel:916-432-0332"
             className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-12 px-8 font-bold flex items-center justify-center transition-colors w-full sm:w-auto"
+            data-track-event="phone_click"
+            data-track-location="commercial-pca-cta"
           >
             Call (916) 432-0332
           </a>
           <a
             href="#quote-form"
             className="border border-border hover:border-white text-white font-mono text-xs tracking-widest uppercase h-12 px-8 flex items-center justify-center transition-colors w-full sm:w-auto"
+            data-track-event="commercial_quote_cta_click"
+            data-track-location="commercial-pca-cta"
           >
             Submit Specifications
           </a>
