@@ -79,13 +79,13 @@ const ROUTE_META: Record<string, RouteMeta> = {
   "/new-construction-inspection": {
     title: "New Construction Home Inspections | ProSpec Sacramento",
     description:
-      "Independent new construction home inspections in Sacramento, Folsom, and El Dorado Hills. Identify builder defects before your final walk-through.",
+      "Independent new construction home inspections in Sacramento, Folsom, and El Dorado Hills. Document observed concerns before your final builder walk-through.",
     canonical: BASE_URL + "/new-construction-inspection",
   },
   "/11-month-warranty-inspection": {
     title: "11-Month Warranty Home Inspections | ProSpec Sacramento",
     description:
-      "11-month builder warranty inspections in Sacramento and Folsom. Document defects and settlement issues before your one-year warranty expires.",
+      "11-month builder warranty inspections in Sacramento and Folsom. Document visible concerns and settlement observations for builder review under the applicable warranty.",
     canonical: BASE_URL + "/11-month-warranty-inspection",
   },
   "/manufactured-home-inspection": {

@@ -17,22 +17,22 @@ export default function WarrantyInspection() {
     {
       question: "What is an 11-month warranty inspection?",
       answer:
-        "It is a visual inspection performed near the end of your builder's standard one-year warranty period. We document visible defects, settlement issues, and performance concerns so you can submit them to the builder before your coverage expires.",
+        "It is a visual inspection performed near the end of your builder warranty period, based on the builder's terms. We document visible concerns, settlement observations, and performance issues so you may submit them to the builder for review.",
     },
     {
-      question: "When exactly should I schedule this?",
+      question: "When should I schedule this?",
       answer:
-        "We recommend scheduling during the 10th or 11th month of ownership. This gives you ample time to receive our report and submit your warranty claim before the 12-month deadline.",
+        "Schedule near the end of your builder warranty period, based on the builder's terms. This gives you time to receive our report and submit a warranty request to the builder for review before your coverage window closes.",
     },
     {
       question: "Does this guarantee the builder will fix everything?",
       answer:
-        "No. We document the observed conditions, but the builder determines what is covered under their specific warranty terms. Our report provides professional, objective documentation to support your claim.",
+        "No. We document the observed conditions, but the builder determines coverage under its own warranty documents. Our report provides professional, objective documentation to support your warranty request.",
     },
     {
       question: "Is this a code compliance inspection?",
       answer:
-        "No. This is a visual, non-invasive assessment of readily accessible systems and components to identify functional defects and safety concerns, not a municipal code check.",
+        "No. This is a visual, non-invasive assessment of readily accessible systems and components to document observed conditions and visible safety concerns, not a municipal code check.",
     },
   ];
 
@@ -49,7 +49,7 @@ export default function WarrantyInspection() {
     <Layout>
       <SEO
         title="11-Month Warranty Home Inspections | ProSpec Sacramento"
-        description="11-month builder warranty inspections in Sacramento and Folsom. Document defects and settlement issues before your one-year warranty expires."
+        description="11-month builder warranty inspections in Sacramento and Folsom. Document visible concerns and settlement observations for builder review under the applicable warranty."
         canonicalUrl="https://www.weareprospec.com/11-month-warranty-inspection"
       />
 
@@ -75,17 +75,16 @@ export default function WarrantyInspection() {
               <span className="text-primary">Inspections</span>
             </h1>
             <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xl">
-              Document visible defects before your builder's warranty expires.
-              ProSpec provides independent, visual assessments of homes in
-              Sacramento, Folsom, and surrounding areas as they approach their
-              one-year anniversary.
+              Schedule near the end of your builder warranty period, based on
+              the builder's terms. ProSpec provides independent, visual
+              assessments of homes in Sacramento, Folsom, and surrounding areas
+              to document visible concerns before your coverage window closes.
             </p>
             <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xl">
-              During the first year, homes settle, materials dry out, and
-              systems experience their first full cycle of seasons. Our
-              inspection identifies readily accessible issues—from cracked
-              stucco to HVAC performance concerns—so you can present a
-              professional report to your builder while you are still covered.
+              During the initial ownership period, homes settle, materials dry
+              out, and systems experience their first full cycle of seasons. The
+              inspection documents visible concerns that you may wish to submit
+              to the builder for review under the applicable warranty terms.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link href="/booknow">
@@ -135,7 +134,7 @@ export default function WarrantyInspection() {
                 This is not a guarantee that the builder will repair every item,
                 nor is it an engineering analysis. It is a practical evaluation
                 of the home's condition designed to provide you with objective
-                documentation for your warranty claim.
+                documentation for a builder review under the applicable warranty.
               </p>
             </div>
 
@@ -212,9 +211,8 @@ export default function WarrantyInspection() {
                 Same-Day Reports
               </h3>
               <p className="font-sans text-xs text-muted-foreground leading-relaxed">
-                We understand warranty deadlines are strict. Our reports are
-                typically delivered the same day so you can submit your claim
-                promptly.
+                Our reports are typically delivered the same day so you can
+                submit your warranty request to the builder promptly.
               </p>
             </div>
           </div>

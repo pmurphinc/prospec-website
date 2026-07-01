@@ -92,6 +92,24 @@ const commercialServices = {
   },
 };
 
+const manufacturedHomeInspectionService = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Manufactured Home Inspection",
+  provider: { "@type": "HomeAndConstructionBusiness", name: "ProSpec Home Inspections", url: BASE_URL },
+  areaServed: [
+    { "@type": "City", name: "Sacramento", addressRegion: "CA" },
+    { "@type": "City", name: "Folsom", addressRegion: "CA" },
+    { "@type": "City", name: "Roseville", addressRegion: "CA" },
+    { "@type": "City", name: "Rocklin", addressRegion: "CA" },
+    { "@type": "City", name: "El Dorado Hills", addressRegion: "CA" },
+    { "@type": "City", name: "Placerville", addressRegion: "CA" },
+    { "@type": "City", name: "Shingle Springs", addressRegion: "CA" },
+  ],
+  description:
+    "Visual, non-invasive inspection of manufactured and mobile homes covering readily accessible components. Observations include visible support components, exterior, roof, interior, plumbing, electrical, HVAC, and site drainage as applicable to the agreed scope of work.",
+};
+
 // ─── FAQ Schemas (only for pages with visible FAQs) ──────────────────────────
 // These answers MUST match the exact visible text in client/src/pages/LocalHomeInspection.tsx.
 // Do not paraphrase, shorten, or strengthen claims.
@@ -271,7 +289,7 @@ function getSchemas(routePath: string): object[] {
 
     case "/manufactured-home-inspection":
       return [
-        residentialServices,
+        manufacturedHomeInspectionService,
         buildBreadcrumb([
           { name: "Home", url: BASE_URL },
           { name: "Services", url: `${BASE_URL}/services` },

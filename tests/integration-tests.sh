@@ -222,6 +222,26 @@ else
   pass "Homepage schema does not contain business hours"
 fi
 
+# ─── Test 12: Manufactured-home route uses dedicated schema ──────────────────
+echo ""
+echo "12. Manufactured-home route uses dedicated schema"
+MFG_PAGE=$(curl -s "$BASE_URL/manufactured-home-inspection")
+if echo "$MFG_PAGE" | grep -q 'Manufactured Home Inspection'; then
+  pass "Manufactured-home page has manufactured-home-specific Service schema"
+else
+  fail "Manufactured-home page missing manufactured-home-specific schema"
+fi
+if echo "$MFG_PAGE" | grep -q '"serviceType":"Home Inspection"'; then
+  fail "Manufactured-home page uses generic residential schema (should not)"
+else
+  pass "Manufactured-home page does not use generic residential schema"
+fi
+if echo "$MFG_PAGE" | grep -q 'non-invasive inspection of manufactured'; then
+  pass "Manufactured-home schema description matches dedicated wording"
+else
+  fail "Manufactured-home schema description does not match dedicated wording"
+fi
+
 # ─── Summary ──────────────────────────────────────────────────────────────────
 echo ""
 echo "─────────────────────────────────────────────────────────────────"

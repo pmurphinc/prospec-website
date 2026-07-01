@@ -17,22 +17,22 @@ export default function NewConstructionInspection() {
     {
       question: "Do I really need an inspection on a brand-new home?",
       answer:
-        "Yes. Even the best builders use multiple subcontractors, and municipal code inspectors only check for minimum life-safety compliance, not quality of workmanship. An independent visual inspection helps identify missing insulation, improper roof flashing, disconnected HVAC ducts, and framing defects before you close escrow.",
+        "Yes. New homes involve many subcontractors and complex systems. Municipal inspections and builder walk-throughs serve different purposes and do not replace an independent home inspection. An independent visual inspection before closing can document observed installation, finish, and system concerns to discuss with the builder.",
     },
     {
       question: "When should I schedule a new construction inspection?",
       answer:
-        "Ideally, the inspection should take place a few days before your final builder walk-through. This gives you time to present the report to the builder so they can address any defects before you take possession of the home.",
+        "Ideally, the inspection should take place a few days before your final builder walk-through. This gives you time to present the report to the builder and raise any documented concerns before closing.",
     },
     {
       question: "Will this inspection guarantee my home is built to code?",
       answer:
-        "No. A home inspection is an independent visual assessment of the home's condition at the time of inspection, not a municipal code compliance check or an engineering certification. We focus on identifying functional defects and safety concerns.",
+        "No. A home inspection is an independent visual assessment of the home's condition at the time of inspection, not a municipal code compliance check or an engineering certification. We focus on documenting observed conditions and visible safety concerns.",
     },
     {
-      question: "What happens if you find defects?",
+      question: "What happens if you find concerns?",
       answer:
-        "You will receive a detailed digital report with photos and clear descriptions of the observed conditions. You can use this report as a punch list to request repairs from the builder prior to closing.",
+        "You will receive a detailed digital report with photos and clear descriptions of the observed conditions. The report can help you raise documented concerns with the builder before closing.",
     },
   ];
 
@@ -49,7 +49,7 @@ export default function NewConstructionInspection() {
     <Layout>
       <SEO
         title="New Construction Home Inspections | ProSpec Sacramento"
-        description="Independent new construction home inspections in Sacramento, Folsom, and El Dorado Hills. Identify builder defects before your final walk-through."
+        description="Independent new construction home inspections in Sacramento, Folsom, and El Dorado Hills. Document observed concerns before your final builder walk-through."
         canonicalUrl="https://www.weareprospec.com/new-construction-inspection"
       />
 
@@ -75,17 +75,16 @@ export default function NewConstructionInspection() {
               <span className="text-primary">Home Inspections</span>
             </h1>
             <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xl">
-              Protect your investment before you close. ProSpec provides
-              independent, visual inspections of newly built homes in Sacramento,
-              Folsom, and El Dorado County to identify construction defects and
-              oversights before your final builder walk-through.
+              An independent visual inspection before closing can document
+              observed installation, finish, and system concerns to discuss with
+              the builder. ProSpec provides non-invasive inspections of newly
+              built homes in Sacramento, Folsom, and El Dorado County.
             </p>
             <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xl">
-              A municipal code inspector ensures minimum life-safety compliance,
-              but they do not verify the quality of workmanship. Our inspection
-              provides you with a detailed punch list of observed conditions,
-              giving you the leverage to have the builder correct issues before
-              you take the keys.
+              Municipal inspections and builder walk-throughs serve different
+              purposes and do not replace an independent home inspection. Our
+              report documents observed conditions with photos, giving you clear
+              information to raise with the builder before you take the keys.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link href="/booknow">
@@ -133,7 +132,7 @@ export default function NewConstructionInspection() {
               <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
                 This is not an engineering analysis or a guarantee of future
                 performance, but a practical evaluation of the home's condition
-                at the time of inspection. When significant defects are observed,
+                at the time of inspection. When significant concerns are observed,
                 we recommend evaluation by qualified specialists.
               </p>
             </div>
@@ -194,12 +193,12 @@ export default function NewConstructionInspection() {
                 <AlertTriangle className="h-5 w-5 text-primary" />
               </div>
               <h3 className="font-serif text-xl text-white tracking-wide uppercase">
-                Catch Hidden Defects
+                Document Observed Concerns
               </h3>
               <p className="font-sans text-xs text-muted-foreground leading-relaxed">
-                We regularly find disconnected ductwork, missing attic
-                insulation, and improper roof flashing that buyers and municipal
-                inspectors miss.
+                Common observations on new homes include ductwork connections,
+                attic insulation coverage, and roof flashing installation. We
+                document what is visible and accessible at the time of inspection.
               </p>
             </div>
 
@@ -208,12 +207,12 @@ export default function NewConstructionInspection() {
                 <FileText className="h-5 w-5 text-primary" />
               </div>
               <h3 className="font-serif text-xl text-white tracking-wide uppercase">
-                The Ultimate Punch List
+                Clear Documentation
               </h3>
               <p className="font-sans text-xs text-muted-foreground leading-relaxed">
-                You receive a same-day digital report with photos. It serves as
-                the perfect, professional punch list to hand directly to your
-                builder's superintendent.
+                You receive a same-day digital report with photos. The report
+                can help you raise documented concerns with the builder before
+                closing.
               </p>
             </div>
           </div>

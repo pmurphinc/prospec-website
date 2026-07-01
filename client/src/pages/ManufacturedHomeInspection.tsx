@@ -32,7 +32,7 @@ export default function ManufacturedHomeInspection() {
     {
       question: "Is pricing different for manufactured homes?",
       answer:
-        "Yes, manufactured home inspections typically start at a different base rate than traditional site-built homes. Final pricing depends on the size, age, and any additional agreed scope.",
+        "Manufactured home inspections start at $350. Final pricing depends on the size, age, and any additional agreed scope.",
     },
   ];
 
@@ -133,8 +133,8 @@ export default function ManufacturedHomeInspection() {
               <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
                 This inspection is not an engineering certification, a HUD
                 compliance check, or a guarantee of future performance. When
-                significant defects or safety concerns are observed, we recommend
-                evaluation by qualified specialists.
+                significant concerns are observed, we recommend evaluation by
+                qualified specialists.
               </p>
             </div>
 
@@ -197,9 +197,9 @@ export default function ManufacturedHomeInspection() {
                 Identify Safety Concerns
               </h3>
               <p className="font-sans text-xs text-muted-foreground leading-relaxed">
-                We prioritize identifying functional defects and immediate safety
-                hazards, such as improper electrical wiring or significant
-                plumbing leaks.
+                We prioritize documenting visible safety concerns, such as
+                improper electrical wiring or significant plumbing leaks
+                observed at the time of inspection.
               </p>
             </div>
 
