@@ -56,6 +56,7 @@ export default function Services() {
         "Ensures compliance with basic safety standards",
         "Creates a punch list for the builder to resolve",
       ],
+      href: "/new-construction-inspection",
     },
     {
       title: "Manufactured Home Inspections",
@@ -68,6 +69,7 @@ export default function Services() {
         "Plumbing, electrical, and HVAC observations",
         "Site drainage and visible utility connections",
       ],
+      href: "/manufactured-home-inspection",
     },
     {
       title: "11-Month Warranty Inspections",
@@ -80,6 +82,7 @@ export default function Services() {
         "Document issues for builder warranty claims",
         "Zero out-of-pocket repair costs for covered items",
       ],
+      href: "/11-month-warranty-inspection",
     },
   ];
 
@@ -218,11 +221,20 @@ export default function Services() {
                   </div>
                 </div>
 
-                <Link href="/booknow">
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase py-3 font-bold">
-                    Schedule This Inspection
-                  </Button>
-                </Link>
+                <div className="flex flex-col gap-3">
+                  <Link href="/booknow">
+                    <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase py-3 font-bold">
+                      Schedule This Inspection
+                    </Button>
+                  </Link>
+                  {(service as { href?: string }).href && (
+                    <Link href={(service as { href?: string }).href!}>
+                      <Button variant="outline" className="w-full border-border hover:bg-card/50 font-mono text-xs tracking-widest uppercase py-3 text-white">
+                        View Service Details <ArrowRight className="ml-2 h-3 w-3" />
+                      </Button>
+                    </Link>
+                  )}
+                </div>
               </div>
             ))}
           </div>

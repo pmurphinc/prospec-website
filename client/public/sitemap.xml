@@ -64,6 +64,26 @@
     <priority>0.85</priority>
   </url>
 
+  <!-- Service-Specific Pages -->
+  <url>
+    <loc>https://www.weareprospec.com/new-construction-inspection</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.weareprospec.com/11-month-warranty-inspection</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.weareprospec.com/manufactured-home-inspection</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <!-- Commercial Landing Pages -->
   <url>
     <loc>https://www.weareprospec.com/commercial-property-condition-assessments-sacramento</loc>

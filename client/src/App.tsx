@@ -15,6 +15,9 @@ import CommercialPCA from "./pages/CommercialPCA";
 import CommercialBuilding from "./pages/CommercialBuilding";
 import ApartmentInspections from "./pages/ApartmentInspections";
 import LocalHomeInspection from "./pages/LocalHomeInspection";
+import NewConstructionInspection from "./pages/NewConstructionInspection";
+import WarrantyInspection from "./pages/WarrantyInspection";
+import ManufacturedHomeInspection from "./pages/ManufacturedHomeInspection";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -49,6 +52,11 @@ function Router() {
         component={LocalHomeInspection}
       />
       
+      {/* Service-Specific Pages */}
+      <Route path="/new-construction-inspection" component={NewConstructionInspection} />
+      <Route path="/11-month-warranty-inspection" component={WarrantyInspection} />
+      <Route path="/manufactured-home-inspection" component={ManufacturedHomeInspection} />
+
       {/* Commercial Landing Pages - Exact URLs matching user requirements */}
       <Route 
         path="/commercial-property-condition-assessments-sacramento" 

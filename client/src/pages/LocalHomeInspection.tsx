@@ -30,6 +30,7 @@ type ServiceCard = {
   title: string;
   price: string;
   text: string;
+  href?: string;
 };
 
 type Faq = {
@@ -122,16 +123,19 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
         title: "New Construction Inspections",
         price: "Residential inspections start at $385.",
         text: "For new builds in Natomas, North Sacramento, and surrounding subdivisions, a third-party walkthrough before closing documents installation concerns and items to raise with the builder.",
+        href: "/new-construction-inspection",
       },
       {
         title: "11-Month Warranty Inspections",
         price: "11-month warranty inspections start at $350.",
         text: "A review near the end of the first ownership year so settling, finish, and mechanical concerns can be documented before the builder warranty window closes.",
+        href: "/11-month-warranty-inspection",
       },
       {
         title: "Manufactured Home Inspections",
         price: "Manufactured home inspections start at $350.",
         text: "Inspection of accessible manufactured home components, including visible support, exterior, roof, interior, plumbing, electrical, HVAC, and site drainage observations based on the agreed scope.",
+        href: "/manufactured-home-inspection",
       },
     ],
     inspectedEyebrow: "02. What Is Inspected",
@@ -246,16 +250,19 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
         title: "New Construction Inspections",
         price: "Residential inspections start at $385.",
         text: "Folsom's active new-build communities make a third-party inspection valuable before closing, capturing installation and finish concerns to discuss with the builder.",
+        href: "/new-construction-inspection",
       },
       {
         title: "11-Month Warranty Inspections",
         price: "11-month warranty inspections start at $350.",
         text: "Especially relevant for newer Folsom homes, this review near the end of the first year documents settling and finish issues before the builder warranty window closes.",
+        href: "/11-month-warranty-inspection",
       },
       {
         title: "Manufactured Home Inspections",
         price: "Manufactured home inspections start at $350.",
         text: "Inspection of accessible manufactured home components, including visible support, exterior, roof, interior, plumbing, electrical, HVAC, and site drainage observations based on the agreed scope.",
+        href: "/manufactured-home-inspection",
       },
     ],
     inspectedEyebrow: "02. What Is Inspected",
@@ -369,16 +376,19 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
         title: "New Construction Inspections",
         price: "Residential inspections start at $385.",
         text: "On newer custom and semi-custom El Dorado Hills homes, a third-party inspection documents installation and finish concerns to raise with the builder before closing.",
+        href: "/new-construction-inspection",
       },
       {
         title: "11-Month Warranty Inspections",
         price: "11-month warranty inspections start at $350.",
         text: "A first-year review for newer El Dorado Hills homes, documenting settling, finish, and mechanical concerns before the builder warranty window closes.",
+        href: "/11-month-warranty-inspection",
       },
       {
         title: "Manufactured Home Inspections",
         price: "Manufactured home inspections start at $350.",
         text: "Inspection of accessible manufactured home components, including visible support, exterior, roof, interior, plumbing, electrical, HVAC, and site drainage observations based on the agreed scope.",
+        href: "/manufactured-home-inspection",
       },
     ],
     inspectedEyebrow: "02. What Is Inspected",
@@ -492,16 +502,19 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
         title: "New Construction Inspections",
         price: "Residential inspections start at $385.",
         text: "On newer rural builds around Placerville, a third-party inspection documents installation concerns and items to raise with the builder before closing.",
+        href: "/new-construction-inspection",
       },
       {
         title: "11-Month Warranty Inspections",
         price: "11-month warranty inspections start at $350.",
         text: "A first-year review for newer Placerville-area homes, documenting settling and finish concerns before the builder warranty window closes.",
+        href: "/11-month-warranty-inspection",
       },
       {
         title: "Manufactured Home Inspections",
         price: "Manufactured home inspections start at $350.",
         text: "Common on foothill acreage, this inspection covers accessible manufactured home components — visible support, exterior, roof, interior, plumbing, electrical, HVAC, and site drainage — based on the agreed scope.",
+        href: "/manufactured-home-inspection",
       },
     ],
     inspectedEyebrow: "02. What Is Inspected",
@@ -615,16 +628,19 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
         title: "New Construction Inspections",
         price: "Residential inspections start at $385.",
         text: "On newer Shingle Springs builds, a third-party inspection documents installation and finish concerns to raise with the builder before closing.",
+        href: "/new-construction-inspection",
       },
       {
         title: "11-Month Warranty Inspections",
         price: "11-month warranty inspections start at $350.",
         text: "A first-year review for newer Shingle Springs homes, documenting settling and finish concerns before the builder warranty window closes.",
+        href: "/11-month-warranty-inspection",
       },
       {
         title: "Manufactured Home Inspections",
         price: "Manufactured home inspections start at $350.",
         text: "Very common on Shingle Springs acreage, this inspection covers accessible manufactured home components — visible support, exterior, roof, interior, plumbing, electrical, HVAC, and site drainage — based on the agreed scope.",
+        href: "/manufactured-home-inspection",
       },
     ],
     inspectedEyebrow: "02. What Is Inspected",
@@ -835,6 +851,14 @@ export default function LocalHomeInspection() {
                   <p className="font-sans text-xs text-muted-foreground leading-relaxed">
                     {service.text}
                   </p>
+                  {service.href && (
+                    <Link
+                      href={service.href}
+                      className="font-mono text-[10px] tracking-widest uppercase text-primary hover:text-white transition-colors inline-flex items-center gap-1 mt-auto pt-2"
+                    >
+                      Learn More <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  )}
                 </div>
               ))}
             </div>

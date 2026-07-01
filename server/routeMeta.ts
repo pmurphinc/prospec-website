@@ -75,6 +75,25 @@ const ROUTE_META: Record<string, RouteMeta> = {
       "Certified Master Inspector serving Shingle Springs. Thorough buyer, pre-listing, and new construction home inspections with same-day digital reports.",
     canonical: BASE_URL + "/home-inspection-shingle-springs",
   },
+  // ─── Service-Specific Pages ──────────────────────────────────────────────
+  "/new-construction-inspection": {
+    title: "New Construction Home Inspections | ProSpec Sacramento",
+    description:
+      "Independent new construction home inspections in Sacramento, Folsom, and El Dorado Hills. Document observed concerns before your final builder walk-through.",
+    canonical: BASE_URL + "/new-construction-inspection",
+  },
+  "/11-month-warranty-inspection": {
+    title: "11-Month Warranty Home Inspections | ProSpec Sacramento",
+    description:
+      "11-month builder warranty inspections in Sacramento and Folsom. Document visible concerns and settlement observations for builder review under the applicable warranty.",
+    canonical: BASE_URL + "/11-month-warranty-inspection",
+  },
+  "/manufactured-home-inspection": {
+    title: "Manufactured & Mobile Home Inspections | ProSpec Sacramento",
+    description:
+      "Professional manufactured and mobile home inspections in Sacramento, Folsom, and El Dorado County. Clear, objective reporting by a Certified Master Inspector.",
+    canonical: BASE_URL + "/manufactured-home-inspection",
+  },
   // ─── Commercial Landing Pages ────────────────────────────────────────────
   "/commercial-property-condition-assessments-sacramento": {
     title: "Commercial Property Condition Assessments Sacramento | ProSpec",
