@@ -41,7 +41,11 @@ const residentialServices = {
   "@context": "https://schema.org",
   "@type": "Service",
   serviceType: "Home Inspection",
-  provider: { "@type": "HomeAndConstructionBusiness", name: "ProSpec Home Inspections", url: BASE_URL },
+  provider: {
+    "@type": "HomeAndConstructionBusiness",
+    name: "ProSpec Home Inspections",
+    url: BASE_URL,
+  },
   areaServed: [
     { "@type": "City", name: "Sacramento", addressRegion: "CA" },
     { "@type": "City", name: "Folsom", addressRegion: "CA" },
@@ -59,10 +63,28 @@ const residentialServices = {
     "@type": "OfferCatalog",
     name: "Residential Inspection Services",
     itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Buyer's Home Inspection" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Pre-Listing Inspection" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "New Construction Inspection" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "11-Month Warranty Inspection" } },
+      {
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: "Buyer's Home Inspection" },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: "Pre-Listing Inspection" },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "New Construction Inspection",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "11-Month Warranty Inspection",
+        },
+      },
     ],
   },
 };
@@ -71,7 +93,11 @@ const commercialServices = {
   "@context": "https://schema.org",
   "@type": "Service",
   serviceType: "Commercial Property Condition Assessment",
-  provider: { "@type": "HomeAndConstructionBusiness", name: "ProSpec Home Inspections", url: BASE_URL },
+  provider: {
+    "@type": "HomeAndConstructionBusiness",
+    name: "ProSpec Home Inspections",
+    url: BASE_URL,
+  },
   areaServed: [
     { "@type": "City", name: "Sacramento", addressRegion: "CA" },
     { "@type": "City", name: "Folsom", addressRegion: "CA" },
@@ -85,9 +111,27 @@ const commercialServices = {
     "@type": "OfferCatalog",
     name: "Commercial Inspection Services",
     itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Property Condition Assessment (PCA)" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Commercial Building Inspection" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Apartment & Multi-Family Inspection" } },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Property Condition Assessment (PCA)",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Commercial Building Inspection",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Apartment & Multi-Family Inspection",
+        },
+      },
     ],
   },
 };
@@ -96,7 +140,11 @@ const manufacturedHomeInspectionService = {
   "@context": "https://schema.org",
   "@type": "Service",
   serviceType: "Manufactured Home Inspection",
-  provider: { "@type": "HomeAndConstructionBusiness", name: "ProSpec Home Inspections", url: BASE_URL },
+  provider: {
+    "@type": "HomeAndConstructionBusiness",
+    name: "ProSpec Home Inspections",
+    url: BASE_URL,
+  },
   areaServed: [
     { "@type": "City", name: "Sacramento", addressRegion: "CA" },
     { "@type": "City", name: "Folsom", addressRegion: "CA" },
@@ -155,6 +203,69 @@ const sacramentoFaq = {
       acceptedAnswer: {
         "@type": "Answer",
         text: "Reports are typically delivered the same day when site conditions allow. The digital report includes photos, observations, and practical recommendations written for buyers, sellers, and agents.",
+      },
+    },
+  ],
+};
+
+const placervilleFaq = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How long does a Placerville home inspection take?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Most residential inspections take roughly two to four hours on site. Placerville-area properties often run toward the longer end of that range because sloped lots, elevated decks, detached crawlspace access, and longer walks around the structure all add time. Age, size, and condition affect the total, and you are welcome to attend.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Do you inspect crawlspaces and elevated decks?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Crawlspaces are entered and inspected where the opening is accessible and conditions are safe, documenting visible foundation components, framing, and moisture clues. Elevated decks, stairs, and guardrails are inspected for visible, accessible condition, including post bases and pier contact where they can be seen. Where an area cannot be safely accessed, the report states that it was not inspected and explains why.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can you inspect rural homes with wells or septic systems?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, ProSpec inspects rural and semi-rural Placerville-area homes. The standard inspection is a visual review of the home and its readily accessible systems. It does not include septic tank pumping or opening, water-quality laboratory testing, or well yield testing, and those are not part of the scope. Visible, accessible components such as the water heater, visible supply piping, and any visible pressure or treatment equipment are observed and documented, and specialist follow-up is recommended where appropriate. Detached structures and outbuildings are included only when specifically added to the inspection agreement.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Will you walk the roof?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Where it is safe and practical, yes. Roof access depends on weather, roof pitch and covering, the condition of the roof surface, height, and whether it can be reached safely with a ladder. When walking the roof is not appropriate, it is inspected using the best available alternative — from a ladder at the eave, from the ground, or with aerial photography. The report identifies which method was used and notes any areas that could not be evaluated.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How much does a home inspection cost in Placerville?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Residential home inspections start at $385. Manufactured home inspections and 11-month warranty inspections start at $350. Final pricing depends on the size, age, type, and setting of the property and any additional agreed scope.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Do you inspect older and historic Placerville homes?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Placerville has a deep stock of older and historic homes. ProSpec uses a non-invasive visual process to document accessible components, distinguish original construction from later repairs, and recommend specialist follow-up where appropriate.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How soon will I receive my Placerville inspection report?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Reports are typically delivered the same day when site conditions allow, with photos, observations, and practical recommendations for buyers, sellers, and agents.",
       },
     },
   ],
@@ -242,17 +353,24 @@ function getSchemas(routePath: string): object[] {
         buildBreadcrumb([
           { name: "Home", url: BASE_URL },
           { name: "Services", url: `${BASE_URL}/services` },
-          { name: "El Dorado Hills", url: `${BASE_URL}/home-inspection-el-dorado-hills` },
+          {
+            name: "El Dorado Hills",
+            url: `${BASE_URL}/home-inspection-el-dorado-hills`,
+          },
         ]),
       ];
 
     case "/home-inspection-placerville":
       return [
+        placervilleFaq,
         residentialServices,
         buildBreadcrumb([
           { name: "Home", url: BASE_URL },
           { name: "Services", url: `${BASE_URL}/services` },
-          { name: "Placerville", url: `${BASE_URL}/home-inspection-placerville` },
+          {
+            name: "Placerville",
+            url: `${BASE_URL}/home-inspection-placerville`,
+          },
         ]),
       ];
 
@@ -262,7 +380,10 @@ function getSchemas(routePath: string): object[] {
         buildBreadcrumb([
           { name: "Home", url: BASE_URL },
           { name: "Services", url: `${BASE_URL}/services` },
-          { name: "Shingle Springs", url: `${BASE_URL}/home-inspection-shingle-springs` },
+          {
+            name: "Shingle Springs",
+            url: `${BASE_URL}/home-inspection-shingle-springs`,
+          },
         ]),
       ];
 
@@ -273,7 +394,10 @@ function getSchemas(routePath: string): object[] {
         buildBreadcrumb([
           { name: "Home", url: BASE_URL },
           { name: "Services", url: `${BASE_URL}/services` },
-          { name: "New Construction Inspection", url: `${BASE_URL}/new-construction-inspection` },
+          {
+            name: "New Construction Inspection",
+            url: `${BASE_URL}/new-construction-inspection`,
+          },
         ]),
       ];
 
@@ -283,7 +407,10 @@ function getSchemas(routePath: string): object[] {
         buildBreadcrumb([
           { name: "Home", url: BASE_URL },
           { name: "Services", url: `${BASE_URL}/services` },
-          { name: "11-Month Warranty Inspection", url: `${BASE_URL}/11-month-warranty-inspection` },
+          {
+            name: "11-Month Warranty Inspection",
+            url: `${BASE_URL}/11-month-warranty-inspection`,
+          },
         ]),
       ];
 
@@ -293,7 +420,10 @@ function getSchemas(routePath: string): object[] {
         buildBreadcrumb([
           { name: "Home", url: BASE_URL },
           { name: "Services", url: `${BASE_URL}/services` },
-          { name: "Manufactured Home Inspection", url: `${BASE_URL}/manufactured-home-inspection` },
+          {
+            name: "Manufactured Home Inspection",
+            url: `${BASE_URL}/manufactured-home-inspection`,
+          },
         ]),
       ];
 
@@ -303,7 +433,10 @@ function getSchemas(routePath: string): object[] {
         commercialServices,
         buildBreadcrumb([
           { name: "Home", url: BASE_URL },
-          { name: "Commercial PCA", url: `${BASE_URL}/commercial-property-condition-assessments-sacramento` },
+          {
+            name: "Commercial PCA",
+            url: `${BASE_URL}/commercial-property-condition-assessments-sacramento`,
+          },
         ]),
       ];
 
@@ -312,7 +445,10 @@ function getSchemas(routePath: string): object[] {
         commercialServices,
         buildBreadcrumb([
           { name: "Home", url: BASE_URL },
-          { name: "Commercial Building Inspections", url: `${BASE_URL}/commercial-building-inspections-sacramento` },
+          {
+            name: "Commercial Building Inspections",
+            url: `${BASE_URL}/commercial-building-inspections-sacramento`,
+          },
         ]),
       ];
 
@@ -321,7 +457,10 @@ function getSchemas(routePath: string): object[] {
         commercialServices,
         buildBreadcrumb([
           { name: "Home", url: BASE_URL },
-          { name: "Apartment Inspections", url: `${BASE_URL}/apartment-building-inspections-sacramento` },
+          {
+            name: "Apartment Inspections",
+            url: `${BASE_URL}/apartment-building-inspections-sacramento`,
+          },
         ]),
       ];
 
@@ -339,7 +478,7 @@ export function getJsonLd(routePath: string): string {
 
   return schemas
     .map(
-      (schema) =>
+      schema =>
         `<script type="application/ld+json">${JSON.stringify(schema)}</script>`
     )
     .join("\n    ");

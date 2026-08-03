@@ -64,9 +64,9 @@ const ROUTE_META: Record<string, RouteMeta> = {
     canonical: BASE_URL + "/home-inspection-el-dorado-hills",
   },
   "/home-inspection-placerville": {
-    title: "Home Inspection Placerville CA | ProSpec Home Inspections",
+    title: "Home Inspector Placerville, CA | ProSpec Home Inspections",
     description:
-      "Professional home inspections in Placerville, CA. Buyer, pre-listing, and new construction inspections by a Certified Master Inspector with same-day reports.",
+      "Certified Master Inspector serving Placerville and El Dorado County. Thorough home inspections, same-day digital reports, and 5,000+ inspections completed.",
     canonical: BASE_URL + "/home-inspection-placerville",
   },
   "/home-inspection-shingle-springs": {
@@ -137,9 +137,7 @@ export function isKnownRoute(path: string): boolean {
 
 export function getRouteMeta(path: string): RouteMeta {
   const normalized = path === "/" ? "/" : path.replace(/\/$/, "");
-  return (
-    ROUTE_META[normalized] || ROUTE_META["/404"]
-  );
+  return ROUTE_META[normalized] || ROUTE_META["/404"];
 }
 
 /**

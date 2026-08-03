@@ -229,8 +229,12 @@ export default function Services() {
                   </Link>
                   {(service as { href?: string }).href && (
                     <Link href={(service as { href?: string }).href!}>
-                      <Button variant="outline" className="w-full border-border hover:bg-card/50 font-mono text-xs tracking-widest uppercase py-3 text-white">
-                        View Service Details <ArrowRight className="ml-2 h-3 w-3" />
+                      <Button
+                        variant="outline"
+                        className="w-full border-border hover:bg-card/50 font-mono text-xs tracking-widest uppercase py-3 text-white"
+                      >
+                        View Service Details{" "}
+                        <ArrowRight className="ml-2 h-3 w-3" />
                       </Button>
                     </Link>
                   )}
@@ -323,6 +327,18 @@ export default function Services() {
                 all major structural, mechanical, and safety components of the
                 property. Our findings are documented in an easy-to-read, modern
                 digital report complete with photos.
+              </p>
+              <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
+                Foothill properties bring their own conditions — sloped lots,
+                elevated decks, crawlspaces, and roof access that has to be
+                judged on the day. See how that plays out on{" "}
+                <Link
+                  href="/home-inspection-placerville"
+                  className="text-primary hover:text-white transition-colors underline underline-offset-4"
+                >
+                  home inspections in Placerville
+                </Link>
+                .
               </p>
               <div className="mt-2">
                 <a

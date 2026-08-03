@@ -38,6 +38,26 @@ type Faq = {
   answer: string;
 };
 
+/*
+  Local field photography (optional, per city).
+
+  These are ProSpec's own inspection photographs. Only cities that have a
+  reviewed, privacy-cleared photo set define them; every other city renders
+  exactly as before. Source files carry no EXIF, GPS, or client-identifying
+  metadata, and filenames are deliberately generic.
+
+  Width/height are the intrinsic pixel dimensions of the optimized asset and
+  must stay in sync with the files in /assets/placerville so the browser can
+  reserve space and avoid layout shift.
+*/
+type LocalPhoto = {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+};
+
 type LocalPage = {
   slug: string;
   city: string;
@@ -46,7 +66,17 @@ type LocalPage = {
   description: string;
   // Hero
   heroEyebrow: string;
+  /** Optional H1 override. Defaults to "Home Inspection in {city}, CA". */
+  h1Heading?: string;
   introParagraphs: string[];
+  // Optional local field photography (see LocalPhoto)
+  leadPhoto?: LocalPhoto;
+  leadPhotoHeading?: string;
+  leadPhotoParagraphs?: string[];
+  fieldPhotosEyebrow?: string;
+  fieldPhotosHeading?: string;
+  fieldPhotosLede?: string;
+  fieldPhotos?: LocalPhoto[];
   // Trust band (city-tuned)
   trustItems: string[];
   // Section 01 - services
@@ -175,7 +205,10 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
       "The city's deep stock of pre-1970 homes also means inspections frequently involve raised foundations, older service panels, and plumbing that has been partially updated. ProSpec's reporting separates these realities into clear priorities so you are not guessing about what to fix first.",
     ],
     contextHighlights: [
-      { label: "Common housing era", value: "Pre-war bungalows to modern infill" },
+      {
+        label: "Common housing era",
+        value: "Pre-war bungalows to modern infill",
+      },
       { label: "Foundation type", value: "Frequently raised w/ crawlspace" },
       { label: "Climate factor", value: "Hot-summer HVAC demand" },
       { label: "Terrain", value: "Flat valley lots, drainage focus" },
@@ -200,7 +233,8 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
           "Yes. Because Sacramento Valley summers place heavy demand on cooling equipment, the inspection includes operating and observing the accessible heating and cooling systems and noting age, performance, and visible installation concerns.",
       },
       {
-        question: "Do you offer pre-listing inspections for Sacramento sellers?",
+        question:
+          "Do you offer pre-listing inspections for Sacramento sellers?",
         answer:
           "Yes. In competitive grid-area and suburban markets, a pre-listing inspection helps sellers and agents surface visible concerns before going active, reducing escrow surprises and supporting cleaner negotiations.",
       },
@@ -301,7 +335,10 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
       "Established Folsom neighborhoods closer to the lake and historic district behave more like a typical resale market, where roof age, original mechanical systems, and exterior wear become the focus. ProSpec tailors the report to whichever type of property you are buying or selling.",
     ],
     contextHighlights: [
-      { label: "Common housing era", value: "Newer master-planned + 1990s-2000s" },
+      {
+        label: "Common housing era",
+        value: "Newer master-planned + 1990s-2000s",
+      },
       { label: "Foundation type", value: "Predominantly slab-on-grade" },
       { label: "Climate factor", value: "Hot-summer cooling demand" },
       { label: "Terrain", value: "Graded lots, drainage detailing" },
@@ -321,7 +358,8 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
           "Yes. New construction inspections are common in Folsom's master-planned communities. ProSpec documents visible installation concerns, incomplete work, and items to raise with the builder before closing or during the warranty period.",
       },
       {
-        question: "What is the difference between a buyer's and an 11-month warranty inspection?",
+        question:
+          "What is the difference between a buyer's and an 11-month warranty inspection?",
         answer:
           "A buyer's inspection happens before you purchase the home, while an 11-month warranty inspection happens near the end of the first ownership year on a newer build so settling and finish issues can be documented before the builder warranty closes. Both are popular with Folsom homeowners.",
       },
@@ -427,7 +465,10 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
       "Larger square footage also means more systems to evaluate — multiple HVAC zones, larger roof areas, and extensive plumbing and electrical distribution. ProSpec organizes findings on these premium homes by priority so a significant purchase is grounded in clear, documented information.",
     ],
     contextHighlights: [
-      { label: "Common housing era", value: "Larger custom & semi-custom homes" },
+      {
+        label: "Common housing era",
+        value: "Larger custom & semi-custom homes",
+      },
       { label: "Foundation type", value: "Slab and raised on graded slopes" },
       { label: "Climate factor", value: "Foothill heat + zoned HVAC" },
       { label: "Terrain", value: "Hillside view lots, slope drainage" },
@@ -469,18 +510,78 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
     slug: "home-inspection-placerville",
     city: "Placerville",
     region: "El Dorado County foothills",
-    title: "Home Inspection Placerville CA | ProSpec",
+    title: "Home Inspector Placerville, CA | ProSpec Home Inspections",
     description:
-      "Placerville home inspections for older and historic homes, rural and semi-rural properties, raised foundations, crawlspaces, decks, roofs, electrical, plumbing, and HVAC.",
+      "Certified Master Inspector serving Placerville and El Dorado County. Thorough home inspections, same-day digital reports, and 5,000+ inspections completed.",
     heroEyebrow: "Historic Foothill Properties",
+    h1Heading: "Home Inspections in",
     introParagraphs: [
-      "Placerville is a historic Gold Rush town in the El Dorado County foothills, and its housing reflects that heritage — older and even historic homes near the downtown core, mixed with rural and semi-rural properties on wooded lots reached by long driveways. ProSpec inspects across this range, where no two homes have aged quite the same way.",
-      "Inspecting in Placerville often means working through decades of repairs, additions, and system updates layered onto original construction. ProSpec performs a non-invasive visual review of readily accessible components and writes the report so buyers, sellers, and owners understand condition, priority, and sensible next steps without unnecessary alarm.",
+      "ProSpec provides home inspections in Placerville and the surrounding El Dorado County foothills, including Diamond Springs, Camino, Pollock Pines, Shingle Springs, Cameron Park, El Dorado, and the rural roads that branch off Highway 50. Whether the property sits a few blocks from Main Street or at the end of a long gravel driveway, the inspection is scoped to the home in front of it.",
+      "Placerville is a historic Gold Rush town, and its housing reflects that heritage — older and even historic homes near the downtown core, mixed with rural and semi-rural properties on wooded, sloping lots. Inspecting here often means working through decades of repairs, additions, and system updates layered onto original construction. ProSpec performs a non-invasive visual review of readily accessible components and writes the report so buyers, sellers, and owners understand condition, priority, and sensible next steps without unnecessary alarm.",
+    ],
+    leadPhotoHeading: "Inspecting Placerville and the El Dorado Foothills",
+    leadPhotoParagraphs: [
+      "Foothill homes do not behave like valley homes. Lots slope, driveways climb, decks stand on posts and piers rather than sitting on grade, and water has somewhere to go when it rains. Roof coverings vary widely — composition, concrete tile, and standing-seam metal all appear within a few miles of one another — and many properties run on propane and a private well rather than municipal services.",
+      "Every photograph on this page is from a ProSpec inspection in Placerville or the surrounding El Dorado County foothills. They are here to show the conditions this area actually presents, and what gets looked at during an inspection.",
+    ],
+    leadPhoto: {
+      src: "/assets/placerville/foothill-home-exterior-placerville.webp",
+      alt: "Front entrance of a stone-and-stucco foothill home inspected by ProSpec in the Placerville area",
+      caption:
+        "A stone-and-stucco foothill home under mature pines in the Placerville area.",
+      width: 1800,
+      height: 1350,
+    },
+    fieldPhotosEyebrow: "05. From Recent Inspections",
+    fieldPhotosHeading: "What a Foothill Inspection Looks Like",
+    fieldPhotosLede:
+      "Photographs from ProSpec inspections in Placerville and the surrounding El Dorado County foothills, covering the areas that most often matter on a sloped, wooded, or rural lot.",
+    fieldPhotos: [
+      {
+        src: "/assets/placerville/roof-inspection-ladder-access.webp",
+        alt: "Inspection ladder set at the roof edge for a walked roof inspection on an El Dorado County home",
+        caption:
+          "Roof access. Where the roof can be walked safely, it is walked — ladder set at the eave.",
+        width: 1500,
+        height: 1125,
+      },
+      {
+        src: "/assets/placerville/aerial-roof-inspection-placerville.webp",
+        alt: "Aerial view of composition shingle roof planes and a valley, with tree cover close to the roofline, during a Placerville-area roof inspection",
+        caption:
+          "Aerial coverage of roof planes and valleys, and the tree canopy pressing in around them.",
+        width: 1600,
+        height: 900,
+      },
+      {
+        src: "/assets/placerville/crawlspace-inspection-placerville.webp",
+        alt: "Crawlspace inspection showing concrete stem wall, foundation vents, and floor framing",
+        caption:
+          "Crawlspaces are entered where access is safe, documenting stem walls, vents, and framing.",
+        width: 1400,
+        height: 1050,
+      },
+      {
+        src: "/assets/placerville/deck-pier-hillside-placerville.webp",
+        alt: "Deck support post and concrete pier on sloping ground beneath an elevated foothill deck",
+        caption:
+          "Elevated decks on slope: post bases, pier contact, and how the grade falls away.",
+        width: 1400,
+        height: 1050,
+      },
+      {
+        src: "/assets/placerville/stone-retaining-wall-el-dorado-county.webp",
+        alt: "Terraced stone retaining walls and hillside grading on a rural El Dorado County property",
+        caption:
+          "Retaining walls and terracing, and the way water moves across a foothill site.",
+        width: 1500,
+        height: 1125,
+      },
     ],
     trustItems: [
-      "Certified Master Inspector serving Placerville and the foothills",
+      "Certified Master Inspector serving Placerville and El Dorado County",
+      "5,000+ property inspections completed",
       "Experience with older, historic, and rural foothill homes",
-      "Focus on raised foundations, crawlspaces, and exterior wood",
       "Same-day digital reports with photos and clear priorities",
     ],
     servicesEyebrow: "01. Placerville Residential Services",
@@ -522,46 +623,78 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
     inspectedLede:
       "A Placerville home inspection is a professional visual review of readily accessible systems, not a code-compliance or pest certification. On older foothill homes, the inspection focuses on distinguishing original construction from later repairs and additions.",
     inspectedItems: [
-      "Roof coverings and flashings, including older or multi-layer roofs",
+      "Roof coverings and flashings — composition, tile, and metal roofs",
       "Raised foundations, crawlspaces, and visible moisture clues",
-      "Exterior wood siding, trim, decks, and weathered components",
+      "Elevated decks, stairs, guardrails, post bases, and pier contact",
+      "Retaining walls and site grading visible around the structure",
       "Older or upgraded electrical panels, wiring, and added circuits",
       "Plumbing supply and drain observations and water heater condition",
-      "HVAC, wood-burning appliances, and accessible distribution",
-      "Sloped-lot grading and drainage near the structure",
-      "Interior finishes, additions, and moisture indicators documented with photos",
+      "HVAC, propane-fired equipment, wood-burning appliances, and distribution",
+      "Sloped-lot drainage and how water moves relative to the home",
     ],
     concernsEyebrow: "03. Placerville Concerns",
     concernsHeading: "Placerville Inspection Focus",
     localAngle:
-      "Placerville properties may include older or historic construction, raised foundations, crawlspaces, wood exterior components, sloped wooded lots, drainage issues, decks, roofing wear, and visible electrical, plumbing, or HVAC updates completed across different eras.",
+      "Placerville properties may include older or historic construction, raised foundations and crawlspaces, elevated decks on sloping ground, retaining walls, varied roof coverings with heavy tree exposure, and visible electrical, plumbing, or HVAC updates completed across different eras. Conditions vary considerably from one foothill property to the next, so the inspection is scoped to the specific home and lot.",
     concerns: [
-      "Older and historic homes with repairs, remodels, or mixed-age systems",
+      "Sloped lots, site grading, retaining walls, and where water goes",
       "Crawlspaces, raised foundations, and visible moisture clues",
-      "Decks, roofs, wood trim, siding, and exterior drainage",
-      "Rural or semi-rural property observations within the inspection scope",
+      "Elevated decks, stairs, and exterior structures on posts and piers",
+      "Roof condition and weather exposure under heavy tree cover",
+      "Older and historic homes with repairs, remodels, or mixed-age systems",
+      "Rural properties on propane, private wells, or septic systems",
     ],
+    // Nearby communities rather than raw keyword phrases: these are genuine
+    // service-area signals and read naturally on the page.
     secondaryPhrases: [
-      "home inspections Placerville CA",
-      "home inspector Placerville",
-      "historic home inspection Placerville",
+      "Diamond Springs",
+      "Camino",
+      "Pollock Pines",
+      "El Dorado",
+      "Cameron Park",
+      "Somerset",
     ],
     contextEyebrow: "04. Local Context",
     contextHeading: "Inspecting in the El Dorado Foothills",
     contextParagraphs: [
-      "Placerville's elevation, wooded lots, and older building stock create a different inspection profile than the valley floor. Wood siding, decks, and trim weather under foothill conditions, raised foundations and crawlspaces are common, and homes frequently carry repairs and additions completed across many decades.",
-      "Rural and semi-rural properties may also involve wood-burning appliances, longer site runs, and drainage shaped by slope and seasonal moisture. ProSpec documents what is visible and accessible and keeps the report focused on condition and priority so you can plan with confidence.",
+      "Placerville's elevation, wooded lots, and older building stock create a different inspection profile than the valley floor. Lots slope, so grading, drainage, and retaining walls matter in a way they rarely do on flat ground. Decks and exterior stairs are frequently elevated on posts and piers rather than sitting on grade, which puts attention on post bases, pier contact, and the ground conditions underneath.",
+      "Roofs here carry real weather and tree exposure, and coverings vary — composition, concrete tile, and standing-seam metal all appear across the area. Where a roof can be accessed safely it is walked; where it cannot, it is inspected from a ladder at the eave, from the ground, or with aerial photography, and the report says which method was used.",
+      "Rural and semi-rural properties add their own considerations: propane rather than natural gas, private wells and septic systems, longer site runs, and drainage shaped by slope and seasonal moisture. ProSpec documents what is visible and accessible, notes where a specialist should take a closer look, and keeps the report focused on condition and priority so you can plan with confidence.",
     ],
     contextHighlights: [
-      { label: "Common housing era", value: "Historic to mixed-era rural homes" },
+      {
+        label: "Common housing era",
+        value: "Historic to mixed-era rural homes",
+      },
       { label: "Foundation type", value: "Often raised w/ crawlspace" },
-      { label: "Climate factor", value: "Foothill weathering on wood" },
+      { label: "Roof coverings", value: "Composition, tile, and metal" },
+      { label: "Rural utilities", value: "Often propane, well, and septic" },
       { label: "Terrain", value: "Sloped, wooded, semi-rural lots" },
     ],
     ctaHeading: "Book a Placerville Home Inspection",
     ctaLine:
-      "Get a clear, photo-documented report on your Placerville home — including older-home and rural-property realities — from a Certified Master Inspector. Schedule online or review services first.",
+      "Get a clear, photo-documented report on your Placerville home from a Certified Master Inspector with 5,000+ inspections completed. Reports are typically delivered the same day when site conditions allow. Schedule online in a couple of minutes, or review services first.",
     faqs: [
+      {
+        question: "How long does a Placerville home inspection take?",
+        answer:
+          "Most residential inspections take roughly two to four hours on site. Placerville-area properties often run toward the longer end of that range because sloped lots, elevated decks, detached crawlspace access, and longer walks around the structure all add time. Age, size, and condition affect the total, and you are welcome to attend.",
+      },
+      {
+        question: "Do you inspect crawlspaces and elevated decks?",
+        answer:
+          "Yes. Crawlspaces are entered and inspected where the opening is accessible and conditions are safe, documenting visible foundation components, framing, and moisture clues. Elevated decks, stairs, and guardrails are inspected for visible, accessible condition, including post bases and pier contact where they can be seen. Where an area cannot be safely accessed, the report states that it was not inspected and explains why.",
+      },
+      {
+        question: "Can you inspect rural homes with wells or septic systems?",
+        answer:
+          "Yes, ProSpec inspects rural and semi-rural Placerville-area homes. The standard inspection is a visual review of the home and its readily accessible systems. It does not include septic tank pumping or opening, water-quality laboratory testing, or well yield testing, and those are not part of the scope. Visible, accessible components such as the water heater, visible supply piping, and any visible pressure or treatment equipment are observed and documented, and specialist follow-up is recommended where appropriate. Detached structures and outbuildings are included only when specifically added to the inspection agreement.",
+      },
+      {
+        question: "Will you walk the roof?",
+        answer:
+          "Where it is safe and practical, yes. Roof access depends on weather, roof pitch and covering, the condition of the roof surface, height, and whether it can be reached safely with a ladder. When walking the roof is not appropriate, it is inspected using the best available alternative — from a ladder at the eave, from the ground, or with aerial photography. The report identifies which method was used and notes any areas that could not be evaluated.",
+      },
       {
         question: "How much does a home inspection cost in Placerville?",
         answer:
@@ -571,16 +704,6 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
         question: "Do you inspect older and historic Placerville homes?",
         answer:
           "Yes. Placerville has a deep stock of older and historic homes. ProSpec uses a non-invasive visual process to document accessible components, distinguish original construction from later repairs, and recommend specialist follow-up where appropriate.",
-      },
-      {
-        question: "Do you inspect rural properties and homes on acreage?",
-        answer:
-          "Yes. Many Placerville-area homes sit on rural or semi-rural lots. The inspection focuses on the home and accessible systems within the agreed scope, with detached structures or outbuildings included only when specifically scoped.",
-      },
-      {
-        question: "Do you inspect manufactured homes in the Placerville area?",
-        answer:
-          "Yes. Manufactured homes are common on foothill acreage and are available when the property and agreement call for that scope. Manufactured home inspections start at $350 and cover visible, accessible components.",
       },
       {
         question: "How soon will I receive my Placerville inspection report?",
@@ -734,9 +857,16 @@ export default function LocalHomeInspection() {
       {/* HERO */}
       <section className="relative min-h-[62vh] flex items-center border-b border-border overflow-hidden">
         <div className="absolute inset-0 z-0">
+          {/*
+            Decorative hero backdrop only: it sits at 25% opacity behind a
+            gradient and carries no information, so it takes empty alt text and
+            is hidden from assistive tech. It is also generic stock, so it must
+            not assert a location it cannot support.
+          */}
           <img
             src="https://d2xsxph8kpxj0f.cloudfront.net/310519663462787524/KXLMpC34TJZ2Xp2FKiV446/hero-modern-home-EznMC93naFQVondgXzhfwU.webp"
-            alt={`${page.city} home inspection service area`}
+            alt=""
+            aria-hidden="true"
             className="w-full h-full object-cover opacity-25 filter brightness-75 contrast-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/85 to-background/30" />
@@ -749,7 +879,7 @@ export default function LocalHomeInspection() {
               {page.heroEyebrow}
             </div>
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-wider uppercase leading-[1.15]">
-              Home Inspection in <br />
+              {page.h1Heading ?? "Home Inspection in"} <br />
               <span className="text-primary">{page.city}, CA</span>
             </h1>
             <div className="flex flex-col gap-4 max-w-2xl">
@@ -788,8 +918,10 @@ export default function LocalHomeInspection() {
       {/* TRUST BAND */}
       <section className="border-b border-border bg-card/20 py-10">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2
- lg:grid-cols-4 gap-5">
+          <div
+            className="grid grid-cols-1 md:grid-cols-2
+ lg:grid-cols-4 gap-5"
+          >
             {page.trustItems.map(item => (
               <div
                 key={item}
@@ -804,6 +936,50 @@ export default function LocalHomeInspection() {
           </div>
         </div>
       </section>
+
+      {/* LEAD PHOTO + LOCAL INTRO (cities with local field photography only) */}
+      {page.leadPhoto && (
+        <section className="border-b border-border py-16 md:py-24">
+          <div className="container">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              <div className="lg:col-span-7">
+                <figure className="flex flex-col gap-3">
+                  <img
+                    src={page.leadPhoto.src}
+                    alt={page.leadPhoto.alt}
+                    width={page.leadPhoto.width}
+                    height={page.leadPhoto.height}
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                    className="w-full h-auto border border-border/80"
+                  />
+                  <figcaption className="font-mono text-[10px] tracking-wider uppercase text-muted-foreground/80 leading-relaxed">
+                    {page.leadPhoto.caption}
+                  </figcaption>
+                </figure>
+              </div>
+
+              <div className="lg:col-span-5 flex flex-col gap-5">
+                <span className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold">
+                  Local Inspection Experience
+                </span>
+                <h2 className="font-serif text-2xl md:text-3xl text-white tracking-wider uppercase">
+                  {page.leadPhotoHeading}
+                </h2>
+                {page.leadPhotoParagraphs?.map((para, i) => (
+                  <p
+                    key={i}
+                    className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed"
+                  >
+                    {para}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* SECTION 01 - SERVICES */}
       <section className="border-b border-border py-20 md:py-28">
@@ -880,11 +1056,17 @@ export default function LocalHomeInspection() {
               <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
                 {page.inspectedLede}
               </p>
-              <Link href="/reviews">
-                <a className="font-mono text-[10px] tracking-widest uppercase text-primary hover:text-white transition-colors inline-flex items-center gap-2 self-start">
-                  Read Local Reviews
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </a>
+              {/*
+                wouter's <Link> already renders the anchor, so it takes the
+                className directly. Nesting an inner <a> produced invalid
+                HTML and a hydration warning.
+              */}
+              <Link
+                href="/reviews"
+                className="font-mono text-[10px] tracking-widest uppercase text-primary hover:text-white transition-colors inline-flex items-center gap-2 self-start"
+              >
+                Read Local Reviews
+                <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
 
@@ -995,6 +1177,47 @@ export default function LocalHomeInspection() {
           </div>
         </div>
       </section>
+
+      {/* SECTION 05 - FIELD PHOTOGRAPHY (cities with local photo sets only) */}
+      {page.fieldPhotos && page.fieldPhotos.length > 0 && (
+        <section className="border-b border-border py-20 md:py-28">
+          <div className="container">
+            <div className="flex flex-col gap-4 max-w-2xl mb-12">
+              <span className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold">
+                {page.fieldPhotosEyebrow}
+              </span>
+              <h2 className="font-serif text-3xl text-white tracking-wider uppercase">
+                {page.fieldPhotosHeading}
+              </h2>
+              <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
+                {page.fieldPhotosLede}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {page.fieldPhotos.map(photo => (
+                <figure
+                  key={photo.src}
+                  className="flex flex-col gap-3 border border-border/60 bg-card/20 p-3"
+                >
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={photo.width}
+                    height={photo.height}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-auto aspect-[4/3] object-cover"
+                  />
+                  <figcaption className="font-sans text-xs text-muted-foreground leading-relaxed px-1 pb-1">
+                    {photo.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="border-b border-border bg-card/5 py-20 md:py-28">
