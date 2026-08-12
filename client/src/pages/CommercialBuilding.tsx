@@ -20,6 +20,11 @@ import SEO from "@/components/SEO";
 export default function CommercialBuilding() {
   const buildingFaqs = [
     {
+      question: "How is a commercial inspection priced?",
+      answer:
+        "Cost depends on the property size, age, occupancy, systems, location, requested scope, and report requirements. Share the property details with ProSpec to receive a scope-based quote.",
+    },
+    {
       question: "What types of commercial buildings do you inspect?",
       answer:
         "We inspect a wide variety of commercial assets, including retail strip malls, standalone retail buildings, medical offices, light industrial warehouses, flex spaces, professional office buildings, and mixed-use properties in the Sacramento Valley.",
@@ -51,8 +56,8 @@ export default function CommercialBuilding() {
   return (
     <Layout>
       <SEO
-        title="Commercial Building Inspections Sacramento | ProSpec"
-        description="Commercial building inspections for office, retail, warehouse, mixed-use, and light commercial properties in Sacramento, Folsom, and surrounding areas."
+        title="Commercial Building Inspection Sacramento | ProSpec"
+        description="Commercial building inspections in Sacramento for buyers, owners, tenants, investors and brokers. Review major systems and request a scope-based quote from ProSpec."
         canonicalUrl="https://www.weareprospec.com/commercial-building-inspections-sacramento"
       />
       {/* Page Header */}
@@ -76,11 +81,32 @@ export default function CommercialBuilding() {
               downtown and Midtown storefronts to single-tenant retail pads,
               light-industrial flex space along the business corridors, and
               suburban office product. A building inspection here is less about
-              ASTM-style capital forecasting and more about a focused,
-              practical look at the structure, roof, envelope, and the
-              commercial HVAC, electrical, and plumbing systems a tenant or buyer
-              will actually have to operate and maintain.
+              long-range capital forecasting and more about a focused, practical
+              look at the structure, roof, envelope, and the commercial HVAC,
+              electrical, and plumbing systems a tenant or buyer will actually
+              have to operate and maintain.
             </p>
+
+            <div className="flex flex-wrap gap-4 mt-6 font-mono text-[10px] tracking-widest uppercase">
+              <Link
+                href="/commercial-building-inspections-sacramento"
+                className="text-primary hover:text-white"
+              >
+                Commercial building inspections
+              </Link>
+              <Link
+                href="/commercial-property-condition-assessments-sacramento"
+                className="text-primary hover:text-white"
+              >
+                Property condition assessments
+              </Link>
+              <Link
+                href="/apartment-building-inspections-sacramento"
+                className="text-primary hover:text-white"
+              >
+                Apartment and multifamily inspections
+              </Link>
+            </div>
           </div>
         </div>
       </section>

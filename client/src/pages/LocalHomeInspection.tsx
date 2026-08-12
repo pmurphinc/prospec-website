@@ -512,7 +512,7 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
     region: "El Dorado County foothills",
     title: "Home Inspector Placerville, CA | ProSpec Home Inspections",
     description:
-      "Certified Master Inspector serving Placerville and El Dorado County. Thorough home inspections, same-day digital reports, and 5,000+ inspections completed.",
+      "Schedule a thorough Placerville home inspection with Patrick Murphy, Certified Master Inspector. Local El Dorado County experience, clear reports and online scheduling.",
     heroEyebrow: "Historic Foothill Properties",
     h1Heading: "Home Inspections in",
     introParagraphs: [
@@ -580,7 +580,7 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
     ],
     trustItems: [
       "Certified Master Inspector serving Placerville and El Dorado County",
-      "5,000+ property inspections completed",
+      "Inspections performed by Patrick Murphy, Certified Master Inspector",
       "Experience with older, historic, and rural foothill homes",
       "Same-day digital reports with photos and clear priorities",
     ],
@@ -673,7 +673,7 @@ const LOCAL_PAGES: Record<string, LocalPage> = {
     ],
     ctaHeading: "Book a Placerville Home Inspection",
     ctaLine:
-      "Get a clear, photo-documented report on your Placerville home from a Certified Master Inspector with 5,000+ inspections completed. Reports are typically delivered the same day when site conditions allow. Schedule online in a couple of minutes, or review services first.",
+      "Get a clear, photo-documented report on your Placerville home from Patrick Murphy, Certified Master Inspector. Reports are typically delivered the same day when site conditions allow. Schedule online, or review residential services first.",
     faqs: [
       {
         question: "How long does a Placerville home inspection take?",

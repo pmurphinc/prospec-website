@@ -9,6 +9,7 @@ interface RouteMeta {
   description: string;
   canonical: string;
   ogImage?: string;
+  robots?: "index, follow" | "noindex, follow";
 }
 
 const BASE_URL = "https://www.weareprospec.com";
@@ -27,9 +28,9 @@ const ROUTE_META: Record<string, RouteMeta> = {
     canonical: BASE_URL + "/services",
   },
   "/reviews": {
-    title: "Customer Reviews & Testimonials | ProSpec Sacramento",
+    title: "ProSpec Home Inspection Reviews | Sacramento & El Dorado County",
     description:
-      "Read 5-star reviews from homebuyers, sellers, and real estate professionals across Sacramento and Folsom who trusted ProSpec for their property inspection.",
+      "Read reviews from ProSpec clients throughout Sacramento, Folsom, Placerville and El Dorado County. Inspections performed by Patrick Murphy, Certified Master Inspector.",
     canonical: BASE_URL + "/reviews",
   },
   "/inspector": {
@@ -43,6 +44,7 @@ const ROUTE_META: Record<string, RouteMeta> = {
     description:
       "Book your residential home inspection online with ProSpec. Review real-time availability, select service add-ons, and secure your inspection slot in minutes. Same-day reports.",
     canonical: BASE_URL + "/booknow",
+    robots: "noindex, follow",
   },
   // ─── Local Residential Landing Pages ─────────────────────────────────────
   "/home-inspection-sacramento": {
@@ -66,7 +68,7 @@ const ROUTE_META: Record<string, RouteMeta> = {
   "/home-inspection-placerville": {
     title: "Home Inspector Placerville, CA | ProSpec Home Inspections",
     description:
-      "Certified Master Inspector serving Placerville and El Dorado County. Thorough home inspections, same-day digital reports, and 5,000+ inspections completed.",
+      "Schedule a thorough Placerville home inspection with Patrick Murphy, Certified Master Inspector. Local El Dorado County experience, clear reports and online scheduling.",
     canonical: BASE_URL + "/home-inspection-placerville",
   },
   "/home-inspection-shingle-springs": {
@@ -96,22 +98,22 @@ const ROUTE_META: Record<string, RouteMeta> = {
   },
   // ─── Commercial Landing Pages ────────────────────────────────────────────
   "/commercial-property-condition-assessments-sacramento": {
-    title: "Commercial Property Condition Assessments Sacramento | ProSpec",
+    title: "Property Condition Assessments Sacramento | ProSpec",
     description:
-      "ProSpec provides commercial property condition assessments (PCA) in Sacramento. ASTM-style scope available. Serving lenders, brokers, and investors with detailed due diligence reports.",
+      "Sacramento property condition assessments for commercial due diligence, with an agreed scope, major-system observations, deficiency reporting and capital-planning information.",
     canonical:
       BASE_URL + "/commercial-property-condition-assessments-sacramento",
   },
   "/commercial-building-inspections-sacramento": {
-    title: "Commercial Building Inspections Sacramento | ProSpec",
+    title: "Commercial Building Inspection Sacramento | ProSpec",
     description:
-      "Commercial building inspections in Sacramento by a Certified Master Inspector. Office, retail, industrial, and mixed-use property assessments with detailed reporting.",
+      "Commercial building inspections in Sacramento for buyers, owners, tenants, investors and brokers. Review major systems and request a scope-based quote from ProSpec.",
     canonical: BASE_URL + "/commercial-building-inspections-sacramento",
   },
   "/apartment-building-inspections-sacramento": {
-    title: "Apartment Building Inspections Sacramento | ProSpec",
+    title: "Apartment & Multifamily Inspections Sacramento | ProSpec",
     description:
-      "Multi-family and apartment building inspections in Sacramento. ProSpec provides detailed property condition assessments for investors and property managers.",
+      "Apartment and multifamily property inspections in Sacramento for buyers, owners and rental investors, with unit, common-area and major-system reporting options.",
     canonical: BASE_URL + "/apartment-building-inspections-sacramento",
   },
   // ─── 404 ─────────────────────────────────────────────────────────────────

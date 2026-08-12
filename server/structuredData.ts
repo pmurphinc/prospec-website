@@ -33,6 +33,7 @@ const localBusinessSchema = {
     "@type": "Person",
     name: "Patrick Murphy",
     jobTitle: "Certified Master Inspector",
+    identifier: "NACHI17030156",
   },
 };
 
@@ -106,7 +107,7 @@ const commercialServices = {
     { "@type": "City", name: "El Dorado Hills", addressRegion: "CA" },
   ],
   description:
-    "Commercial property condition assessments (PCA) for lenders, brokers, and investors. ASTM-style scope available when requested and agreed in writing. Covers office, retail, industrial, multi-family, and mixed-use properties.",
+    "Scoped commercial property condition assessments (PCA) for buyers, lenders, brokers, and investors, covering agreed accessible systems in office, retail, industrial, multifamily, and mixed-use properties.",
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Commercial Inspection Services",
@@ -266,6 +267,22 @@ const placervilleFaq = {
       acceptedAnswer: {
         "@type": "Answer",
         text: "Reports are typically delivered the same day when site conditions allow, with photos, observations, and practical recommendations for buyers, sellers, and agents.",
+      },
+    },
+  ],
+};
+
+// This question and answer are visible on each commercial landing page.
+const commercialPricingFaq = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How is a commercial inspection priced?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Cost depends on the property size, age, occupancy, systems, location, requested scope, and report requirements. Share the property details with ProSpec to receive a scope-based quote.",
       },
     },
   ],
@@ -431,6 +448,7 @@ function getSchemas(routePath: string): object[] {
     case "/commercial-property-condition-assessments-sacramento":
       return [
         commercialServices,
+        commercialPricingFaq,
         buildBreadcrumb([
           { name: "Home", url: BASE_URL },
           {
@@ -443,6 +461,7 @@ function getSchemas(routePath: string): object[] {
     case "/commercial-building-inspections-sacramento":
       return [
         commercialServices,
+        commercialPricingFaq,
         buildBreadcrumb([
           { name: "Home", url: BASE_URL },
           {
@@ -455,6 +474,7 @@ function getSchemas(routePath: string): object[] {
     case "/apartment-building-inspections-sacramento":
       return [
         commercialServices,
+        commercialPricingFaq,
         buildBreadcrumb([
           { name: "Home", url: BASE_URL },
           {

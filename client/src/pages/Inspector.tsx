@@ -22,9 +22,8 @@ export default function Inspector() {
     "Certified Master Inspector (CMI) — the highest industry designation",
     "InterNACHI Certified (International Association of Certified Home Inspectors)",
     "Approximately 20 years of hands-on construction & inspection experience",
-    "Over 5,000 professional property inspections successfully completed",
     "Specialist in residential structures, framing, roofing, decks, and chimneys",
-    "Experienced with commercial Property Condition Assessments (PCA) and ASTM-style scopes",
+    "Experienced with scoped commercial Property Condition Assessments (PCA)",
   ];
 
   return (
@@ -55,7 +54,7 @@ export default function Inspector() {
             <div className="lg:col-span-7 flex flex-col gap-6">
               <div className="inline-flex items-center gap-2 border border-primary/30 bg-primary/5 px-3 py-1 self-start font-mono text-[10px] tracking-widest uppercase text-primary">
                 <Award className="h-3.5 w-3.5" />
-                Certified Master Inspector
+                Certified Master Inspector · InterNACHI ID NACHI17030156
               </div>
 
               <h1 className="font-serif text-4xl sm:text-5xl text-white tracking-wider uppercase leading-tight">
@@ -72,7 +71,7 @@ export default function Inspector() {
                 Patrick is a second-generation Master Home Inspector with
                 approximately 20 years of hands-on experience in construction,
                 repairs, remodeling, and professional property inspections.
-                Having completed over 5,000 inspections, Patrick has perfected
+                Through extensive inspection experience, Patrick has developed
                 his craft. His main priority is always health, safety, and
                 providing uncompromising clarity to his clients.
               </p>

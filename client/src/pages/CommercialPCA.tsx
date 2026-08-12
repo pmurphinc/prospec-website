@@ -16,20 +16,25 @@ import SEO from "@/components/SEO";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
-  Premium commercial real estate presentation, structured due diligence, custom quote form, ASTM-style copy.
+  Commercial real estate presentation, structured due diligence, and custom quote form.
 */
 
 export default function CommercialPCA() {
   const pcaFaqs = [
     {
-      question: "What is a Property Condition Assessment (PCA)?",
+      question: "How is a commercial inspection priced?",
       answer:
-        "A Property Condition Assessment (PCA) is an in-depth physical evaluation of a commercial real estate asset. It is typically performed during real estate transactions (acquisition, refinancing, or leasing) to identify physical deficiencies, deferred maintenance, and capital expenditures required over a specific holding period (typically 12 years). ProSpec can use an ASTM-style framework when requested and agreed upon in the scope of work.",
+        "Cost depends on the property size, age, occupancy, systems, location, requested scope, and report requirements. Share the property details with ProSpec to receive a scope-based quote.",
     },
     {
-      question: "What standards do you follow for commercial inspections?",
+      question: "What is a Property Condition Assessment (PCA)?",
       answer:
-        "ProSpec can provide commercial property condition assessments using an ASTM-style framework when requested and agreed upon in the scope of work. The final scope, reporting format, and level of detail depend on the property type, client needs, and inspection agreement.",
+        "A Property Condition Assessment (PCA) is a scoped physical evaluation of a commercial real estate asset. It can support acquisition, refinancing, or leasing decisions by documenting observed deficiencies, deferred maintenance, and capital-planning information included in the inspection agreement.",
+    },
+    {
+      question: "How is the scope of a commercial assessment established?",
+      answer:
+        "The inspection agreement defines the systems, accessible areas, reporting format, and level of detail for each property. ProSpec reviews the requested deliverables with the client before preparing a proposal.",
     },
     {
       question: "What is included in a Property Condition Report (PCR)?",
@@ -45,7 +50,7 @@ export default function CommercialPCA() {
   ];
 
   const standardsList = [
-    "ASTM-style assessment framework when included in scope",
+    "Assessment and reporting tailored to the written scope",
     "Visual structural frame & building envelope observations",
     "Visual assessment of readily accessible HVAC, electrical & plumbing systems",
     "Readily visible life-safety observations within the agreed scope",
@@ -56,8 +61,8 @@ export default function CommercialPCA() {
   return (
     <Layout>
       <SEO
-        title="Commercial Property Condition Assessments Sacramento | ProSpec"
-        description="Commercial property condition assessments and building inspections for investors, buyers, brokers, and property owners in Sacramento, Folsom, and surrounding areas."
+        title="Property Condition Assessments Sacramento | ProSpec"
+        description="Sacramento property condition assessments for commercial due diligence, with an agreed scope, major-system observations, deficiency reporting and capital-planning information."
         canonicalUrl="https://www.weareprospec.com/commercial-property-condition-assessments-sacramento"
       />
       {/* Editorial Hero Section */}
@@ -75,7 +80,7 @@ export default function CommercialPCA() {
           <div className="max-w-3xl flex flex-col gap-6">
             <div className="inline-flex items-center gap-2 border border-primary/30 bg-primary/5 px-3 py-1 self-start font-mono text-[10px] tracking-widest uppercase text-primary">
               <Building2 className="h-3.5 w-3.5" />
-              ASTM-Style Scope Available
+              Scope Defined Before Inspection
             </div>
 
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-wider uppercase leading-[1.15]">
@@ -92,11 +97,11 @@ export default function CommercialPCA() {
               A PCA is the broadest of ProSpec's commercial offerings: where a
               building inspection answers “what condition is this asset in
               today,” a Property Condition Assessment frames those observations
-              for acquisition, refinancing, and lease decisions, with an
-              ASTM-style framework and capital planning notes available when the
-              scope of work calls for them. It is built for lenders, brokers,
-              and investors who need due diligence they can put in front of a
-              committee.
+              for acquisition, refinancing, and lease decisions, with deficiency
+              reporting and capital-planning information when those deliverables
+              are included in the written scope. It is built for lenders,
+              brokers, and investors who need due diligence they can put in
+              front of a committee.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-2">
@@ -112,6 +117,27 @@ export default function CommercialPCA() {
                 <a className="border border-border hover:border-white text-white font-mono text-xs tracking-widest uppercase h-12 px-8 flex items-center justify-center transition-colors">
                   Explore All Services
                 </a>
+              </Link>
+            </div>
+
+            <div className="flex flex-wrap gap-4 mt-6 font-mono text-[10px] tracking-widest uppercase">
+              <Link
+                href="/commercial-building-inspections-sacramento"
+                className="text-primary hover:text-white"
+              >
+                Commercial building inspections
+              </Link>
+              <Link
+                href="/commercial-property-condition-assessments-sacramento"
+                className="text-primary hover:text-white"
+              >
+                Property condition assessments
+              </Link>
+              <Link
+                href="/apartment-building-inspections-sacramento"
+                className="text-primary hover:text-white"
+              >
+                Apartment and multifamily inspections
               </Link>
             </div>
           </div>

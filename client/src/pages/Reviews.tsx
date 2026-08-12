@@ -40,9 +40,9 @@ export default function Reviews() {
 
   return (
     <Layout>
-      <SEO 
-        title="Customer Reviews & Testimonials | ProSpec Sacramento" 
-        description="Read 5-star reviews from real home buyers, sellers, and real estate agents in Sacramento and Folsom who trust Certified Master Inspector Patrick Murphy."
+      <SEO
+        title="ProSpec Home Inspection Reviews | Sacramento & El Dorado County"
+        description="Read reviews from ProSpec clients throughout Sacramento, Folsom, Placerville and El Dorado County. Inspections performed by Patrick Murphy, Certified Master Inspector."
         canonicalUrl="https://www.weareprospec.com/reviews"
       />
       {/* Page Header */}
@@ -53,10 +53,12 @@ export default function Reviews() {
               01. Client Satisfaction
             </span>
             <h1 className="font-serif text-4xl sm:text-5xl text-white tracking-wider uppercase mb-6 leading-tight">
-              5-Star Client Reviews
+              ProSpec Client Reviews
             </h1>
             <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xl">
-              Don't just take our word for it. Read honest feedback from home buyers, sellers, and real estate professionals across Sacramento, Folsom, and the greater Sacramento Valley who have trusted Patrick Murphy with their physical due diligence.
+              Read feedback from ProSpec clients who worked with Patrick Murphy
+              for home inspections throughout Sacramento, Folsom, Placerville,
+              and El Dorado County.
             </p>
           </div>
         </div>
@@ -67,7 +69,9 @@ export default function Reviews() {
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
             <div className="border border-border/60 p-6 bg-card/10 flex flex-col gap-2 justify-center">
-              <span className="font-serif text-3xl text-white font-bold">5.0 / 5.0</span>
+              <span className="font-serif text-3xl text-white font-bold">
+                5.0 / 5.0
+              </span>
               <div className="flex gap-1 justify-center md:justify-start">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="h-4 w-4 fill-primary text-primary" />
@@ -77,21 +81,27 @@ export default function Reviews() {
                 Perfect Star Rating
               </span>
             </div>
-            
+
             <div className="border border-border/60 p-6 bg-card/10 flex flex-col gap-2 justify-center">
-              <span className="font-serif text-3xl text-white font-bold">100%</span>
+              <span className="font-serif text-3xl text-white font-bold">
+                Clear
+              </span>
               <span className="font-sans text-xs text-muted-foreground leading-relaxed">
-                Of clients surveyed report feeling significantly more confident in their property purchase after our inspection.
+                Photo-documented reports help clients understand observed
+                conditions and practical next steps.
               </span>
               <span className="font-mono text-[9px] tracking-widest uppercase text-muted-foreground">
-                Confidence Rating
+                Inspection Reporting
               </span>
             </div>
 
             <div className="border border-border/60 p-6 bg-card/10 flex flex-col gap-2 justify-center">
-              <span className="font-serif text-3xl text-white font-bold">CMI</span>
+              <span className="font-serif text-3xl text-white font-bold">
+                CMI
+              </span>
               <span className="font-sans text-xs text-muted-foreground leading-relaxed">
-                Inspections are led by a Certified Master Inspector, the absolute highest professional credential in the industry.
+                Inspections are performed by Patrick Murphy, a Certified Master
+                Inspector.
               </span>
               <span className="font-mono text-[9px] tracking-widest uppercase text-muted-foreground">
                 Elite Credentials
@@ -117,7 +127,10 @@ export default function Reviews() {
                 <div className="md:w-1/4 shrink-0 flex flex-col gap-2">
                   <div className="flex gap-1">
                     {[...Array(rev.stars)].map((_, i) => (
-                      <Star key={i} className="h-3.5 w-3.5 fill-primary text-primary" />
+                      <Star
+                        key={i}
+                        className="h-3.5 w-3.5 fill-primary text-primary"
+                      />
                     ))}
                   </div>
                   <span className="font-mono text-[10px] uppercase text-white tracking-wider font-bold">
@@ -155,7 +168,9 @@ export default function Reviews() {
           Experience the ProSpec Difference
         </h2>
         <p className="font-sans text-xs md:text-sm text-muted-foreground max-w-md leading-relaxed">
-          Don't settle for checkbox inspectors. Hire a Certified Master Inspector with approximately 20 years of construction and inspection experience.
+          Don't settle for checkbox inspectors. Hire a Certified Master
+          Inspector with approximately 20 years of construction and inspection
+          experience.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center mt-4">
           <Link href="/booknow">
@@ -164,7 +179,10 @@ export default function Reviews() {
             </Button>
           </Link>
           <Link href="/booknow">
-            <Button variant="outline" className="border-border hover:border-white text-white font-mono text-xs tracking-widest uppercase h-12 px-8 w-full sm:w-auto">
+            <Button
+              variant="outline"
+              className="border-border hover:border-white text-white font-mono text-xs tracking-widest uppercase h-12 px-8 w-full sm:w-auto"
+            >
               Request Commercial Quote
             </Button>
           </Link>

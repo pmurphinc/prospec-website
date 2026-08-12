@@ -14,6 +14,7 @@ interface SEOProps {
   title: string;
   description: string;
   canonicalUrl?: string;
+  robots?: "index, follow" | "noindex, follow";
 }
 
 const DEFAULT_CANONICAL_URL = "https://www.weareprospec.com";
@@ -42,6 +43,7 @@ export default function SEO({
   title,
   description,
   canonicalUrl = DEFAULT_CANONICAL_URL,
+  robots = "index, follow",
 }: SEOProps) {
   useEffect(() => {
     document.title = title;
@@ -56,6 +58,7 @@ export default function SEO({
     upsertMeta("name", "twitter:title", title);
     upsertMeta("name", "twitter:description", description);
     upsertMeta("name", "twitter:image", DEFAULT_SOCIAL_IMAGE);
+    upsertMeta("name", "robots", robots);
 
     let canonicalLink = document.querySelector<HTMLLinkElement>(
       'link[rel="canonical"]'
@@ -66,7 +69,7 @@ export default function SEO({
       document.head.appendChild(canonicalLink);
     }
     canonicalLink.setAttribute("href", canonicalUrl);
-  }, [title, description, canonicalUrl]);
+  }, [title, description, canonicalUrl, robots]);
 
   return null;
 }

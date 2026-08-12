@@ -20,6 +20,11 @@ import SEO from "@/components/SEO";
 export default function ApartmentInspections() {
   const apartmentFaqs = [
     {
+      question: "How is a commercial inspection priced?",
+      answer:
+        "Cost depends on the property size, age, occupancy, systems, location, requested scope, and report requirements. Share the property details with ProSpec to receive a scope-based quote.",
+    },
+    {
       question: "How do you handle unit-by-unit inspections?",
       answer:
         "We inspect individual units using structured, efficient checklists. We check unit HVAC systems, electrical outlets, GFCIs, plumbing fixtures, water pressure, interior windows, doors, and appliances. This ensures a comprehensive representative sample or 100% full-unit review based on your due diligence needs.",
@@ -50,8 +55,8 @@ export default function ApartmentInspections() {
   return (
     <Layout>
       <SEO
-        title="Apartment Building Inspections Sacramento | ProSpec"
-        description="Apartment and multi-family property inspections for buyers, investors, and property owners in Sacramento, Folsom, and surrounding Northern California areas."
+        title="Apartment & Multifamily Inspections Sacramento | ProSpec"
+        description="Apartment and multifamily property inspections in Sacramento for buyers, owners and rental investors, with unit, common-area and major-system reporting options."
         canonicalUrl="https://www.weareprospec.com/apartment-building-inspections-sacramento"
       />
       {/* Page Header */}
@@ -72,14 +77,35 @@ export default function ApartmentInspections() {
             </p>
             <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed max-w-xl mt-4">
               Sacramento's multi-family market spans aging garden-style
-              complexes, 1970s-era walk-ups, and newer suburban communities,
-              and each carries a different risk profile when it changes hands.
+              complexes, 1970s-era walk-ups, and newer suburban communities, and
+              each carries a different risk profile when it changes hands.
               Unlike a single-family report, an apartment inspection has to
               balance building-wide systems — central boilers, shared panels,
               roofs, and site drainage — against the per-unit deferred
               maintenance that drives a buyer's renovation budget and capital
               plan.
             </p>
+
+            <div className="flex flex-wrap gap-4 mt-6 font-mono text-[10px] tracking-widest uppercase">
+              <Link
+                href="/commercial-building-inspections-sacramento"
+                className="text-primary hover:text-white"
+              >
+                Commercial building inspections
+              </Link>
+              <Link
+                href="/commercial-property-condition-assessments-sacramento"
+                className="text-primary hover:text-white"
+              >
+                Property condition assessments
+              </Link>
+              <Link
+                href="/apartment-building-inspections-sacramento"
+                className="text-primary hover:text-white"
+              >
+                Apartment and multifamily inspections
+              </Link>
+            </div>
           </div>
         </div>
       </section>

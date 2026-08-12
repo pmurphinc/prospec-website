@@ -45,6 +45,7 @@ export default function BookNow() {
         title="Schedule Your Inspection Online | ProSpec Sacramento"
         description="Schedule your residential property inspection online in minutes. Real-time availability, clear upfront pricing, and immediate confirmation."
         canonicalUrl="https://www.weareprospec.com/booknow"
+        robots="noindex, follow"
       />
       {/* Page Header */}
       <section className="border-b border-border bg-card/10 py-12 md:py-16">
@@ -188,9 +189,9 @@ export default function BookNow() {
                 </h3>
                 <p className="font-sans text-xs text-muted-foreground leading-relaxed">
                   Commercial property inspections, multi-family portfolios, and
-                  ASTM-style PCAs require custom scoping and proposal
-                  generation. Do not use the residential scheduler above for
-                  commercial assets.
+                  property condition assessments require custom scoping and
+                  proposal generation. Do not use the residential scheduler
+                  above for commercial assets.
                 </p>
                 <Link
                   href="/commercial-property-condition-assessments-sacramento"
