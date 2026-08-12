@@ -92,7 +92,7 @@ export default function Services() {
       desc: "Commercial property condition assessment based on the agreed scope of work. We visually assess readily accessible major systems and identify deferred maintenance priorities.",
       who: "Commercial buyers, investors, brokers, and lenders seeking scoped risk observations.",
       features: [
-        "ASTM-style reporting when requested and scoped",
+        "Reporting tailored to the agreed scope",
         "Opinion-based repair and maintenance recommendations",
         "Capital planning notes when included in scope",
         "HVAC, electrical, plumbing, and roofing analysis",
@@ -256,10 +256,9 @@ export default function Services() {
               Commercial & Investor Services
             </h2>
             <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
-              Professional, ASTM-style commercial physical assessments designed
-              for property investors, brokers, and business owners. We provide
-              opinion-based observations, recommendations, and deferred
-              maintenance notes.
+              Professional commercial physical assessments designed for property
+              investors, brokers, and business owners. We provide opinion-based
+              observations, recommendations, and deferred maintenance notes.
             </p>
           </div>
 

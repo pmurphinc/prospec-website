@@ -9,13 +9,19 @@ import { ShieldCheck, Phone, Mail, MapPin, ExternalLink } from "lucide-react";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const localPages = [
-    { label: "Sacramento Home Inspections", href: "/home-inspection-sacramento" },
+    {
+      label: "Sacramento Home Inspections",
+      href: "/home-inspection-sacramento",
+    },
     { label: "Folsom Home Inspections", href: "/home-inspection-folsom" },
     {
       label: "El Dorado Hills Home Inspections",
       href: "/home-inspection-el-dorado-hills",
     },
-    { label: "Placerville Home Inspections", href: "/home-inspection-placerville" },
+    {
+      label: "Placerville Home Inspections",
+      href: "/home-inspection-placerville",
+    },
     {
       label: "Shingle Springs Home Inspections",
       href: "/home-inspection-shingle-springs",
@@ -150,7 +156,7 @@ export default function Footer() {
                   href="/commercial-property-condition-assessments-sacramento"
                   className="text-muted-foreground hover:text-white transition-colors"
                 >
-                  ASTM-Style Property Condition Assessments
+                  Scoped Property Condition Assessments
                 </Link>
               </li>
               <li>

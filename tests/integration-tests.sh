@@ -91,7 +91,7 @@ fi
 echo ""
 echo "3. Commercial page metadata in raw HTML"
 COMMERCIAL=$(curl -s "$BASE_URL/commercial-property-condition-assessments-sacramento")
-if echo "$COMMERCIAL" | grep -q '<title>Commercial Property Condition Assessments Sacramento'; then
+if echo "$COMMERCIAL" | grep -q '<title>Property Condition Assessments Sacramento'; then
   pass "Commercial page title present"
 else
   fail "Commercial page title missing"

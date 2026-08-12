@@ -29,7 +29,11 @@ async function startServer() {
   // ─── Trailing-slash normalization ──────────────────────────────────────────
   // Redirect /services/ → /services (except root /)
   app.use((req, res, next) => {
-    if (req.path !== "/" && req.path.endsWith("/") && (req.method === "GET" || req.method === "HEAD")) {
+    if (
+      req.path !== "/" &&
+      req.path.endsWith("/") &&
+      (req.method === "GET" || req.method === "HEAD")
+    ) {
       const canonical = req.path.slice(0, -1);
       const query = req.originalUrl.includes("?")
         ? req.originalUrl.slice(req.originalUrl.indexOf("?"))
@@ -93,6 +97,7 @@ interface RouteMeta {
   description: string;
   canonical: string;
   ogImage?: string;
+  robots?: "index, follow" | "noindex, follow";
 }
 
 function escapeHtml(str: string): string {
@@ -110,8 +115,7 @@ function injectMeta(
   jsonLd: string
 ): string {
   const ogImage =
-    meta.ogImage ||
-    "https://www.weareprospec.com/assets/prospec-og-image.jpg";
+    meta.ogImage || "https://www.weareprospec.com/assets/prospec-og-image.jpg";
   const gtmId = process.env.GTM_ID || "";
 
   // Build the meta tags to inject after <title>
@@ -134,16 +138,20 @@ function injectMeta(
     <meta name="twitter:title" content="${escapeHtml(meta.title)}" />
     <meta name="twitter:description" content="${escapeHtml(meta.description)}" />
     <meta name="twitter:image" content="${escapeHtml(ogImage)}" />
-    <meta name="robots" content="${is404 ? "noindex, nofollow" : "index, follow"}" />
-    ${gtmId ? `<!-- Google Tag Manager (head) -->
+    <meta name="robots" content="${is404 ? "noindex, nofollow" : meta.robots || "index, follow"}" />
+    ${
+      gtmId
+        ? `<!-- Google Tag Manager (head) -->
     <script>window.dataLayer=window.dataLayer||[];</script>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','${gtmId}');</script>
-    <!-- End Google Tag Manager -->` : `<!-- GTM not configured. Set GTM_ID env var to enable. -->
-    <script>window.dataLayer=window.dataLayer||[];</script>`}
+    <!-- End Google Tag Manager -->`
+        : `<!-- GTM not configured. Set GTM_ID env var to enable. -->
+    <script>window.dataLayer=window.dataLayer||[];</script>`
+    }
     ${jsonLd}
   `;
 
@@ -168,7 +176,7 @@ function injectMeta(
   return html;
 }
 
-startServer().catch((error) => {
+startServer().catch(error => {
   console.error("Failed to start server", error);
   process.exit(1);
 });
