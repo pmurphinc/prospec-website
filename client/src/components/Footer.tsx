@@ -1,5 +1,19 @@
 import { Link } from "wouter";
-import { ShieldCheck, Phone, Mail, MapPin, ExternalLink } from "lucide-react";
+import {
+  ShieldCheck,
+  Phone,
+  MessageSquare,
+  Mail,
+  MapPin,
+  ExternalLink,
+} from "lucide-react";
+import {
+  EMAIL,
+  EMAIL_HREF,
+  PHONE_DISPLAY,
+  PHONE_SMS_HREF,
+  PHONE_TEL_HREF,
+} from "@shared/business";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -187,23 +201,34 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-primary shrink-0" />
                 <a
-                  href="tel:916-432-0332"
+                  href={PHONE_TEL_HREF}
                   className="text-muted-foreground hover:text-white transition-colors font-mono"
                   data-track-event="phone_click"
                   data-track-location="footer"
                 >
-                  (916) 432-0332
+                  {PHONE_DISPLAY}
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <MessageSquare className="h-4 w-4 text-primary shrink-0" />
+                <a
+                  href={PHONE_SMS_HREF}
+                  className="text-muted-foreground hover:text-white transition-colors font-mono"
+                  data-track-event="text_click"
+                  data-track-location="footer"
+                >
+                  Text {PHONE_DISPLAY}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-primary shrink-0" />
                 <a
-                  href="mailto:patrick@weareprospec.com"
+                  href={EMAIL_HREF}
                   className="text-muted-foreground hover:text-white transition-colors"
                   data-track-event="email_click"
                   data-track-location="footer"
                 >
-                  patrick@weareprospec.com
+                  {EMAIL}
                 </a>
               </li>
             </ul>

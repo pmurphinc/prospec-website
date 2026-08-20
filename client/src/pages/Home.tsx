@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
+import { PRICE_QUALIFIER } from "@shared/business";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -156,6 +157,9 @@ export default function Home() {
                   Fully transparent, size-based pricing. Includes a Certified
                   Master Inspector physical examination and comprehensive
                   digital report.
+                </p>
+                <p className="font-sans text-[11px] text-muted-foreground mt-2 leading-relaxed">
+                  {PRICE_QUALIFIER}
                 </p>
                 <Link
                   href="/services"

@@ -11,8 +11,11 @@ import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import FAQ from "@/components/FAQ";
 import SEO from "@/components/SEO";
+import { PHONE_DISPLAY, PHONE_TEL_HREF } from "@shared/business";
+import { useViewService } from "@/hooks/useViewService";
 
 export default function WarrantyInspection() {
+  useViewService("11_month_warranty_inspection");
   const faqs = [
     {
       question: "What is an 11-month warranty inspection?",
@@ -97,7 +100,7 @@ export default function WarrantyInspection() {
                   Schedule Inspection
                 </Button>
               </Link>
-              <a href="tel:916-432-0332">
+              <a href={PHONE_TEL_HREF}>
                 <Button
                   variant="outline"
                   size="lg"
@@ -105,7 +108,7 @@ export default function WarrantyInspection() {
                   data-track-event="phone_click"
                   data-track-location="warranty_hero"
                 >
-                  Call (916) 432-0332
+                  Call {PHONE_DISPLAY}
                 </Button>
               </a>
             </div>
@@ -134,7 +137,8 @@ export default function WarrantyInspection() {
                 This is not a guarantee that the builder will repair every item,
                 nor is it an engineering analysis. It is a practical evaluation
                 of the home's condition designed to provide you with objective
-                documentation for a builder review under the applicable warranty.
+                documentation for a builder review under the applicable
+                warranty.
               </p>
             </div>
 

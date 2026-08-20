@@ -68,17 +68,17 @@ export default function Reviews() {
       <section className="border-b border-border bg-card/5 py-12">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            {/*
+              No numeric rating, star graphic, review count, or aggregateRating
+              here. Do not reintroduce one until it can be visibly supported by
+              a named source and a current count.
+            */}
             <div className="border border-border/60 p-6 bg-card/10 flex flex-col gap-2 justify-center">
-              <span className="font-serif text-3xl text-white font-bold">
-                5.0 / 5.0
+              <span className="font-serif text-2xl text-white font-bold leading-snug">
+                Detailed inspections. Clear reports. Straight answers.
               </span>
-              <div className="flex gap-1 justify-center md:justify-start">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                ))}
-              </div>
               <span className="font-mono text-[9px] tracking-widest uppercase text-muted-foreground mt-1">
-                Perfect Star Rating
+                What Clients Describe
               </span>
             </div>
 

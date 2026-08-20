@@ -4,8 +4,14 @@ import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import { createCommercialQuoteHandler } from "./commercialQuote";
-import { getRouteMeta, isKnownRoute, getCanonicalPath } from "./routeMeta";
+import {
+  getRouteMeta,
+  isKnownRoute,
+  getCanonicalPath,
+  type RouteMeta,
+} from "./routeMeta";
 import { getJsonLd } from "./structuredData";
+import { getStaticContent } from "./staticContent";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -74,14 +80,22 @@ async function startServer() {
     if (!isKnownRoute(routePath)) {
       const meta = getRouteMeta("/404");
       const jsonLd = ""; // No structured data on 404
-      const html = injectMeta(indexHtmlTemplate, meta, true, jsonLd);
+      const html = injectMeta(indexHtmlTemplate, meta, true, jsonLd, "");
       return res.status(404).send(html);
     }
 
-    // Inject route-specific meta tags and structured data for known routes
+    // Inject route-specific meta tags, structured data, and the crawlable
+    // above-the-fold content block for known routes.
     const meta = getRouteMeta(routePath);
     const jsonLd = getJsonLd(routePath);
-    const html = injectMeta(indexHtmlTemplate, meta, false, jsonLd);
+    const staticContent = getStaticContent(routePath);
+    const html = injectMeta(
+      indexHtmlTemplate,
+      meta,
+      false,
+      jsonLd,
+      staticContent
+    );
     res.send(html);
   });
 
@@ -90,14 +104,6 @@ async function startServer() {
   server.listen(port, () => {
     console.info(`Server running on http://localhost:${port}/`);
   });
-}
-
-interface RouteMeta {
-  title: string;
-  description: string;
-  canonical: string;
-  ogImage?: string;
-  robots?: "index, follow" | "noindex, follow";
 }
 
 function escapeHtml(str: string): string {
@@ -112,7 +118,8 @@ function injectMeta(
   template: string,
   meta: RouteMeta,
   is404: boolean,
-  jsonLd: string
+  jsonLd: string,
+  staticContent: string
 ): string {
   const ogImage =
     meta.ogImage || "https://www.weareprospec.com/assets/prospec-og-image.jpg";
@@ -171,6 +178,16 @@ function injectMeta(
   // Inject GTM noscript after <body>
   if (gtmNoscript) {
     html = html.replace("<body>", `<body>\n    ${gtmNoscript}`);
+  }
+
+  // Inject the crawlable above-the-fold block INSIDE #root. React's
+  // createRoot(...).render() clears the container on first render, so this
+  // content is replaced rather than duplicated once the bundle executes.
+  if (staticContent) {
+    html = html.replace(
+      '<div id="root"></div>',
+      `<div id="root">${staticContent}</div>`
+    );
   }
 
   return html;

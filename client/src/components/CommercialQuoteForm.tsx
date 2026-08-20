@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { CheckCircle2 } from "lucide-react";
+import { PHONE_DISPLAY, PHONE_TEL_HREF } from "@shared/business";
 import { trackEvent } from "@/lib/tracking";
 
 /* 
@@ -34,6 +35,31 @@ export default function CommercialQuoteForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  // `quote_view` = the quote request form actually entered the viewport. This
+  // is a genuine funnel step (intent to request a quote), not a conversion.
+  // Deduped to once per page view by lib/tracking.ts.
+  useEffect(() => {
+    const node = formRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries.some(entry => entry.isIntersecting)) {
+          trackEvent({
+            event: "quote_view",
+            service_type: "commercial_quote",
+          });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   const {
     register,
@@ -82,14 +108,16 @@ export default function CommercialQuoteForm() {
 
       setIsSubmitted(true);
       toast.success("Your quote request was received by the website system.");
-      trackEvent({ event: "commercial_quote_submit" });
+      // Fired only after the API confirms the lead was accepted — never on a
+      // click or on a failed submission. No form field values are ever sent.
+      trackEvent({ event: "generate_lead", service_type: "commercial_quote" });
     } catch (error) {
       const message =
         error instanceof Error
           ? error.message
           : "Unable to submit your quote request right now.";
       setSubmitError(
-        `${message} Please call ProSpec directly at (916) 432-0332 if this continues.`
+        `${message} Please call ProSpec directly at ${PHONE_DISPLAY} if this continues.`
       );
       toast.error("Quote request could not be submitted.");
       trackEvent({ event: "commercial_quote_error" });
@@ -119,7 +147,7 @@ export default function CommercialQuoteForm() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
           <a
-            href="tel:916-432-0332"
+            href={PHONE_TEL_HREF}
             className="border border-border hover:border-white text-white font-mono text-xs tracking-widest uppercase px-6 py-3 transition-colors flex items-center justify-center gap-2"
           >
             Call ProSpec Direct
@@ -137,6 +165,7 @@ export default function CommercialQuoteForm() {
 
   return (
     <form
+      ref={formRef}
       onSubmit={handleSubmit(onSubmit)}
       className="border border-border/80 bg-card/40 p-6 md:p-10 max-w-4xl mx-auto flex flex-col gap-6"
     >

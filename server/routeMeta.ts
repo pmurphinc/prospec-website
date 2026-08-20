@@ -4,15 +4,15 @@
  * so that crawlers see proper meta tags in the initial HTML response.
  */
 
-interface RouteMeta {
+import { BASE_URL } from "../shared/business";
+
+export interface RouteMeta {
   title: string;
   description: string;
   canonical: string;
   ogImage?: string;
   robots?: "index, follow" | "noindex, follow";
 }
-
-const BASE_URL = "https://www.weareprospec.com";
 
 const ROUTE_META: Record<string, RouteMeta> = {
   "/": {
@@ -24,7 +24,7 @@ const ROUTE_META: Record<string, RouteMeta> = {
   "/services": {
     title: "Residential & Commercial Property Inspections | ProSpec Sacramento",
     description:
-      "Explore ProSpec's inspection services: buyer's home inspections, pre-listing inspections, new construction, 11-month warranty, and commercial property condition assessments. Transparent pricing starting at $350.",
+      "Explore ProSpec's inspection services: buyer's and pre-listing home inspections from $385, manufactured-home and 11-month warranty inspections from $350, pool inspections, mold testing, and commercial property condition assessments. Final pricing varies by property.",
     canonical: BASE_URL + "/services",
   },
   "/reviews": {
@@ -44,6 +44,15 @@ const ROUTE_META: Record<string, RouteMeta> = {
     description:
       "Book your residential home inspection online with ProSpec. Review real-time availability, select service add-ons, and secure your inspection slot in minutes. Same-day reports.",
     canonical: BASE_URL + "/booknow",
+    robots: "noindex, follow",
+  },
+  // Reached only via Spectora's post-booking redirect. Intentionally noindex —
+  // it must stay crawlable (not robots-disallowed) so the directive is seen.
+  "/booking-confirmed": {
+    title: "Inspection Request Confirmed | ProSpec Home Inspections",
+    description:
+      "Your ProSpec inspection request is confirmed. Here is what happens next, and how to reach Patrick Murphy if you need to change anything.",
+    canonical: BASE_URL + "/booking-confirmed",
     robots: "noindex, follow",
   },
   // ─── Local Residential Landing Pages ─────────────────────────────────────

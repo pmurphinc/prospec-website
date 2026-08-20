@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import {
   ShieldCheck,
   Award,
   Phone,
+  MessageSquare,
   CheckCircle2,
   Clock,
   AlertTriangle,
@@ -11,6 +12,11 @@ import {
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import { trackEvent } from "@/lib/tracking";
+import {
+  PHONE_DISPLAY,
+  PHONE_SMS_HREF,
+  PHONE_TEL_HREF,
+} from "@shared/business";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -19,31 +25,82 @@ import { trackEvent } from "@/lib/tracking";
 
 export default function BookNow() {
   const [loading, setLoading] = useState(true);
+  // The Spectora iframe is deferred until it is near the viewport so the page
+  // and its Call / Text CTAs stay interactive while the third-party scheduler
+  // loads. `shouldLoadIframe` gates the <iframe> entirely.
+  const [shouldLoadIframe, setShouldLoadIframe] = useState(false);
+  const iframeSlotRef = useRef<HTMLDivElement | null>(null);
 
-  // We retrieved the exact Spectora iframe source from the Wix website iframe source!
-  // Wix Iframe: https://www-weareprospec-com.filesusr.com/html/07e6cd_e98c1adfbfb4939cea90f7b1bd4061bb.html
-  // Let's load the Spectora widget cleanly within our responsive frame.
   const spectoraIframeUrl =
     "https://app.spectora.com/home-inspectors/my-inspection-company-14f9d0e41f/schedule?iframe=true";
 
+  // Reaching the scheduler page is the top of the measurable booking funnel.
+  // This is NOT a booking — booking_complete fires only on /booking-confirmed.
   useEffect(() => {
-    // Handle loading state
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
+    trackEvent({ event: "scheduler_start" });
   }, []);
 
-  // Track scheduler page view as a funnel step
+  // Load the scheduler when it approaches the viewport.
+  //
+  // BOOKING RELIABILITY: deferring must never be able to strand the scheduler.
+  // This is the primary conversion path, so there are three independent ways it
+  // can load — a viewport-proximity check, an IntersectionObserver fast path,
+  // and an unconditional timeout backstop. If any one of them fires, the iframe
+  // loads. A browser where IntersectionObserver silently never fires (or is
+  // missing entirely) still gets a working scheduler via the backstop.
   useEffect(() => {
-    trackEvent({ event: "scheduler_page_view" });
+    const slot = iframeSlotRef.current;
+    if (!slot) return;
+
+    let settled = false;
+    const load = () => {
+      if (settled) return;
+      settled = true;
+      setShouldLoadIframe(true);
+    };
+
+    // 1. Already at or near the viewport on mount — no observer needed.
+    const isNearViewport = () => {
+      const rect = slot.getBoundingClientRect();
+      return rect.top < window.innerHeight + 400 && rect.bottom > -400;
+    };
+    if (isNearViewport()) {
+      load();
+      return;
+    }
+
+    // 2. Fast path: load as soon as the slot approaches the viewport.
+    let observer: IntersectionObserver | undefined;
+    if (typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        entries => {
+          if (entries.some(entry => entry.isIntersecting)) load();
+        },
+        { rootMargin: "400px" }
+      );
+      observer.observe(slot);
+    }
+
+    // 3. Backstop: a passive scroll check plus an unconditional timer, so the
+    //    scheduler loads even if the observer never reports.
+    const onScroll = () => {
+      if (isNearViewport()) load();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    const backstop = window.setTimeout(load, 2500);
+
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.clearTimeout(backstop);
+    };
   }, []);
 
   return (
     <Layout>
       <SEO
         title="Schedule Your Inspection Online | ProSpec Sacramento"
-        description="Schedule your residential property inspection online in minutes. Real-time availability, clear upfront pricing, and immediate confirmation."
+        description="Book your residential home inspection online with ProSpec. Review real-time availability, select service add-ons, and secure your inspection slot in minutes. Same-day reports."
         canonicalUrl="https://www.weareprospec.com/booknow"
         robots="noindex, follow"
       />
@@ -87,7 +144,7 @@ export default function BookNow() {
                 </div>
 
                 {/* The Widget Iframe */}
-                <div className="flex-grow relative">
+                <div ref={iframeSlotRef} className="flex-grow relative">
                   {loading && (
                     <div className="absolute inset-0 bg-background/90 flex flex-col items-center justify-center gap-3 z-10">
                       <div className="h-8 w-8 border-2 border-primary border-t-transparent animate-spin" />
@@ -97,13 +154,25 @@ export default function BookNow() {
                     </div>
                   )}
 
-                  <iframe
-                    src={spectoraIframeUrl}
-                    title="Spectora Booking Widget"
-                    className="w-full h-[700px] border-0"
-                    onLoad={() => setLoading(false)}
-                    allow="geolocation"
-                  />
+                  {shouldLoadIframe ? (
+                    <iframe
+                      src={spectoraIframeUrl}
+                      title="Spectora Booking Widget"
+                      className="w-full h-[700px] border-0"
+                      loading="lazy"
+                      onLoad={() => {
+                        setLoading(false);
+                        // The scheduler finished loading on our side of the
+                        // cross-origin boundary. This does NOT mean the user
+                        // viewed availability or booked anything — we cannot
+                        // observe either from outside app.spectora.com.
+                        trackEvent({ event: "check_availability" });
+                      }}
+                      allow="geolocation"
+                    />
+                  ) : (
+                    <div className="w-full h-[700px]" aria-hidden="true" />
+                  )}
                 </div>
               </div>
             </div>
@@ -125,11 +194,22 @@ export default function BookNow() {
                   accommodate urgent requests.
                 </p>
                 <a
-                  href="tel:916-432-0332"
+                  href={PHONE_TEL_HREF}
                   className="border border-primary/40 hover:border-primary text-white font-mono text-xs tracking-widest uppercase py-3 text-center transition-colors flex items-center justify-center gap-2 mt-2 bg-primary/5"
+                  data-track-event="phone_click"
+                  data-track-location="booknow-sidebar"
                 >
                   <Phone className="h-3.5 w-3.5 text-primary" />
-                  Call (916) 432-0332
+                  Call {PHONE_DISPLAY}
+                </a>
+                <a
+                  href={PHONE_SMS_HREF}
+                  className="border border-border/60 hover:border-white text-white font-mono text-xs tracking-widest uppercase py-3 text-center transition-colors flex items-center justify-center gap-2"
+                  data-track-event="text_click"
+                  data-track-location="booknow-sidebar"
+                >
+                  <MessageSquare className="h-3.5 w-3.5 text-primary" />
+                  Text {PHONE_DISPLAY}
                 </a>
               </div>
 

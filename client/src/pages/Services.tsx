@@ -13,6 +13,8 @@ import {
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
+import { useViewService } from "@/hooks/useViewService";
+import { PRICE_QUALIFIER } from "@shared/business";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -20,6 +22,7 @@ import SEO from "@/components/SEO";
 */
 
 export default function Services() {
+  useViewService("all_services");
   const residentialServices = [
     {
       title: "Buyer's Home Inspections",
@@ -83,6 +86,32 @@ export default function Services() {
         "Zero out-of-pocket repair costs for covered items",
       ],
       href: "/11-month-warranty-inspection",
+    },
+    {
+      title: "Pool Inspections",
+      // No price shown: ProSpec's pool pricing applies as an add-on to a home
+      // inspection, not as a standalone rate. Do not publish a standalone pool
+      // price here without confirming a real, bookable standalone figure.
+      desc: "Visual inspection of the accessible pool and spa equipment and surrounding surfaces, including visible pumps, filters, heaters, plumbing, and safety barriers, based on the agreed scope of work.",
+      who: "Buyers and owners of homes with a pool or spa who want the equipment reviewed alongside the house.",
+      features: [
+        "Visible pump, filter, and heater condition",
+        "Accessible equipment plumbing and electrical connections",
+        "Pool and spa surface and coping observations",
+        "Safety barrier and access observations",
+      ],
+    },
+    {
+      title: "Mold Testing",
+      // Priced per sample/scope — no starting figure published. Do not invent one.
+      desc: "Sampling and laboratory analysis to identify the presence of mold, typically added when the inspection reveals moisture intrusion, staining, or musty odors. Scope and sample count are agreed in advance.",
+      who: "Buyers, sellers, and owners who need the presence of mold confirmed rather than inferred from visible clues.",
+      features: [
+        "Air and/or surface sampling per the agreed scope",
+        "Independent laboratory analysis",
+        "Written results with practical next steps",
+        "Commonly paired with a home inspection",
+      ],
     },
   ];
 
@@ -180,6 +209,10 @@ export default function Services() {
               identify structural defects, system failures, and immediate safety
               hazards, giving you absolute confidence in your purchase.
             </p>
+            <p className="font-sans text-xs text-muted-foreground leading-relaxed">
+              Listed prices are starting points, not flat rates.{" "}
+              {PRICE_QUALIFIER}
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -194,7 +227,7 @@ export default function Services() {
                       {service.title}
                     </h3>
                     <span className="font-mono text-xs text-primary font-bold shrink-0">
-                      {service.price}
+                      {service.price ?? "Quoted with your inspection"}
                     </span>
                   </div>
 

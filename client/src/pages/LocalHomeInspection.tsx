@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import FAQ from "@/components/FAQ";
+import { useViewService } from "@/hooks/useViewService";
 
 /*
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -845,6 +846,8 @@ export default function LocalHomeInspection() {
   const page =
     LOCAL_PAGES[location] ?? LOCAL_PAGES["/home-inspection-sacramento"];
   const canonicalUrl = `https://www.weareprospec.com/${page.slug}`;
+
+  useViewService("residential_home_inspection", page.slug);
 
   return (
     <Layout>

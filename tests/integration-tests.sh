@@ -242,6 +242,242 @@ else
   fail "Manufactured-home schema description does not match dedicated wording"
 fi
 
+
+# ─── Test 13: /booknow indexing controls ─────────────────────────────────────
+echo ""
+echo "13. /booknow indexing controls"
+BOOKNOW_PAGE=$(curl -s "$BASE_URL/booknow")
+if echo "$BOOKNOW_PAGE" | grep -q '<meta name="robots" content="noindex, follow"'; then
+  pass "/booknow is noindex, follow"
+else
+  fail "/booknow is NOT noindex, follow"
+fi
+if echo "$BOOKNOW_PAGE" | grep -q '<link rel="canonical" href="https://www.weareprospec.com/booknow"'; then
+  pass "/booknow has a self-referencing HTTPS www canonical"
+else
+  fail "/booknow canonical is missing or not self-referencing"
+fi
+SITEMAP=$(curl -s "$BASE_URL/sitemap.xml")
+if echo "$SITEMAP" | grep -q '/booknow'; then
+  fail "/booknow appears in sitemap.xml (it must not)"
+else
+  pass "/booknow is excluded from sitemap.xml"
+fi
+ROBOTS=$(curl -s "$BASE_URL/robots.txt")
+# Crawlers MUST be able to fetch /booknow, or they never see the noindex tag.
+if echo "$ROBOTS" | grep -qiE '^[[:space:]]*Disallow:[[:space:]]*/booknow'; then
+  fail "robots.txt disallows /booknow (noindex would never be seen)"
+else
+  pass "robots.txt allows /booknow to be crawled"
+fi
+# The Spectora iframe is deliberately deferred until it nears the viewport, so
+# app.spectora.com is NOT expected in the raw HTML. What must be there without
+# JS is the booking page's own content and a working way to reach ProSpec.
+if echo "$BOOKNOW_PAGE" | grep -qF 'Schedule Your Inspection'; then
+  pass "/booknow has its heading in raw HTML"
+else
+  fail "/booknow heading missing from raw HTML"
+fi
+if echo "$BOOKNOW_PAGE" | grep -qF 'href="tel:+19164320332"'; then
+  pass "/booknow offers a phone fallback in raw HTML"
+else
+  fail "/booknow has no phone fallback in raw HTML"
+fi
+# The scheduler itself must still be wired up in the client bundle.
+if grep -rqF 'app.spectora.com' dist/public/assets/*.js 2>/dev/null; then
+  pass "Spectora scheduler URL is present in the client bundle"
+elif [ "$BASE_URL" != "http://localhost:3000" ]; then
+  pass "Spectora bundle check skipped (remote target)"
+else
+  fail "Spectora scheduler URL missing from the client bundle"
+fi
+
+# ─── Test 14: /booking-confirmed indexing controls ───────────────────────────
+echo ""
+echo "14. /booking-confirmed indexing controls"
+CONFIRMED_PAGE=$(curl -s "$BASE_URL/booking-confirmed")
+if echo "$CONFIRMED_PAGE" | grep -q '<meta name="robots" content="noindex, follow"'; then
+  pass "/booking-confirmed is noindex, follow"
+else
+  fail "/booking-confirmed is NOT noindex, follow"
+fi
+if echo "$CONFIRMED_PAGE" | grep -q '<link rel="canonical" href="https://www.weareprospec.com/booking-confirmed"'; then
+  pass "/booking-confirmed has a self-referencing canonical"
+else
+  fail "/booking-confirmed canonical is missing or not self-referencing"
+fi
+if echo "$SITEMAP" | grep -q '/booking-confirmed'; then
+  fail "/booking-confirmed appears in sitemap.xml (it must not)"
+else
+  pass "/booking-confirmed is excluded from sitemap.xml"
+fi
+
+# ─── Test 15: Pricing consistency ────────────────────────────────────────────
+echo ""
+echo "15. Pricing consistency between metadata and visible copy"
+SERVICES_BODY=$(curl -s "$BASE_URL/services")
+SERVICES_META=$(echo "$SERVICES_BODY" | grep -o '<meta name="description" content="[^"]*"')
+if echo "$SERVICES_META" | grep -q '385'; then
+  pass "/services meta description states the 385 residential starting price"
+else
+  fail "/services meta description does not state the 385 residential price"
+fi
+if echo "$SERVICES_META" | grep -qE 'pricing starting at .?350'; then
+  fail "/services meta implies ALL inspections start at 350"
+else
+  pass "/services meta does not imply all inspections start at 350"
+fi
+if echo "$SERVICES_BODY" | grep -q 'Final pricing varies based on square footage'; then
+  pass "/services carries the pricing qualifier in static HTML"
+else
+  fail "/services is missing the pricing qualifier in static HTML"
+fi
+
+# ─── Test 16: Crawlable above-the-fold content in raw HTML ───────────────────
+echo ""
+echo "16. Crawlable above-the-fold content in raw HTML (pre-JS)"
+check_static_route() {
+  local route="$1"
+  local expected_h1="$2"
+  local body
+  body=$(curl -s "$BASE_URL$route")
+
+  local h1_count
+  h1_count=$(echo "$body" | grep -o '<h1' | wc -l | tr -d ' ')
+  if [ "$h1_count" = "1" ]; then
+    pass "$route has exactly one <h1> in raw HTML"
+  else
+    fail "$route has $h1_count <h1> elements in raw HTML (expected 1)"
+  fi
+
+  if echo "$body" | grep -qF "$expected_h1"; then
+    pass "$route <h1> text is present in raw HTML"
+  else
+    fail "$route <h1> text missing from raw HTML"
+  fi
+
+  if echo "$body" | grep -qF 'href="tel:+19164320332"'; then
+    pass "$route has a tel: link in raw HTML"
+  else
+    fail "$route has no tel: link in raw HTML"
+  fi
+
+  if echo "$body" | grep -qF 'href="sms:+19164320332"'; then
+    pass "$route has an sms: link in raw HTML"
+  else
+    fail "$route has no sms: link in raw HTML"
+  fi
+
+  if echo "$body" | grep -qF '/booknow'; then
+    pass "$route has a booking CTA in raw HTML"
+  else
+    fail "$route has no booking CTA in raw HTML"
+  fi
+
+  # The block must be real visible content, never hidden SEO text.
+  if echo "$body" | grep -o '<div id="prospec-static-content"[^>]*>' | grep -qiE 'display:[[:space:]]*none|visibility:[[:space:]]*hidden|aria-hidden'; then
+    fail "$route static content block is hidden (cloaking risk)"
+  else
+    pass "$route static content block is visible, not hidden"
+  fi
+}
+
+check_static_route "/" "Certified Master Home Inspector"
+check_static_route "/services" "Inspection Services"
+check_static_route "/home-inspection-sacramento" "Home Inspection in Sacramento, CA"
+check_static_route "/manufactured-home-inspection" "Manufactured Home Inspections"
+
+# ─── Test 17: Unique titles and descriptions ─────────────────────────────────
+echo ""
+echo "17. Unique titles and meta descriptions across indexable routes"
+ROUTES="/ /services /reviews /inspector /home-inspection-sacramento /home-inspection-folsom /home-inspection-el-dorado-hills /home-inspection-placerville /home-inspection-shingle-springs /new-construction-inspection /11-month-warranty-inspection /manufactured-home-inspection /commercial-property-condition-assessments-sacramento /commercial-building-inspections-sacramento /apartment-building-inspections-sacramento"
+ROUTE_COUNT=0
+TITLE_FILE=$(mktemp)
+DESC_FILE=$(mktemp)
+for r in $ROUTES; do
+  ROUTE_COUNT=$((ROUTE_COUNT + 1))
+  PAGE=$(curl -s "$BASE_URL$r")
+  echo "$PAGE" | grep -o '<title>[^<]*</title>' | head -1 >> "$TITLE_FILE"
+  echo "$PAGE" | grep -o '<meta name="description" content="[^"]*"' | head -1 >> "$DESC_FILE"
+done
+UNIQUE_TITLES=$(sort -u "$TITLE_FILE" | grep -c '<title>' || true)
+UNIQUE_DESCS=$(sort -u "$DESC_FILE" | grep -c 'name="description"' || true)
+rm -f "$TITLE_FILE" "$DESC_FILE"
+if [ "$UNIQUE_TITLES" = "$ROUTE_COUNT" ]; then
+  pass "All $ROUTE_COUNT indexable routes have unique titles"
+else
+  fail "Only $UNIQUE_TITLES unique titles across $ROUTE_COUNT routes"
+fi
+if [ "$UNIQUE_DESCS" = "$ROUTE_COUNT" ]; then
+  pass "All $ROUTE_COUNT indexable routes have unique meta descriptions"
+else
+  fail "Only $UNIQUE_DESCS unique descriptions across $ROUTE_COUNT routes"
+fi
+
+# ─── Test 18: Reviews page carries no unsupported rating ─────────────────────
+echo ""
+echo "18. Reviews page carries no unsupported rating claim"
+REVIEWS_PAGE=$(curl -s "$BASE_URL/reviews")
+if echo "$REVIEWS_PAGE" | grep -q 'aggregateRating'; then
+  fail "Reviews page emits aggregateRating"
+else
+  pass "Reviews page emits no aggregateRating"
+fi
+if echo "$REVIEWS_PAGE" | grep -q '"@type":"Review"'; then
+  fail "Reviews page emits Review schema"
+else
+  pass "Reviews page emits no Review schema"
+fi
+if echo "$REVIEWS_PAGE" | grep -qi 'Perfect Star Rating'; then
+  fail "Reviews page still claims a Perfect Star Rating"
+else
+  pass "Reviews page makes no 'Perfect Star Rating' claim"
+fi
+if echo "$REVIEWS_PAGE" | grep -qi 'Cerified'; then
+  fail "Reviews page contains the misspelled 'Cerified' keyword text"
+else
+  pass "Reviews page contains no misspelled 'Cerified' keyword text"
+fi
+
+# ─── Test 19: Single analytics implementation ────────────────────────────────
+echo ""
+echo "19. Single analytics implementation (no duplicate systems)"
+GTM_COUNT=$(echo "$HOMEPAGE" | grep -o 'googletagmanager.com/gtm.js' | wc -l | tr -d ' ')
+if [ "$GTM_COUNT" -le 1 ]; then
+  pass "Homepage loads the GTM container at most once ($GTM_COUNT)"
+else
+  fail "Homepage loads the GTM container $GTM_COUNT times"
+fi
+if echo "$HOMEPAGE" | grep -q 'googletagmanager.com/gtag/js'; then
+  fail "Homepage loads gtag.js directly (duplicates GA4 via GTM)"
+else
+  pass "Homepage does not load gtag.js directly"
+fi
+
+# ─── Test 20: Business identity consistency ──────────────────────────────────
+echo ""
+echo "20. Business identity consistency"
+if echo "$HOMEPAGE" | grep -qF '"telephone":"+1-916-432-0332"'; then
+  pass "Schema telephone matches the canonical number"
+else
+  fail "Schema telephone does not match the canonical number"
+fi
+if echo "$HOMEPAGE" | grep -qF '"identifier":"NACHI17030156"'; then
+  pass "Schema carries the InterNACHI ID"
+else
+  fail "Schema is missing the InterNACHI ID"
+fi
+if echo "$HOMEPAGE" | grep -qE '"(streetAddress|postalCode)"'; then
+  fail "Schema publishes a street address (service-area business must not)"
+else
+  pass "Schema publishes no street address"
+fi
+if echo "$HOMEPAGE" | grep -qF '"sameAs":[""'; then
+  fail "Schema sameAs contains an empty placeholder URL"
+else
+  pass "Schema sameAs contains no empty placeholder URLs"
+fi
+
 # ─── Summary ──────────────────────────────────────────────────────────────────
 echo ""
 echo "─────────────────────────────────────────────────────────────────"

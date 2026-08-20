@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
+import { PHONE_DISPLAY, PHONE_TEL_HREF } from "@shared/business";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -85,11 +86,11 @@ export default function Inspector() {
                   patrick@weareprospec.com
                 </a>
                 <a
-                  href="tel:916-432-0332"
+                  href={PHONE_TEL_HREF}
                   className="border border-border/60 hover:border-white px-4 py-2.5 text-muted-foreground hover:text-white transition-colors flex items-center gap-2"
                 >
                   <Phone className="h-3.5 w-3.5 text-primary" />
-                  (916) 432-0332
+                  {PHONE_DISPLAY}
                 </a>
               </div>
             </div>

@@ -4,37 +4,42 @@
  * Does NOT include: aggregate ratings, address, license, insurance, or unverified claims.
  */
 
-const BASE_URL = "https://www.weareprospec.com";
+import {
+  BASE_URL,
+  BUSINESS_NAME,
+  COMMERCIAL_SERVICE_AREAS,
+  EMAIL,
+  INSPECTOR_NAME,
+  INSPECTOR_TITLE,
+  INTERNACHI_ID,
+  MANUFACTURED_SERVICE_AREAS,
+  PHONE_SCHEMA,
+  SAME_AS,
+  SERVICE_AREAS,
+  toAreaServed,
+} from "../shared/business";
 
 // ─── LocalBusiness / HomeAndConstructionBusiness ─────────────────────────────
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
-  name: "ProSpec Home Inspections",
+  name: BUSINESS_NAME,
   url: BASE_URL,
-  telephone: "+1-916-432-0332",
-  email: "patrick@weareprospec.com",
+  telephone: PHONE_SCHEMA,
+  email: EMAIL,
   image: `${BASE_URL}/assets/prospec-og-image.jpg`,
   logo: `${BASE_URL}/assets/prospec-logo.png`,
   description:
     "Property inspection services in the Sacramento area led by Patrick Murphy, a Certified Master Inspector (CMI).",
-  areaServed: [
-    { "@type": "City", name: "Sacramento", addressRegion: "CA" },
-    { "@type": "City", name: "Folsom", addressRegion: "CA" },
-    { "@type": "City", name: "Roseville", addressRegion: "CA" },
-    { "@type": "City", name: "Rocklin", addressRegion: "CA" },
-    { "@type": "City", name: "El Dorado Hills", addressRegion: "CA" },
-    { "@type": "City", name: "Davis", addressRegion: "CA" },
-    { "@type": "City", name: "Elk Grove", addressRegion: "CA" },
-    { "@type": "City", name: "Placerville", addressRegion: "CA" },
-    { "@type": "City", name: "Shingle Springs", addressRegion: "CA" },
-  ],
+  areaServed: toAreaServed(SERVICE_AREAS),
   founder: {
     "@type": "Person",
-    name: "Patrick Murphy",
-    jobTitle: "Certified Master Inspector",
-    identifier: "NACHI17030156",
+    name: INSPECTOR_NAME,
+    jobTitle: INSPECTOR_TITLE,
+    identifier: INTERNACHI_ID,
   },
+  // Only emitted when verified profile URLs exist — never an empty array.
+  ...(SAME_AS.length > 0 ? { sameAs: [...SAME_AS] } : {}),
 };
 
 // ─── Service Schemas ─────────────────────────────────────────────────────────
@@ -44,22 +49,12 @@ const residentialServices = {
   serviceType: "Home Inspection",
   provider: {
     "@type": "HomeAndConstructionBusiness",
-    name: "ProSpec Home Inspections",
+    name: BUSINESS_NAME,
     url: BASE_URL,
   },
-  areaServed: [
-    { "@type": "City", name: "Sacramento", addressRegion: "CA" },
-    { "@type": "City", name: "Folsom", addressRegion: "CA" },
-    { "@type": "City", name: "Roseville", addressRegion: "CA" },
-    { "@type": "City", name: "Rocklin", addressRegion: "CA" },
-    { "@type": "City", name: "El Dorado Hills", addressRegion: "CA" },
-    { "@type": "City", name: "Davis", addressRegion: "CA" },
-    { "@type": "City", name: "Elk Grove", addressRegion: "CA" },
-    { "@type": "City", name: "Placerville", addressRegion: "CA" },
-    { "@type": "City", name: "Shingle Springs", addressRegion: "CA" },
-  ],
+  areaServed: toAreaServed(SERVICE_AREAS),
   description:
-    "Residential home inspections including buyer's inspections, pre-listing inspections, new construction inspections, and 11-month warranty inspections.",
+    "Residential home inspections including buyer's inspections, pre-listing inspections, new construction inspections, and 11-month warranty inspections, with pool inspections and mold testing available.",
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Residential Inspection Services",
@@ -86,6 +81,14 @@ const residentialServices = {
           name: "11-Month Warranty Inspection",
         },
       },
+      {
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: "Pool Inspection" },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: "Mold Testing" },
+      },
     ],
   },
 };
@@ -96,16 +99,10 @@ const commercialServices = {
   serviceType: "Commercial Property Condition Assessment",
   provider: {
     "@type": "HomeAndConstructionBusiness",
-    name: "ProSpec Home Inspections",
+    name: BUSINESS_NAME,
     url: BASE_URL,
   },
-  areaServed: [
-    { "@type": "City", name: "Sacramento", addressRegion: "CA" },
-    { "@type": "City", name: "Folsom", addressRegion: "CA" },
-    { "@type": "City", name: "Roseville", addressRegion: "CA" },
-    { "@type": "City", name: "Rocklin", addressRegion: "CA" },
-    { "@type": "City", name: "El Dorado Hills", addressRegion: "CA" },
-  ],
+  areaServed: toAreaServed(COMMERCIAL_SERVICE_AREAS),
   description:
     "Scoped commercial property condition assessments (PCA) for buyers, lenders, brokers, and investors, covering agreed accessible systems in office, retail, industrial, multifamily, and mixed-use properties.",
   hasOfferCatalog: {
@@ -143,18 +140,10 @@ const manufacturedHomeInspectionService = {
   serviceType: "Manufactured Home Inspection",
   provider: {
     "@type": "HomeAndConstructionBusiness",
-    name: "ProSpec Home Inspections",
+    name: BUSINESS_NAME,
     url: BASE_URL,
   },
-  areaServed: [
-    { "@type": "City", name: "Sacramento", addressRegion: "CA" },
-    { "@type": "City", name: "Folsom", addressRegion: "CA" },
-    { "@type": "City", name: "Roseville", addressRegion: "CA" },
-    { "@type": "City", name: "Rocklin", addressRegion: "CA" },
-    { "@type": "City", name: "El Dorado Hills", addressRegion: "CA" },
-    { "@type": "City", name: "Placerville", addressRegion: "CA" },
-    { "@type": "City", name: "Shingle Springs", addressRegion: "CA" },
-  ],
+  areaServed: toAreaServed(MANUFACTURED_SERVICE_AREAS),
   description:
     "Visual, non-invasive inspection of manufactured and mobile homes covering readily accessible components. Observations include visible support components, exterior, roof, interior, plumbing, electrical, HVAC, and site drainage as applicable to the agreed scope of work.",
 };

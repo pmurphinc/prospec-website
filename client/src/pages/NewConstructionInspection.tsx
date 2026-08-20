@@ -11,8 +11,11 @@ import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import FAQ from "@/components/FAQ";
 import SEO from "@/components/SEO";
+import { PHONE_DISPLAY, PHONE_TEL_HREF } from "@shared/business";
+import { useViewService } from "@/hooks/useViewService";
 
 export default function NewConstructionInspection() {
+  useViewService("new_construction_inspection");
   const faqs = [
     {
       question: "Do I really need an inspection on a brand-new home?",
@@ -97,7 +100,7 @@ export default function NewConstructionInspection() {
                   Schedule Inspection
                 </Button>
               </Link>
-              <a href="tel:916-432-0332">
+              <a href={PHONE_TEL_HREF}>
                 <Button
                   variant="outline"
                   size="lg"
@@ -105,7 +108,7 @@ export default function NewConstructionInspection() {
                   data-track-event="phone_click"
                   data-track-location="new_construction_hero"
                 >
-                  Call (916) 432-0332
+                  Call {PHONE_DISPLAY}
                 </Button>
               </a>
             </div>
@@ -132,8 +135,8 @@ export default function NewConstructionInspection() {
               <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
                 This is not an engineering analysis or a guarantee of future
                 performance, but a practical evaluation of the home's condition
-                at the time of inspection. When significant concerns are observed,
-                we recommend evaluation by qualified specialists.
+                at the time of inspection. When significant concerns are
+                observed, we recommend evaluation by qualified specialists.
               </p>
             </div>
 
@@ -198,7 +201,8 @@ export default function NewConstructionInspection() {
               <p className="font-sans text-xs text-muted-foreground leading-relaxed">
                 Common observations on new homes include ductwork connections,
                 attic insulation coverage, and roof flashing installation. We
-                document what is visible and accessible at the time of inspection.
+                document what is visible and accessible at the time of
+                inspection.
               </p>
             </div>
 

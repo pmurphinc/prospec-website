@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Phone, Menu, X, ShieldCheck } from "lucide-react";
+import { Phone, MessageSquare, Menu, X, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  PHONE_DISPLAY,
+  PHONE_SMS_HREF,
+  PHONE_TEL_HREF,
+} from "@shared/business";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -86,13 +91,23 @@ export default function Header() {
         {/* Action CTAs */}
         <div className="hidden sm:flex items-center gap-4">
           <a
-            href="tel:916-432-0332"
+            href={PHONE_TEL_HREF}
             className="flex items-center gap-2 font-mono text-xs tracking-wider text-muted-foreground hover:text-white transition-colors border border-border/40 px-4 py-2"
             data-track-event="phone_click"
             data-track-location="header"
           >
             <Phone className="h-3 w-3 text-primary" />
-            (916) 432-0332
+            {PHONE_DISPLAY}
+          </a>
+          <a
+            href={PHONE_SMS_HREF}
+            className="flex items-center gap-2 font-mono text-xs tracking-wider text-muted-foreground hover:text-white transition-colors border border-border/40 px-4 py-2"
+            data-track-event="text_click"
+            data-track-location="header"
+            aria-label={`Text ProSpec at ${PHONE_DISPLAY}`}
+          >
+            <MessageSquare className="h-3 w-3 text-primary" />
+            Text
           </a>
           <Link href="/booknow">
             <Button
@@ -152,13 +167,22 @@ export default function Header() {
 
           <div className="flex flex-col gap-4 pt-6 mt-6 border-t border-border/40">
             <a
-              href="tel:916-432-0332"
+              href={PHONE_TEL_HREF}
               className="flex items-center justify-center gap-3 font-mono text-sm tracking-wider border border-border/60 py-3.5 text-white min-h-[48px] bg-card/20 hover:bg-card/40 transition-colors"
               data-track-event="phone_click"
               data-track-location="mobile-menu"
             >
               <Phone className="h-4 w-4 text-primary" />
-              (916) 432-0332
+              {PHONE_DISPLAY}
+            </a>
+            <a
+              href={PHONE_SMS_HREF}
+              className="flex items-center justify-center gap-3 font-mono text-sm tracking-wider border border-border/60 py-3.5 text-white min-h-[48px] bg-card/20 hover:bg-card/40 transition-colors"
+              data-track-event="text_click"
+              data-track-location="mobile-menu"
+            >
+              <MessageSquare className="h-4 w-4 text-primary" />
+              Text {PHONE_DISPLAY}
             </a>
             <Link
               href="/booknow"

@@ -13,6 +13,8 @@ import Layout from "@/components/Layout";
 import CommercialQuoteForm from "@/components/CommercialQuoteForm";
 import FAQ from "@/components/FAQ";
 import SEO from "@/components/SEO";
+import { PHONE_DISPLAY, PHONE_TEL_HREF } from "@shared/business";
+import { useViewService } from "@/hooks/useViewService";
 
 /* 
   DESIGN PHILOSOPHY: Approach 1 - The Master Builder (Industrial Editorial)
@@ -20,6 +22,7 @@ import SEO from "@/components/SEO";
 */
 
 export default function CommercialPCA() {
+  useViewService("commercial_pca");
   const pcaFaqs = [
     {
       question: "How is a commercial inspection priced?",
@@ -228,12 +231,12 @@ export default function CommercialPCA() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-center mt-4">
           <a
-            href="tel:916-432-0332"
+            href={PHONE_TEL_HREF}
             className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-xs tracking-widest uppercase h-12 px-8 font-bold flex items-center justify-center transition-colors w-full sm:w-auto"
             data-track-event="phone_click"
             data-track-location="commercial-pca-cta"
           >
-            Call (916) 432-0332
+            Call {PHONE_DISPLAY}
           </a>
           <a
             href="#quote-form"

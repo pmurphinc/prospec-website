@@ -9,7 +9,10 @@
     "start": "NODE_ENV=production node dist/index.js",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "tsx --test server/*.test.ts tests/*.test.ts",
+    "test:integration": "bash tests/integration-tests.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

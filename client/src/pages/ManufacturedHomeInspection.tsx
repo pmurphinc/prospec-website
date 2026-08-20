@@ -11,8 +11,11 @@ import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import FAQ from "@/components/FAQ";
 import SEO from "@/components/SEO";
+import { PHONE_DISPLAY, PHONE_TEL_HREF } from "@shared/business";
+import { useViewService } from "@/hooks/useViewService";
 
 export default function ManufacturedHomeInspection() {
+  useViewService("manufactured_home_inspection");
   const faqs = [
     {
       question: "What is included in a manufactured home inspection?",
@@ -32,7 +35,7 @@ export default function ManufacturedHomeInspection() {
     {
       question: "Is pricing different for manufactured homes?",
       answer:
-        "Manufactured home inspections start at $350. Final pricing depends on the size, age, and any additional agreed scope.",
+        "Manufactured home inspections start at $350. Final pricing varies based on square footage, property age, foundation type, detached structures, and selected add-on services.",
     },
   ];
 
@@ -97,7 +100,7 @@ export default function ManufacturedHomeInspection() {
                   Schedule Inspection
                 </Button>
               </Link>
-              <a href="tel:916-432-0332">
+              <a href={PHONE_TEL_HREF}>
                 <Button
                   variant="outline"
                   size="lg"
@@ -105,7 +108,7 @@ export default function ManufacturedHomeInspection() {
                   data-track-event="phone_click"
                   data-track-location="manufactured_hero"
                 >
-                  Call (916) 432-0332
+                  Call {PHONE_DISPLAY}
                 </Button>
               </a>
             </div>
@@ -169,8 +172,8 @@ export default function ManufacturedHomeInspection() {
             </h2>
             <p className="font-sans text-xs md:text-sm text-muted-foreground leading-relaxed">
               Led by a Certified Master Inspector, our reports provide clear,
-              objective documentation of the property's condition without hype or
-              alarmism.
+              objective documentation of the property's condition without hype
+              or alarmism.
             </p>
           </div>
 
@@ -184,8 +187,8 @@ export default function ManufacturedHomeInspection() {
               </h3>
               <p className="font-sans text-xs text-muted-foreground leading-relaxed">
                 We visually assess readily accessible components, from the
-                support system to the roof, providing a comprehensive overview of
-                the home's current condition.
+                support system to the roof, providing a comprehensive overview
+                of the home's current condition.
               </p>
             </div>
 
