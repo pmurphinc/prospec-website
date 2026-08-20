@@ -20,6 +20,32 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        // Split long-lived vendor code out of the app chunk so a copy change
+        // does not invalidate the React runtime in visitors' caches.
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (
+            /[\\/]node_modules[\\/](react|react-dom|scheduler|wouter)[\\/]/.test(
+              id
+            )
+          ) {
+            return "vendor-react";
+          }
+          if (/[\\/]node_modules[\\/](@radix-ui|lucide-react)[\\/]/.test(id)) {
+            return "vendor-ui";
+          }
+          if (
+            /[\\/]node_modules[\\/](react-hook-form|@hookform|zod)[\\/]/.test(
+              id
+            )
+          ) {
+            return "vendor-forms";
+          }
+        },
+      },
+    },
   },
   server: {
     port: 3000,
