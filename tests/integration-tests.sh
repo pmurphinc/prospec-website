@@ -384,8 +384,32 @@ check_static_route() {
 
 check_static_route "/" "Certified Master Home Inspector"
 check_static_route "/services" "Inspection Services"
+check_static_route "/reviews" "ProSpec Client Reviews"
+check_static_route "/inspector" "Meet Patrick Murphy"
+check_static_route "/booknow" "Schedule Your Inspection"
 check_static_route "/home-inspection-sacramento" "Home Inspection in Sacramento, CA"
+check_static_route "/home-inspection-folsom" "Home Inspection in Folsom, CA"
+check_static_route "/home-inspection-el-dorado-hills" "Home Inspection in El Dorado Hills, CA"
+check_static_route "/home-inspection-placerville" "Home Inspections in Placerville, CA"
+check_static_route "/home-inspection-shingle-springs" "Home Inspection in Shingle Springs, CA"
+check_static_route "/new-construction-inspection" "New Construction Home Inspections"
+check_static_route "/11-month-warranty-inspection" "11-Month Warranty Inspections"
 check_static_route "/manufactured-home-inspection" "Manufactured Home Inspections"
+check_static_route "/commercial-property-condition-assessments-sacramento" "Commercial Property Condition Assessments (PCA)"
+check_static_route "/commercial-building-inspections-sacramento" "Commercial Building Inspections"
+check_static_route "/apartment-building-inspections-sacramento" "Apartment &amp; Multi-Family Inspections"
+
+# ─── Test 16b: no obsolete PCA sample-report URL anywhere ────────────────────
+echo ""
+echo "16b. No obsolete PCA sample-report URL"
+for r in / /services /booknow /commercial-property-condition-assessments-sacramento; do
+  BODY=$(curl -s "$BASE_URL$r")
+  if echo "$BODY" | grep -qiE 'sample_reports?/[0-9]|pca[-_]sample|sample[-_]pca'; then
+    fail "$r links a specific sample report URL"
+  else
+    pass "$r links no specific sample-report URL"
+  fi
+done
 
 # ─── Test 17: Unique titles and descriptions ─────────────────────────────────
 echo ""

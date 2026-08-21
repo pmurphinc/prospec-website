@@ -1,11 +1,10 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { lazy, Suspense, useRef } from "react";
-import { Route, Switch, useLocation } from "wouter";
+import { lazy, Suspense } from "react";
+import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import { resetViewTracking } from "./lib/tracking";
 
 // Home is eagerly imported: it is the most common entry point, and splitting it
 // would only add a network round trip before the landing page can paint.
@@ -50,21 +49,10 @@ function RouteFallback() {
   );
 }
 
+// Analytics dedupe needs no router involvement: lib/tracking.ts keys each
+// funnel event by pathname and normalized parameters, so a different route is
+// already a different key. Nothing mutates analytics state during render.
 function Router() {
-  const [location] = useLocation();
-  const lastLocation = useRef<string | null>(null);
-
-  // Clear per-view analytics dedupe state so a funnel step can fire once per
-  // page view rather than once per session.
-  //
-  // This runs during render, NOT in an effect: child effects run before parent
-  // effects, so resetting in a parent effect would clear the record of events
-  // the newly mounted page had just fired, allowing duplicates.
-  if (lastLocation.current !== location) {
-    lastLocation.current = location;
-    resetViewTracking();
-  }
-
   return (
     <Suspense fallback={<RouteFallback />}>
       <Switch>

@@ -1,8 +1,11 @@
 /**
- * Guards the three properties that make the booking funnel trustworthy:
- *   1. Funnel steps and conversions never fire twice for one page view.
- *   2. No PII ever reaches the dataLayer.
- *   3. A conversion is never fired by a click or by visiting the booking page.
+ * Guards the properties that make the booking funnel trustworthy:
+ *   1. Event names describe what actually happened.
+ *   2. Funnel steps and conversions are never double-counted.
+ *   3. booking_complete survives a page refresh without duplicating.
+ *   4. No PII ever reaches the dataLayer.
+ *   5. A conversion is never fired by a click or by visiting the booking page.
+ *   6. Dedupe keys are route-scoped, so different routes report independently.
  *
  * Run: npx tsx --test tests/tracking.test.ts
  *
@@ -14,7 +17,6 @@ import assert from "node:assert/strict";
 import test, { beforeEach, describe } from "node:test";
 
 // ─── Minimal DOM stub ────────────────────────────────────────────────────────
-// Only the surface lib/tracking.ts actually touches.
 
 interface StubElement {
   attributes: Record<string, string>;
@@ -29,7 +31,6 @@ function makeElement(attributes: Record<string, string>): StubElement {
       return name in attributes ? attributes[name] : null;
     },
     closest(selector) {
-      // lib/tracking.ts only ever queries "[data-track-event]".
       const attr = selector.replace(/^\[|\]$/g, "");
       return attr in attributes ? this : null;
     },
@@ -39,11 +40,29 @@ function makeElement(attributes: Record<string, string>): StubElement {
 type ClickHandler = (event: { target: StubElement }) => void;
 let clickHandlers: ClickHandler[] = [];
 
-function installDom(pathname = "/") {
+/** Minimal sessionStorage that can persist across simulated page reloads. */
+function makeSessionStorage(seed: Map<string, string>) {
+  return {
+    getItem: (k: string) => (seed.has(k) ? seed.get(k)! : null),
+    setItem: (k: string, v: string) => void seed.set(k, v),
+    removeItem: (k: string) => void seed.delete(k),
+    key: (i: number) => [...seed.keys()][i] ?? null,
+    get length() {
+      return seed.size;
+    },
+  };
+}
+
+let sessionSeed = new Map<string, string>();
+
+/** Simulates a fresh document. Pass keepSession to model a reload. */
+function installDom(pathname = "/", keepSession = false) {
   clickHandlers = [];
+  if (!keepSession) sessionSeed = new Map();
   (globalThis as Record<string, unknown>).window = {
     dataLayer: [] as Array<Record<string, unknown>>,
     location: { pathname },
+    sessionStorage: makeSessionStorage(sessionSeed),
   };
   (globalThis as Record<string, unknown>).document = {
     body: {
@@ -76,21 +95,48 @@ function setPath(pathname: string) {
   ).window.location.pathname = pathname;
 }
 
-// The module reads `window` at call time, so the stub must exist before import.
 installDom();
-const { trackEvent, resetViewTracking, initClickTracking } = await import(
+const { trackEvent, initClickTracking, __resetTrackingForTests } = await import(
   "../client/src/lib/tracking"
 );
 
 beforeEach(() => {
   installDom();
-  resetViewTracking();
+  __resetTrackingForTests();
 });
 
-// ─── 1. Duplicate suppression ────────────────────────────────────────────────
+// ─── 1. Event vocabulary ─────────────────────────────────────────────────────
+
+describe("event names describe what actually happened", () => {
+  test("scheduler_view fires for the booking page load", () => {
+    setPath("/booknow");
+    assert.equal(trackEvent({ event: "scheduler_view" }), true);
+    assert.deepEqual(eventNames(), ["scheduler_view"]);
+  });
+
+  test("scheduler_loaded is the iframe load, never an availability check", () => {
+    setPath("/booknow");
+    trackEvent({ event: "scheduler_loaded" });
+
+    const names = eventNames();
+    assert.deepEqual(names, ["scheduler_loaded"]);
+    assert.ok(!names.includes("check_availability"));
+    assert.ok(!names.includes("booking_complete"));
+  });
+
+  test("booking_cta_click is a click, distinct from scheduler_view", () => {
+    trackEvent({ event: "booking_cta_click", element_location: "hero" });
+
+    assert.deepEqual(eventNames(), ["booking_cta_click"]);
+    assert.ok(!eventNames().includes("scheduler_view"));
+  });
+});
+
+// ─── 2. Duplicate suppression ────────────────────────────────────────────────
 
 describe("duplicate suppression", () => {
-  test("a funnel step fires only once per page view", () => {
+  test("a funnel step fires only once for the same route and params", () => {
+    setPath("/services");
     assert.equal(
       trackEvent({ event: "view_service", service_type: "pool" }),
       true
@@ -99,19 +145,18 @@ describe("duplicate suppression", () => {
       trackEvent({ event: "view_service", service_type: "pool" }),
       false
     );
-    assert.equal(
-      trackEvent({ event: "view_service", service_type: "pool" }),
-      false
-    );
-
     assert.equal(eventNames().filter(n => n === "view_service").length, 1);
   });
 
-  test("booking_complete fires once even if the effect re-runs", () => {
-    trackEvent({ event: "booking_complete" });
-    trackEvent({ event: "booking_complete" });
+  test("scheduler_view and scheduler_loaded each fire once", () => {
+    setPath("/booknow");
+    trackEvent({ event: "scheduler_view" });
+    trackEvent({ event: "scheduler_view" });
+    trackEvent({ event: "scheduler_loaded" });
+    trackEvent({ event: "scheduler_loaded" });
 
-    assert.equal(eventNames().filter(n => n === "booking_complete").length, 1);
+    assert.equal(eventNames().filter(n => n === "scheduler_view").length, 1);
+    assert.equal(eventNames().filter(n => n === "scheduler_loaded").length, 1);
   });
 
   test("generate_lead fires once even on a double submit", () => {
@@ -119,38 +164,6 @@ describe("duplicate suppression", () => {
     trackEvent({ event: "generate_lead" });
 
     assert.equal(eventNames().filter(n => n === "generate_lead").length, 1);
-  });
-
-  test("scheduler_start and check_availability each fire once", () => {
-    trackEvent({ event: "scheduler_start" });
-    trackEvent({ event: "scheduler_start" });
-    trackEvent({ event: "check_availability" });
-    trackEvent({ event: "check_availability" });
-
-    assert.equal(eventNames().filter(n => n === "scheduler_start").length, 1);
-    assert.equal(
-      eventNames().filter(n => n === "check_availability").length,
-      1
-    );
-  });
-
-  test("the same step may fire again after a route change", () => {
-    trackEvent({ event: "view_service" });
-    resetViewTracking();
-    trackEvent({ event: "view_service" });
-
-    assert.equal(eventNames().filter(n => n === "view_service").length, 2);
-  });
-
-  test("dedupe is keyed by path, so a different page still reports", () => {
-    trackEvent({ event: "view_service", page_path: "/services" });
-    trackEvent({ event: "view_service", page_path: "/services" });
-    trackEvent({
-      event: "view_service",
-      page_path: "/manufactured-home-inspection",
-    });
-
-    assert.equal(eventNames().filter(n => n === "view_service").length, 2);
   });
 
   test("repeat contact clicks are NOT suppressed", () => {
@@ -164,7 +177,107 @@ describe("duplicate suppression", () => {
   });
 });
 
-// ─── 2. No PII ───────────────────────────────────────────────────────────────
+// ─── 3. Route-scoped keys ────────────────────────────────────────────────────
+
+describe("dedupe keys are route-scoped", () => {
+  test("the same event reports independently on a different route", () => {
+    setPath("/services");
+    trackEvent({ event: "view_service", service_type: "all_services" });
+    trackEvent({ event: "view_service", service_type: "all_services" });
+
+    setPath("/home-inspection-folsom");
+    trackEvent({
+      event: "view_service",
+      service_type: "residential_home_inspection",
+      city_page: "home-inspection-folsom",
+    });
+
+    const fired = pushes().filter(p => p.event === "view_service");
+    assert.equal(fired.length, 2);
+    assert.equal(fired[0].page_path, "/services");
+    assert.equal(fired[1].page_path, "/home-inspection-folsom");
+    assert.equal(fired[1].city_page, "home-inspection-folsom");
+  });
+
+  test("different parameters on the same route are different keys", () => {
+    setPath("/services");
+    trackEvent({ event: "quote_view", service_type: "commercial_quote" });
+    trackEvent({ event: "quote_view", service_type: "apartment_quote" });
+
+    assert.equal(eventNames().filter(n => n === "quote_view").length, 2);
+  });
+
+  test("no route-change reset hook is required for correct counting", () => {
+    // Regression guard: dedupe must not depend on an external reset, because
+    // the previous implementation mutated global state during React render.
+    setPath("/a");
+    trackEvent({ event: "view_service" });
+    setPath("/b");
+    trackEvent({ event: "view_service" });
+    setPath("/a");
+    trackEvent({ event: "view_service" }); // already counted for /a
+
+    assert.equal(eventNames().filter(n => n === "view_service").length, 2);
+  });
+});
+
+// ─── 4. booking_complete survives refresh without duplicating ────────────────
+
+describe("booking_complete is refresh-safe", () => {
+  test("a page refresh does not produce a second completion", () => {
+    setPath("/booking-confirmed");
+    assert.equal(trackEvent({ event: "booking_complete" }), true);
+    assert.equal(
+      pushes().filter(p => p.event === "booking_complete").length,
+      1
+    );
+
+    // Simulate F5: new document and fresh module state, same session.
+    installDom("/booking-confirmed", true);
+    assert.equal(trackEvent({ event: "booking_complete" }), false);
+    assert.equal(
+      pushes().filter(p => p.event === "booking_complete").length,
+      0
+    );
+
+    // A third load, still the same session.
+    installDom("/booking-confirmed", true);
+    assert.equal(trackEvent({ event: "booking_complete" }), false);
+  });
+
+  test("a new session may report a genuinely new booking", () => {
+    setPath("/booking-confirmed");
+    trackEvent({ event: "booking_complete" });
+
+    // A new browsing session means both fresh sessionStorage AND a freshly
+    // loaded module, unlike the refresh case above where only module state
+    // resets. A second, genuine booking must still be counted.
+    installDom("/booking-confirmed", false);
+    __resetTrackingForTests();
+
+    assert.equal(trackEvent({ event: "booking_complete" }), true);
+    assert.equal(
+      pushes().filter(p => p.event === "booking_complete").length,
+      1
+    );
+  });
+
+  test("storage being unavailable never blocks the event", () => {
+    setPath("/booking-confirmed");
+    const w = (globalThis as unknown as { window: Record<string, unknown> })
+      .window;
+    Object.defineProperty(w, "sessionStorage", {
+      get() {
+        throw new Error("storage disabled");
+      },
+      configurable: true,
+    });
+
+    assert.equal(trackEvent({ event: "booking_complete" }), true);
+  });
+});
+
+// ─── 5. No PII ───────────────────────────────────────────────────────────────
 
 describe("no PII reaches the dataLayer", () => {
   const ALLOWED = new Set([
@@ -173,14 +286,13 @@ describe("no PII reaches the dataLayer", () => {
     "landing_path",
     "city_page",
     "service_type",
-    "cta_location",
+    "element_location",
   ]);
 
   test("parameters outside the allowlist are stripped", () => {
     trackEvent({
       event: "generate_lead",
       service_type: "commercial_quote",
-      // Deliberately smuggled in — every one of these must be dropped.
       name: "Jane Buyer",
       email: "jane@example.com",
       phone: "916-555-0199",
@@ -202,9 +314,9 @@ describe("no PII reaches the dataLayer", () => {
   });
 
   test("empty optional params are omitted rather than sent blank", () => {
-    trackEvent({ event: "phone_click", cta_location: "" });
+    trackEvent({ event: "phone_click", element_location: "" });
 
-    assert.ok(!("cta_location" in pushes()[0]));
+    assert.ok(!("element_location" in pushes()[0]));
   });
 
   test("click tracking forwards only non-PII attributes", () => {
@@ -213,7 +325,6 @@ describe("no PII reaches the dataLayer", () => {
       makeElement({
         "data-track-event": "phone_click",
         "data-track-location": "header",
-        // An attribute holding PII must never be read or forwarded.
         "data-customer-email": "jane@example.com",
         href: "tel:+19164320332",
       })
@@ -227,11 +338,21 @@ describe("no PII reaches the dataLayer", () => {
       );
     }
     assert.ok(!JSON.stringify(payload).includes("example.com"));
-    assert.equal(payload.cta_location, "header");
+    assert.equal(payload.element_location, "header");
+  });
+
+  test("element_location is the key the published GA4 tag reads", () => {
+    // The live GA4 Event tag maps its parameter from a Data Layer Variable
+    // named element_location. Renaming this key silently empties that
+    // parameter in GA4, so it is pinned here.
+    trackEvent({ event: "phone_click", element_location: "footer" });
+
+    assert.equal(pushes()[0].element_location, "footer");
+    assert.ok(!("cta_location" in pushes()[0]));
   });
 });
 
-// ─── 3. No false conversions ─────────────────────────────────────────────────
+// ─── 6. No false conversions ─────────────────────────────────────────────────
 
 describe("no false conversions", () => {
   test("a CTA click never emits booking_complete or generate_lead", () => {
@@ -254,10 +375,7 @@ describe("no false conversions", () => {
       !names.includes("booking_complete"),
       "a click must never count as a completed booking"
     );
-    assert.ok(
-      !names.includes("generate_lead"),
-      "a click must never count as a lead"
-    );
+    assert.ok(!names.includes("generate_lead"), "a click must never be a lead");
   });
 
   test("clicks on untracked elements are ignored", () => {
@@ -267,23 +385,16 @@ describe("no false conversions", () => {
     assert.equal(pushes().length, 0);
   });
 
-  test("check_availability is not a conversion", () => {
-    // The Spectora iframe finishing its load tells us nothing about whether a
-    // booking happened — it must never stand in for booking_complete.
-    trackEvent({ event: "check_availability" });
-
-    assert.deepEqual(eventNames(), ["check_availability"]);
-  });
-
   test("visiting the scheduler is not a completed booking", () => {
     setPath("/booknow");
-    trackEvent({ event: "scheduler_start" });
+    trackEvent({ event: "scheduler_view" });
+    trackEvent({ event: "scheduler_loaded" });
 
     assert.ok(!eventNames().includes("booking_complete"));
   });
 });
 
-// ─── Payload shape ───────────────────────────────────────────────────────────
+// ─── 7. Payload shape ────────────────────────────────────────────────────────
 
 describe("event payload shape", () => {
   test("page path is always included", () => {

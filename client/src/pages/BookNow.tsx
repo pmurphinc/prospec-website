@@ -37,7 +37,7 @@ export default function BookNow() {
   // Reaching the scheduler page is the top of the measurable booking funnel.
   // This is NOT a booking — booking_complete fires only on /booking-confirmed.
   useEffect(() => {
-    trackEvent({ event: "scheduler_start" });
+    trackEvent({ event: "scheduler_view" });
   }, []);
 
   // Load the scheduler when it approaches the viewport.
@@ -162,11 +162,11 @@ export default function BookNow() {
                       loading="lazy"
                       onLoad={() => {
                         setLoading(false);
-                        // The scheduler finished loading on our side of the
-                        // cross-origin boundary. This does NOT mean the user
-                        // viewed availability or booked anything — we cannot
-                        // observe either from outside app.spectora.com.
-                        trackEvent({ event: "check_availability" });
+                        // The iframe finished loading. That is all this means:
+                        // it is NOT an availability check and NOT a booking.
+                        // Nothing inside app.spectora.com is observable from
+                        // here (cross-origin, no postMessage API).
+                        trackEvent({ event: "scheduler_loaded" });
                       }}
                       allow="geolocation"
                     />

@@ -14,19 +14,33 @@ import {
   Post-booking confirmation page.
 
   ── THIS IS THE ONLY PLACE booking_complete FIRES ──────────────────────────
-  This route is reachable only via Spectora's post-booking redirect setting.
-  Reaching it means a booking was actually submitted through the scheduler.
+  booking_complete here is a REDIRECT-BASED PROXY for a completed booking, not
+  a confirmation from Spectora. It means "a visitor landed on our confirmation
+  URL", which Spectora sends them to after they finish booking. ProSpec never
+  receives a direct completion signal from Spectora: the scheduler is a
+  cross-origin iframe with no documented postMessage API or callback.
+
+  Consequences worth knowing when reading the numbers:
+    - Someone who navigates here directly, or shares/bookmarks the URL, counts.
+    - Someone who books but never lands on the redirect does NOT count.
+  Treat this as a close proxy, not an authoritative booking count. Spectora
+  remains the system of record.
 
   Do NOT fire booking_complete from a CTA click, from /booknow, or from the
-  Spectora iframe's onLoad — none of those represent a completed booking.
+  iframe's onLoad — none of those represent a completed booking.
+
+  Repeated refreshes do not double-count: lib/tracking.ts records this event in
+  sessionStorage, so it fires at most once per browsing session even though a
+  full reload resets module state.
 
   MANUAL CONFIGURATION REQUIRED: in Spectora, set the post-booking redirect to
   https://www.weareprospec.com/booking-confirmed. Until that is configured and
-  tested end to end, this event legitimately never fires and completed-booking
-  tracking must be treated as pending — not as zero bookings.
+  verified end to end, this event legitimately never fires — that means
+  "pending", not "zero bookings".
 
-  Intentionally noindex, follow (see server/routeMeta.ts) and excluded from
-  sitemap.xml, but still crawlable in robots.txt so the directive is seen.
+  Intentionally noindex, follow (server/routeMeta.ts), excluded from
+  sitemap.xml, and absent from all navigation — but still crawlable in
+  robots.txt so the noindex directive can actually be seen.
 */
 
 export default function BookingConfirmed() {
