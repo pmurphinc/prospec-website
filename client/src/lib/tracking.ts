@@ -21,7 +21,8 @@ type TrackingEvent =
   | "commercial_quote_cta_click"
   | "commercial_quote_submit"
   | "commercial_quote_error"
-  | "scheduler_page_view";
+  | "scheduler_page_view"
+  | "booking_complete";
 
 interface EventParams {
   event: TrackingEvent;

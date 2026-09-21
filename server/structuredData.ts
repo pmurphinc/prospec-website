@@ -18,6 +18,14 @@ const localBusinessSchema = {
   logo: `${BASE_URL}/assets/prospec-logo.png`,
   description:
     "Property inspection services in the Sacramento area led by Patrick Murphy, a Certified Master Inspector (CMI).",
+  // Entity connections to profiles ProSpec controls.
+  // Only URLs verifiable from this codebase are listed. The Google Business
+  // Profile and the canonical InterNACHI profile should be added here once the
+  // InterNACHI duplicate profiles are consolidated — adding a URL that later
+  // becomes the non-canonical duplicate would split the entity signal further.
+  sameAs: [
+    "https://app.spectora.com/home-inspectors/my-inspection-company-14f9d0e41f",
+  ],
   areaServed: [
     { "@type": "City", name: "Sacramento", addressRegion: "CA" },
     { "@type": "City", name: "Folsom", addressRegion: "CA" },

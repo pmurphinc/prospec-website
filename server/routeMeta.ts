@@ -24,7 +24,7 @@ const ROUTE_META: Record<string, RouteMeta> = {
   "/services": {
     title: "Residential & Commercial Property Inspections | ProSpec Sacramento",
     description:
-      "Explore ProSpec's inspection services: buyer's home inspections, pre-listing inspections, new construction, 11-month warranty, and commercial property condition assessments. Transparent pricing starting at $350.",
+      "Explore ProSpec's inspection services: buyer's home inspections, pre-listing inspections, new construction, 11-month warranty, and commercial property condition assessments. Residential inspections start at $385.",
     canonical: BASE_URL + "/services",
   },
   "/reviews": {
@@ -44,6 +44,16 @@ const ROUTE_META: Record<string, RouteMeta> = {
     description:
       "Book your residential home inspection online with ProSpec. Review real-time availability, select service add-ons, and secure your inspection slot in minutes. Same-day reports.",
     canonical: BASE_URL + "/booknow",
+    robots: "noindex, follow",
+  },
+  // Spectora return-URL destination after a completed booking. Intentionally
+  // noindex: it is a funnel endpoint, not a landing page. Must stay a known
+  // route so the server serves 200 rather than 404 when Spectora redirects here.
+  "/booking-confirmed": {
+    title: "Inspection Booked | ProSpec Home Inspections",
+    description:
+      "Your inspection request has been received. ProSpec will follow up to confirm the appointment details.",
+    canonical: BASE_URL + "/booking-confirmed",
     robots: "noindex, follow",
   },
   // ─── Local Residential Landing Pages ─────────────────────────────────────

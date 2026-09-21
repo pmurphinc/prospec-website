@@ -11,6 +11,7 @@ import Services from "./pages/Services";
 import Reviews from "./pages/Reviews";
 import Inspector from "./pages/Inspector";
 import BookNow from "./pages/BookNow";
+import BookingConfirmed from "./pages/BookingConfirmed";
 import CommercialPCA from "./pages/CommercialPCA";
 import CommercialBuilding from "./pages/CommercialBuilding";
 import ApartmentInspections from "./pages/ApartmentInspections";
@@ -32,6 +33,7 @@ function Router() {
       <Route path="/reviews" component={Reviews} />
       <Route path="/inspector" component={Inspector} />
       <Route path="/booknow" component={BookNow} />
+      <Route path="/booking-confirmed" component={BookingConfirmed} />
 
       {/* Local Residential SEO Landing Pages */}
       <Route

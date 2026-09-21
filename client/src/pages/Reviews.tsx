@@ -9,6 +9,23 @@ import SEO from "@/components/SEO";
   Dark grid alignment, bold serif testimonials, monospace star indicators, local authority trust.
 */
 
+/*
+  Publicly displayed Google rating.
+
+  This is a factual claim about a third party and it goes stale silently as new
+  reviews land. Verify against ProSpec's Google Business Profile before changing
+  it, and update GOOGLE_RATING_AS_OF in the same edit so the page states when it
+  was last confirmed. Do not restore absolute/permanent wording such as
+  "Perfect Star Rating" — an unattributed, undated superlative becomes false the
+  first time a non-5-star review is posted.
+
+  Note: server/structuredData.ts deliberately omits aggregateRating from JSON-LD
+  because it is not independently verifiable. Keep that exclusion in place; this
+  visible figure is attributed to Google and dated, the schema claim would not be.
+*/
+const GOOGLE_RATING = "5.0 / 5.0";
+const GOOGLE_RATING_AS_OF = "September 2026";
+
 export default function Reviews() {
   const reviews = [
     {
@@ -70,7 +87,7 @@ export default function Reviews() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
             <div className="border border-border/60 p-6 bg-card/10 flex flex-col gap-2 justify-center">
               <span className="font-serif text-3xl text-white font-bold">
-                5.0 / 5.0
+                {GOOGLE_RATING}
               </span>
               <div className="flex gap-1 justify-center md:justify-start">
                 {[...Array(5)].map((_, i) => (
@@ -78,7 +95,11 @@ export default function Reviews() {
                 ))}
               </div>
               <span className="font-mono text-[9px] tracking-widest uppercase text-muted-foreground mt-1">
-                Perfect Star Rating
+                Average Google Rating
+              </span>
+              <span className="font-sans text-[10px] text-muted-foreground/80 leading-relaxed">
+                As of {GOOGLE_RATING_AS_OF}. See ProSpec's Google Business
+                Profile for the current rating and review count.
               </span>
             </div>
 
