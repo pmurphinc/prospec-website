@@ -72,8 +72,8 @@ export default function CommercialPCA() {
       <section className="relative min-h-[60vh] flex items-center border-b border-border overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663462787524/KXLMpC34TJZ2Xp2FKiV446/commercial-building-GYFDFQy7q2timvbXZeXETy.webp"
-            alt="Sacramento Commercial Office Building"
+            src="/assets/commercial-building.webp"
+            alt=""
             onError={(e) => { e.currentTarget.style.display = "none"; }}
             className="w-full h-full object-cover opacity-30 filter brightness-75 contrast-110"
           />
