@@ -1,10 +1,26 @@
 # GTM configuration required — booking funnel
 
-**Status: funnel reporting is PENDING.**
-The code pushes every event below to `window.dataLayer`. A `dataLayer.push()`
-alone does **not** mean GA4 is collecting anything. Until the container changes
-here are published and verified in GA4 DebugView, only the legacy events reach
-GA4.
+**Status as of 2026-11-09: container DONE, GA4 reporting config BLOCKED.**
+
+Steps 1-3 (trigger, variables, tag parameters) are published live as container
+**Version 4**. Verified end-to-end in a clean browser profile: loading
+`/home-inspection-folsom` sends `/g/collect` to `G-GDY5DXZ6Z7` with
+`en=view_service`, `ep.service_type=residential_home_inspection`,
+`ep.city_page=home-inspection-folsom`. Before this, that event was dropped.
+
+Steps 4-5 (custom dimensions, key events) are **blocked on access**. The GA4
+property behind `G-GDY5DXZ6Z7` is not visible from `pmurphinc@gmail.com` — the
+only Analytics property on that account is TidyTuft (`G-T7DRXWJY59`). Sign in
+with the account that owns the property, or grant this one Administrator.
+Data is collecting meanwhile; the parameters are stored and appear in reports
+once registered.
+
+Step 7 (Spectora redirect) is still outstanding, so `booking_complete` cannot
+fire yet.
+
+Historical note: a `dataLayer.push()` alone does **not** mean GA4 is collecting
+anything. That was the root cause here — the code pushed 12 events while the
+published trigger accepted 7, two of which were dead names.
 
 - GTM container: `GTM-PSZRF8VS`
 - GA4 measurement ID: `G-GDY5DXZ6Z7`
@@ -47,7 +63,7 @@ Read from the live container script on the date of this audit
 - `page_path` comes from GTM's own URL variable, not from the dataLayer, so it
   keeps working regardless.
 
-## Step 1 — Replace the Custom Event trigger
+## Step 1 — Replace the Custom Event trigger  ✅ DONE (Version 4)
 
 Edit the existing Custom Event trigger (or create one and repoint the GA4 Event
 tag at it). Use **Event name matches RegEx**:
@@ -59,7 +75,7 @@ tag at it). Use **Event name matches RegEx**:
 This keeps every event that already worked and adds the new ones. Nothing that
 currently reports is dropped.
 
-## Step 2 — Add three Data Layer Variables
+## Step 2 — Add three Data Layer Variables  ✅ DONE (Version 4)
 
 Type: **Data Layer Variable**, Version **2**, no default value.
 
@@ -71,7 +87,7 @@ Type: **Data Layer Variable**, Version **2**, no default value.
 
 `element_location` already exists — leave it exactly as it is.
 
-## Step 3 — Extend the GA4 Event tag parameters
+## Step 3 — Extend the GA4 Event tag parameters  ✅ DONE (Version 4)
 
 Open the GA4 Event tag and add to **Event Parameters** (keep the two existing
 rows):
@@ -86,7 +102,7 @@ rows):
 
 Leave Event Name as `{{Event}}`.
 
-## Step 4 — Register the custom dimensions in GA4
+## Step 4 — Register the custom dimensions in GA4  ⛔ BLOCKED (no property access)
 
 GA4 will not show a custom parameter in reports until it is registered.
 **Admin → Custom definitions → Create custom dimension**, scope **Event**:
@@ -98,7 +114,7 @@ GA4 will not show a custom parameter in reports until it is registered.
 | City page        | `city_page`        |
 | Landing path     | `landing_path`     |
 
-## Step 5 — Mark the conversions
+## Step 5 — Mark the conversions  ⛔ BLOCKED (no property access)
 
 **Admin → Events → Mark as key event** for:
 
