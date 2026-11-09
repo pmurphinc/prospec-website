@@ -867,8 +867,9 @@ export default function LocalHomeInspection() {
             not assert a location it cannot support.
           */}
           <img
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663462787524/KXLMpC34TJZ2Xp2FKiV446/hero-modern-home-EznMC93naFQVondgXzhfwU.webp"
+            src="/assets/hero-modern-home.webp"
             alt=""
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
             aria-hidden="true"
             className="w-full h-full object-cover opacity-25 filter brightness-75 contrast-110"
           />

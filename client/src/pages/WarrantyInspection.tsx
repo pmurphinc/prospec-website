@@ -60,8 +60,9 @@ export default function WarrantyInspection() {
       <section className="relative min-h-[60vh] flex items-center border-b border-border overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663462787524/KXLMpC34TJZ2Xp2FKiV446/hero-modern-home-EznMC93naFQVondgXzhfwU.webp"
-            alt="Suburban home in Sacramento"
+            src="/assets/hero-modern-home.webp"
+            alt=""
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
             className="w-full h-full object-cover opacity-30 filter brightness-75 contrast-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />

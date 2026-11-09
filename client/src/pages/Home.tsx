@@ -91,8 +91,9 @@ export default function Home() {
         {/* Compressed background image with low-key dramatic sunset lighting */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663462787524/KXLMpC34TJZ2Xp2FKiV446/hero-modern-home-EznMC93naFQVondgXzhfwU.webp"
-            alt="Sacramento Modern Architectural Home"
+            src="/assets/hero-modern-home.webp"
+            alt=""
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
             className="w-full h-full object-cover opacity-35 filter brightness-75 contrast-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
@@ -430,8 +431,9 @@ export default function Home() {
         {/* Compressed background image detail */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663462787524/KXLMpC34TJZ2Xp2FKiV446/inspector-detail-YE5FABDMR37naMApv7XZ3y.webp"
-            alt="Inspector thermal imaging"
+            src="/assets/hero-modern-home.webp"
+            alt=""
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
             className="w-full h-full object-cover opacity-15 filter grayscale brightness-50"
           />
           <div className="absolute inset-0 bg-background/90" />

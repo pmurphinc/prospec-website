@@ -74,6 +74,7 @@ export default function CommercialPCA() {
           <img
             src="https://d2xsxph8kpxj0f.cloudfront.net/310519663462787524/KXLMpC34TJZ2Xp2FKiV446/commercial-building-GYFDFQy7q2timvbXZeXETy.webp"
             alt="Sacramento Commercial Office Building"
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
             className="w-full h-full object-cover opacity-30 filter brightness-75 contrast-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
