@@ -8,12 +8,39 @@ Steps 1-3 (trigger, variables, tag parameters) are published live as container
 `en=view_service`, `ep.service_type=residential_home_inspection`,
 `ep.city_page=home-inspection-folsom`. Before this, that event was dropped.
 
-Steps 4-5 (custom dimensions, key events) are **blocked on access**. The GA4
-property behind `G-GDY5DXZ6Z7` is not visible from `pmurphinc@gmail.com` — the
-only Analytics property on that account is TidyTuft (`G-T7DRXWJY59`). Sign in
-with the account that owns the property, or grant this one Administrator.
-Data is collecting meanwhile; the parameters are stored and appear in reports
-once registered.
+Steps 4-5 (custom dimensions, key events) are **blocked: the owning Google
+account is unknown.** Data is collecting meanwhile; the parameters are stored
+and appear in reports once the dimensions are registered.
+
+`G-GDY5DXZ6Z7` is a real, live property. Proof: `googletagmanager.com/gtag/js`
+serves 540,608 bytes for it and 540,448 for a known-valid control
+(`G-T7DRXWJY59`), but only 443,705 for a fabricated ID — Google ships ~97 KB of
+measurement config only for IDs it recognises.
+
+It is not reachable from any account signed in on Patrick's machine. Checked by
+enumerating the account picker, not by searching it:
+
+| Google account | Analytics accounts visible |
+|---|---|
+| `pmurphinc@gmail.com` (owns the GTM container) | `tidytuft.com` (403962474) only |
+| `pmurphytech@gmail.com` | `ProSpec` (120229299) — **zero properties** |
+| `signalsplice@gmail.com` | none; never provisioned |
+
+The `ProSpec` Analytics account is an empty shell: no properties, empty trash,
+one user (`pmurphytech@gmail.com`, Administrator). The GTM account likewise has
+exactly one user, so no collaborator or agency is named anywhere to chase.
+
+Two ways forward:
+
+1. **Find the owner.** Sign in as the account that created the property —
+   likely `weareprospecinc@gmail.com` (the Spectora sender) or whoever built the
+   previous site. Keeps the history. If a site-builder platform provisioned the
+   property, this may be unrecoverable.
+2. **Start clean.** Create a new GA4 property inside the `ProSpec` account
+   (120229299) that is already owned, and repoint the GTM Google tag and the
+   GA4 Event tag at the new measurement ID. Permanent ownership; forfeits the
+   old property's history — which contains no conversion data, since both
+   conversion events were being discarded until Version 4.
 
 Step 7 (Spectora redirect) is still outstanding, so `booking_complete` cannot
 fire yet.
