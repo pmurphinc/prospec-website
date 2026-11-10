@@ -27,13 +27,23 @@ enumerate `authuser=0,1,2` before declaring anything unreachable.
 | 5 | Repointed both tags to `G-3B6C3G1HM4` — **mistake**, see below |
 | 6 | Reverted both tags to `G-GDY5DXZ6Z7`. **This is live.** |
 
-Version 5 was made while the original property still looked unreachable. Two
-extra GA4 properties were created during that detour and are **strays to
-delete**: `G-3B6C3G1HM4` (in an account not shared with `pmurphinc@gmail.com`)
-and `G-KCEPR56RS9` (account 415623097, stream URL missing `www`). A second GTM
-container, `GTM-M7MJJHGG`, was also created and must **never** be added to the
-site — the site loads `GTM-PSZRF8VS`, and a second container would double-count
-every pageview.
+Version 5 was made while the original property still looked unreachable. Three
+strays were created during that detour. Cleanup status as of 2026-11-09:
+
+| Stray | Where | Status |
+|---|---|---|
+| GA4 `G-KCEPR56RS9` | account 415623097, stream URL missing `www` | **Moved to trash** (recoverable 35 days) |
+| GA4 `G-3B6C3G1HM4` | account not shared with `pmurphinc@gmail.com` | Outstanding — needs the work account |
+| GTM `GTM-M7MJJHGG` | GTM account not shared with `pmurphinc@gmail.com` | Outstanding — needs the work account |
+
+`GTM-M7MJJHGG` must **never** be added to the site — it loads `GTM-PSZRF8VS`,
+and a second container would double-count every pageview. Verified 2026-11-09
+that the live homepage loads `GTM-PSZRF8VS` only, and that no stray ID appears
+anywhere in the repo outside this file.
+
+Account **415623097** ("ProSpec Home Inspections") now holds no properties. It
+is a duplicate of the real account name and is worth deleting to avoid future
+confusion, but an empty account is harmless.
 
 Note for future repoints: changing the measurement ID in the GA4 Event tag makes
 GTM silently add a duplicate destination tag plus two settings, one of which is
