@@ -1,53 +1,67 @@
 # GTM configuration required — booking funnel
 
-**Status as of 2026-11-09: container DONE, GA4 reporting config BLOCKED.**
+**Status as of 2026-11-09: container DONE, GA4 reporting config DONE.**
+**Only Step 7 (Spectora redirect) remains.**
 
-Steps 1-3 (trigger, variables, tag parameters) are published live as container
-**Version 4**. Verified end-to-end in a clean browser profile: loading
-`/home-inspection-folsom` sends `/g/collect` to `G-GDY5DXZ6Z7` with
-`en=view_service`, `ep.service_type=residential_home_inspection`,
-`ep.city_page=home-inspection-folsom`. Before this, that event was dropped.
+Steps 1-3 (trigger, variables, tag parameters) went live as container
+**Version 4**. Steps 4-5 (custom dimensions, key events) are now done too.
 
-Steps 4-5 (custom dimensions, key events) are **blocked: the owning Google
-account is unknown.** Data is collecting meanwhile; the parameters are stored
-and appear in reports once the dimensions are registered.
+### The property was never lost
 
-`G-GDY5DXZ6Z7` is a real, live property. Proof: `googletagmanager.com/gtag/js`
-serves 540,608 bytes for it and 540,448 for a known-valid control
-(`G-T7DRXWJY59`), but only 443,705 for a fabricated ID — Google ships ~97 KB of
-measurement config only for IDs it recognises.
+An earlier revision of this file said `G-GDY5DXZ6Z7` was orphaned and
+unrecoverable. That was wrong. The property lives in Analytics account
+**399639517**, property **543694566**, stream **15177477741**
+("ProSpec Inspections", `https://www.weareprospec.com/`). It simply was not
+shared with `pmurphinc@gmail.com`. Granting that account Administrator made it
+visible immediately, with its full history intact.
 
-It is not reachable from any account signed in on Patrick's machine. Checked by
-enumerating the account picker, not by searching it:
+The lesson: three Google accounts are signed into Patrick's Chrome profile.
+Checking only `authuser=0` and concluding "no access" is how this went wrong —
+enumerate `authuser=0,1,2` before declaring anything unreachable.
 
-| Google account | Analytics accounts visible |
+### Container versions published today
+
+| Version | Change |
 |---|---|
-| `pmurphinc@gmail.com` (owns the GTM container) | `tidytuft.com` (403962474) only |
-| `pmurphytech@gmail.com` | `ProSpec` (120229299) — **zero properties** |
-| `signalsplice@gmail.com` | none; never provisioned |
+| 4 | Trigger regex covers all 12 events; 3 DLVs added; 5 tag parameters |
+| 5 | Repointed both tags to `G-3B6C3G1HM4` — **mistake**, see below |
+| 6 | Reverted both tags to `G-GDY5DXZ6Z7`. **This is live.** |
 
-The `ProSpec` Analytics account is an empty shell: no properties, empty trash,
-one user (`pmurphytech@gmail.com`, Administrator). The GTM account likewise has
-exactly one user, so no collaborator or agency is named anywhere to chase.
+Version 5 was made while the original property still looked unreachable. Two
+extra GA4 properties were created during that detour and are **strays to
+delete**: `G-3B6C3G1HM4` (in an account not shared with `pmurphinc@gmail.com`)
+and `G-KCEPR56RS9` (account 415623097, stream URL missing `www`). A second GTM
+container, `GTM-M7MJJHGG`, was also created and must **never** be added to the
+site — the site loads `GTM-PSZRF8VS`, and a second container would double-count
+every pageview.
 
-Two ways forward:
+Note for future repoints: changing the measurement ID in the GA4 Event tag makes
+GTM silently add a duplicate destination tag plus two settings, one of which is
+*Allow user-provided data capabilities* (permits collecting hashed email/phone).
+Check the pending-changes list and abandon anything you did not make before
+publishing.
 
-1. **Find the owner.** Sign in as the account that created the property —
-   likely `weareprospecinc@gmail.com` (the Spectora sender) or whoever built the
-   previous site. Keeps the history. If a site-builder platform provisioned the
-   property, this may be unrecoverable.
-2. **Start clean.** Create a new GA4 property inside the `ProSpec` account
-   (120229299) that is already owned, and repoint the GTM Google tag and the
-   GA4 Event tag at the new measurement ID. Permanent ownership; forfeits the
-   old property's history — which contains no conversion data, since both
-   conversion events were being discarded until Version 4.
+### Verified end-to-end (clean browser profile, after Version 6)
+
+```
+/home-inspection-folsom  → en=view_service  tid=G-GDY5DXZ6Z7
+                           ep.city_page=home-inspection-folsom
+                           ep.service_type=residential_home_inspection
+/commercial-property-condition-assessments-sacramento
+                         → en=view_service  ep.service_type=commercial_pca
+```
 
 Step 7 (Spectora redirect) is still outstanding, so `booking_complete` cannot
 fire yet.
 
 Historical note: a `dataLayer.push()` alone does **not** mean GA4 is collecting
 anything. That was the root cause here — the code pushed 12 events while the
-published trigger accepted 7, two of which were dead names.
+published trigger accepted 7.
+
+Those 7 included `commercial_quote_submit` and `scheduler_page_view`, which an
+earlier revision called "dead names". They were not dead: production was still
+serving the Aug 12 build, which pushed exactly those names. Today's deploy
+renamed them, which is what broke the match.
 
 - GTM container: `GTM-PSZRF8VS`
 - GA4 measurement ID: `G-GDY5DXZ6Z7`
@@ -129,19 +143,26 @@ rows):
 
 Leave Event Name as `{{Event}}`.
 
-## Step 4 — Register the custom dimensions in GA4  ⛔ BLOCKED (no property access)
+## Step 4 — Register the custom dimensions in GA4  ✅ DONE
 
 GA4 will not show a custom parameter in reports until it is registered.
-**Admin → Custom definitions → Create custom dimension**, scope **Event**:
+**Admin → Custom definitions → Create custom dimension**, scope **Event**.
 
-| Dimension name   | Event parameter    |
-| ---------------- | ------------------ |
-| Element location | `element_location` |
-| Service type     | `service_type`     |
-| City page        | `city_page`        |
-| Landing path     | `landing_path`     |
+Registered 2026-11-09 in property **543694566** (account 399639517). Dimension
+names were set identical to the parameter names so reports and the dataLayer
+read the same — no mental translation:
 
-## Step 5 — Mark the conversions  ⛔ BLOCKED (no property access)
+| Dimension name     | Scope | Event parameter    |
+| ------------------ | ----- | ------------------ |
+| `element_location` | Event | `element_location` |
+| `service_type`     | Event | `service_type`     |
+| `city_page`        | Event | `city_page`        |
+| `landing_path`     | Event | `landing_path`     |
+
+GA4 does not backfill: these populate from the moment they were registered, not
+retroactively.
+
+## Step 5 — Mark the conversions  ✅ DONE
 
 **Admin → Events → Mark as key event** for:
 
@@ -150,6 +171,21 @@ GA4 will not show a custom parameter in reports until it is registered.
 
 Do not mark `booking_cta_click`, `scheduler_view`, or `scheduler_loaded` as key
 events. None of them is a booking.
+
+Done 2026-11-09. Two things found while doing it:
+
+- **`booking_cta_click` was marked as a key event** and has been since the
+  property was set up, so every CTA click counted as a conversion. Unmarked.
+  Any "conversion" figure in this property before 2026-11-09 is CTA clicks, not
+  bookings, and should not be compared against the numbers from now on.
+- Neither target event had ever fired, so neither appeared in the events list.
+  They were registered via **Create event → Create with code** with *Mark as key
+  event* on. That dialog defaults to **assigning $1 of revenue per occurrence** —
+  set "Don't set a default key event value" instead, or GA4 reports invented
+  revenue.
+
+`purchase` remains listed as a GA4 built-in key event. It never fires on this
+site; harmless.
 
 ## Step 6 — Verify in GA4 DebugView
 
